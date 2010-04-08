@@ -3,9 +3,11 @@
 // needed because .load() doesn't work on cached images
 
 // mit license. paul irish. 2010.
+// webkit fix from Oren Solomianik. thx!
 
 // callback function is passed the last image to load
 //   as an argument, and the collection as `this`
+
 
 $.fn.imagesLoaded = function(callback){
   var elems = this.filter('img'),
@@ -14,8 +16,12 @@ $.fn.imagesLoaded = function(callback){
   elems.bind('load',function(){
       if (--len <= 0){ callback.call(elems,this); }
   }).each(function(){
-      // cached images don't fire load sometimes, so we reset src.
-      if (this.complete || this.complete === undefined){ this.src = this.src; }      
+     // cached images don't fire load sometimes, so we reset src.
+     if (this.complete || this.complete === undefined){
+        var src = this.src;
+        // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+        this.src = '#';
+        this.src = src;
+     }  
   }); 
-}
-
+};
