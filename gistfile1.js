@@ -24,4 +24,6 @@ $.fn.imagesLoaded = function(callback){
         this.src = src;
      }  
   }); 
+
+  return this;
 };
