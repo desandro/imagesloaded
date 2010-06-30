@@ -20,7 +20,8 @@ $.fn.imagesLoaded = function(callback){
      if (this.complete || this.complete === undefined){
         var src = this.src;
         // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-        this.src = '#';
+        // data uri bypasses webkit log warning (thx doug jones)
+        this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
         this.src = src;
      }  
   }); 
