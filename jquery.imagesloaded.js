@@ -19,6 +19,10 @@ $.fn.imagesLoaded = function(callback){
   var elems = this.find('img'),
       len   = elems.length,
       _this = this;
+  
+  if ( !elems.length ) {
+    callback.call( this );
+  }
 
   elems.bind('load',function(){
     if (--len <= 0){ 
