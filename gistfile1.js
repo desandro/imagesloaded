@@ -30,11 +30,11 @@ $.fn.imagesLoaded = function( callback ){
 	}
 	
 	elems.one('load', function() {
-		if ( --len <= 0 ) {
+		if ( --len == 0 ) {
 			// Rinse and repeat.
 			len = elems.length;
 			elems.one( 'load', function() {
-				if ( --len <= 0 ) {
+				if ( --len == 0 ) {
 					callback.call( elems, this );
 				}
 			}).each(function() {
