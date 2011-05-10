@@ -29,11 +29,11 @@ $.fn.imagesLoaded = function( callback ){
 		return this;
 	}
 	
-	elems.one('load', function() {
+	elems.one('load error', function() {
 		if ( --len == 0 ) {
 			// Rinse and repeat.
 			len = elems.length;
-			elems.one( 'load', function() {
+			elems.one( 'load error', function() {
 				if ( --len == 0 ) {
 					callback.call( elems, this );
 				}
