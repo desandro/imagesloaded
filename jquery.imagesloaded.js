@@ -1,13 +1,16 @@
-// $('#content-with-images').imagesLoaded( myFunction )
-// execute a callback when all images inside a parent have loaded.
+// $('img.photo',this).imagesLoaded(myFunction)
+// execute a callback when all images have loaded.
 // needed because .load() doesn't work on cached images
 
-// Useful for Masonry or Isotope, triggering dynamic layout
-// after images have loaded:
-//    $('#content').imagesLoaded( function(){
-//      $('#content').masonry();
-//    });
+// Modified with a two-pass approach to changing image
+// src. First, the proxy imagedata is set, which leads
+// to the first callback being triggered, which resets
+// imagedata to the original src, which fires the final,
+// user defined callback.
 
+// modified by yiannis chatzikonstantinou.
+
+// original:
 // mit license. paul irish. 2010.
 // webkit fix from Oren Solomianik. thx!
 
@@ -15,29 +18,35 @@
 //   as an argument, and the collection as `this`
 
 
-$.fn.imagesLoaded = function(callback){
-  var elems = this.find('img'),
-      len   = elems.length,
-      _this = this;
-  
+$.fn.imagesLoaded = function( callback ){
+  var elems = this.find( 'img' ),
+      elems_src = [],
+      self = this,
+      len = elems.length;
+
   if ( !elems.length ) {
     callback.call( this );
+    return this;
   }
 
-  elems.bind('load',function(){
-    if (--len <= 0){ 
-      callback.call( _this ); 
+  elems.one('load error', function() {
+    if ( --len === 0 ) {
+      // Rinse and repeat.
+      len = elems.length;
+      elems.one( 'load error', function() {
+        if ( --len === 0 ) {
+          callback.call( self );
+        }
+      }).each(function() {
+        this.src = elems_src.shift();
+      });
     }
-  }).each(function(){
-    // cached images don't fire load sometimes, so we reset src.
-    if (this.complete || this.complete === undefined){
-      var src = this.src;
-      // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-      // data uri bypasses webkit log warning (thx doug jones)
-      this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-      this.src = src;
-    }  
-  }); 
+  }).each(function() {
+    elems_src.push( this.src );
+    // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+    // data uri bypasses webkit log warning (thx doug jones)
+    this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+  });
 
   return this;
 };
