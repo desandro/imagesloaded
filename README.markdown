@@ -14,4 +14,4 @@ Used in [Masonry](http://desandro.masonry.com/) and [Isotope](http://isotope.met
 
 ## Contribute
 
-It ain't easy knowing when images have loaded. Every browser has its own little quirks that make this a difficult task to develop a cross-browser solution. Pull requests, testing, [issues](https://github.com/desandro/imagesloaded/issues), and commentary are all highly encouraged (pleasepleaseplease) and very much appreciated.
+It ain't easy knowing when images have loaded. [Every browser has its own little quirks](https://github.com/desandro/imagesloaded/wiki/Browser-quirks) that make this a difficult task to develop a cross-browser solution. Pull requests, testing, [issues](https://github.com/desandro/imagesloaded/issues), and commentary are all highly encouraged (pleasepleaseplease) and very much appreciated.
