@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery imagesLoaded</title>
+
+  <style media="screen">
+    #holder {
+      position: relative;
+    }
+  
+    .column {
+      position: absolute;
+      border: 2px solid;
+      width: 242px;
+    }
+    
+    .column img {
+      width: 240px;
+      position: absolute;
+      left: 1px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <h1>jQuery imagesLoaded</h1>
+  
+  <p>
+    <button id="clone">Clone &amp; append more images</button>
+    <button id="all-done">How many images are loaded?`</button>
+  </p>
+  
+  <div id="holder">
+
+    <div id="alpha" class="column">
+      <img src="http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg" alt="Stanley" />
+      <img src="http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg" alt="Officer" />
+      <img src="http://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg" alt="Tony" />
+      <img src="http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg" alt="Giraffe" />
+      <img src="http://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg" alt="Kendra" />
+      <img src="http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg" alt="Gavin" />
+      <img src="http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg" alt="Anita" />
+      <img src="http://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg" alt="Take My Portrait" />
+      <img src="http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg" alt="Wonder" />
+    </div>
+
+  </div>
+  
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="jquery.imagesloaded.js"></script>
+  <script>
+    $(function(){
+      var $holder = $('#holder'),
+          $alpha = $('#alpha'),
+          containerCount = 1;
+
+      function positionImages( $container, $images ) {
+        var y = 0;
+        $images.each( function() {
+          var $this = $(this).css({ top: y });
+          y += $this.height() + 1;
+          // console.log( y )
+        });
+        $container.height(y);
+      }
+
+      $alpha.imagesLoaded( function( $images ) {
+        positionImages( this, $images );
+      });
+
+      $('#clone').click(function(){
+        $alpha.clone().appendTo( $holder )
+          .css({ left: containerCount * 250 })
+          .imagesLoaded( function( $images ) {
+            positionImages( this, $images );
+          });
+        containerCount++;
+      });
+      
+      $('#all-done').click(function(){
+        $holder.imagesLoaded(function( $images ){
+          alert( $images.length + ' images have been loaded.' );
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
