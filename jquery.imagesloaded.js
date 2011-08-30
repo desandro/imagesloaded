@@ -7,39 +7,41 @@
 
 // original: mit license. paul irish. 2010.
 // contributors: Yiannis Chatzikonstantinou, David DeSandro
-//   Oren Solomianik, Adam J. Sontag
+//   Oren Solomianik, Adam J. Sontag, Sascha Depold
 
-$.fn.imagesLoaded = function( callback ) {
-  var $images = this.find('img'),
-      len = $images.length,
-      _this = this,
-      blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+(function($) {
+  $.fn.imagesLoaded = function( callback ) {
+    var $images = this.find('img'),
+        len = $images.length,
+        _this = this,
+        blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
-  function triggerCallback() {
-    callback.call( _this, $images );
-  }
-
-  function imgLoaded() {
-    if ( --len <= 0 && this.src !== blank ){
-      setTimeout( triggerCallback );
-      $images.unbind( 'load error', imgLoaded );
+    function triggerCallback() {
+      callback.call( _this, $images );
     }
-  }
 
-  if ( !len ) {
-    triggerCallback();
-  }
-
-  $images.bind( 'load error',  imgLoaded ).each( function() {
-    // cached images don't fire load sometimes, so we reset src.
-    if (this.complete || this.complete === undefined){
-      var src = this.src;
-      // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-      // data uri bypasses webkit log warning (thx doug jones)
-      this.src = blank;
-      this.src = src;
+    function imgLoaded() {
+      if ( --len <= 0 && this.src !== blank ){
+        setTimeout( triggerCallback );
+        $images.unbind( 'load error', imgLoaded );
+      }
     }
-  });
 
-  return this;
-};
+    if ( !len ) {
+      triggerCallback();
+    }
+
+    $images.bind( 'load error',  imgLoaded ).each( function() {
+      // cached images don't fire load sometimes, so we reset src.
+      if (this.complete || this.complete === undefined){
+        var src = this.src;
+        // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+        // data uri bypasses webkit log warning (thx doug jones)
+        this.src = blank;
+        this.src = src;
+      }
+    });
+
+    return this;
+  };
+})(jQuery);
