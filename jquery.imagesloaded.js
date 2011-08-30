@@ -1,13 +1,19 @@
+/*!
+ * jQuery imagesLoaded plugin v1.0.1
+ * http://github.com/desandro/imagesloaded
+ *
+ * MIT License
+ * Original author: Paul Irish
+ * Contributors: Yiannis Chatzikonstantinou, David DeSandro
+ *   Oren Solomianik, Adam J. Sontag, Sascha Depold
+ */
+
 // $('#my-container').imagesLoaded(myFunction)
 // execute a callback when all images have loaded.
 // needed because .load() doesn't work on cached images
 
 // callback function gets image collection as argument
 //  `this` is the container
-
-// original: mit license. paul irish. 2010.
-// contributors: Yiannis Chatzikonstantinou, David DeSandro
-//   Oren Solomianik, Adam J. Sontag, Sascha Depold
 
 (function($) {
   $.fn.imagesLoaded = function( callback ) {
