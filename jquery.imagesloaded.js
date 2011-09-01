@@ -15,7 +15,7 @@
 // callback function gets image collection as argument
 //  `this` is the container
 
-(function($) {
+(function($, undefined) {
   $.fn.imagesLoaded = function( callback ) {
     var $images = this.find('img'),
         len = $images.length,
