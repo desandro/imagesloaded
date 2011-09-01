@@ -1,11 +1,8 @@
 /*!
- * jQuery imagesLoaded plugin v1.0.1
+ * jQuery imagesLoaded plugin v1.0.2
  * http://github.com/desandro/imagesloaded
  *
- * MIT License
- * Original author: Paul Irish
- * Contributors: Yiannis Chatzikonstantinou, David DeSandro
- *   Oren Solomianik, Adam J. Sontag, Sascha Depold
+ * MIT License. by Paul Irish et al.
  */
 
 // $('#my-container').imagesLoaded(myFunction)
