@@ -88,7 +88,7 @@
       });
       
       $('#all-done').click(function(){
-        $holder.imagesLoaded(function( $images ){
+        $holder.find('img').imagesLoaded(function( $images ){
           alert( $images.length + ' images have been loaded.' );
         });
       });

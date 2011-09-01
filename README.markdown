@@ -1,12 +1,18 @@
 # imagesLoaded
 
-A small jQuery plugin that triggers a callback after all the child images in a parent element have been loaded.  Because you can't do `.load()` on images.
+A small jQuery plugin that triggers a callback after all the selected/child images have been loaded. Because you can't do `.load()` on cached images.
 
 ```js
 $('#my-container').imagesLoaded( function( $images ) {
   // callback provides one argument, the jQuery object of child images
   console.log( $images.length + ' images have been loaded in ' + this )
 });
+```
+
+You can call `imagesLoaded` on a set of images as well.
+
+```js
+$('.article img').imagesLoaded( myFunction );
 ```
 
 [**See demo**](http://desandro.github.com/imagesloaded/)
