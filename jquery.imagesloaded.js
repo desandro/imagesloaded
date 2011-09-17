@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v1.0.3
+ * jQuery imagesLoaded plugin v1.0.4
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -27,8 +27,8 @@
       callback.call( $this, $images );
     }
 
-    function imgLoaded() {
-      if ( --len <= 0 && this.src !== blank ){
+    function imgLoaded( event ) {
+      if ( --len <= 0 && event.target.src !== blank ){
         setTimeout( triggerCallback );
         $images.unbind( 'load error', imgLoaded );
       }
