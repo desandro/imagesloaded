@@ -25,7 +25,7 @@ It ain't easy knowing when images have loaded. [Every browser has its own little
 
 ### Contributors
 
-+ Paul Irish
-+ [Adam J. Sontag](http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f)
++ [**View contributors**](https://github.com/desandro/imagesloaded/contributors)
++ [ajp](http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f)
 + Oren Solomianik
-+ [**and everyone else**](https://github.com/desandro/imagesloaded/contributors)
+
