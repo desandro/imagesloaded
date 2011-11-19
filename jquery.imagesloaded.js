@@ -38,16 +38,20 @@
       triggerCallback();
     }
 
-    $images.bind( 'load error',  imgLoaded ).each( function() {
-      // cached images don't fire load sometimes, so we reset src.
-      if (this.complete || typeof this.complete === "undefined"){
-        var src = this.src;
-        // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-        // data uri bypasses webkit log warning (thx doug jones)
-        this.src = blank;
-        this.src = src;
-      }
-    });
+		$images.bind( 'load error',  imgLoaded ).each( function() {
+			if (this.complete !== undefined) {
+				if (!this.complete) {
+					$(this).trigger('load');
+				} else {
+					// cached images don't fire load sometimes, so we reset src.
+					var src = this.src;
+					// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+					// data uri bypasses webkit log warning (thx doug jones)
+					this.src = blank;
+					this.src = src;
+				}
+			}
+		});
 
     return $this;
   };
