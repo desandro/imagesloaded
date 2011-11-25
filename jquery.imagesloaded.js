@@ -29,11 +29,12 @@
     }
 
     function imgLoaded( event ) {
-      if ( event.target.src === blank || $.inArray( this, loaded ) != -1 ) return;
-      loaded.push(this);
-      if ( --len <= 0 ){
-        setTimeout( triggerCallback );
-        $images.unbind( 'load error', imgLoaded );
+      if ( event.target.src !== blank && $.inArray( this, loaded ) == -1 ){
+        loaded.push(this);
+        if ( --len <= 0 ){
+          setTimeout( triggerCallback );
+          $images.unbind( 'load error', imgLoaded );
+        }
       }
     }
 
