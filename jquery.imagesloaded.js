@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v1.0.4
+ * jQuery imagesLoaded plugin v1.1.0
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -29,7 +29,7 @@
     }
 
     function imgLoaded( event ) {
-      if ( event.target.src !== blank && $.inArray( this, loaded ) == -1 ){
+      if ( event.target.src !== blank && $.inArray( this, loaded ) === -1 ){
         loaded.push(this);
         if ( --len <= 0 ){
           setTimeout( triggerCallback );
@@ -38,6 +38,7 @@
       }
     }
 
+    // if no images, trigger immediately
     if ( !len ) {
       triggerCallback();
     }
