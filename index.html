@@ -1,100 +1,169 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>jQuery imagesLoaded</title>
+	<meta charset="utf-8">
+	<title>jQuery imagesLoaded</title>
 
-  <style media="screen">
-    body {
-      font-family: sans-serif;
-    }
-  
-    #holder {
-      position: relative;
-    }
-  
-    .column {
-      position: absolute;
-      border: 2px solid;
-      width: 242px;
-    }
-    
-    .column img {
-      width: 240px;
-      position: absolute;
-      left: 1px;
-    }
-  </style>
+	<style media="screen">
+		body { margin: 0; padding: 0 1em 1em 1em; font-family: sans-serif; }
+		#holder { margin: 1em 0; padding: 0; list-style: none; }
+		#holder li { float: left; margin: 0.5em 1em 0.5em 0; padding: 1em; height: 100px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
+		#holder li.proper { border-color: #738f56; background: #a8ce9b; }
+		#holder li.broken { border-color: #936767; background: #d79c9c; }
+		#holder li img { height: 100px; background: #222; }
+
+		#message span { color: #ccc; margin: 0 10px; }
+
+		hr { height: 2px; color: #ccc; background: #ccc; border: 0; }
+
+		.proper { color: #3c3; }
+		.broken { color: #c33; }
+
+		.clearfix:before, .clearfix:after { content: ""; display: table; }
+		.clearfix:after { clear: both; }
+		.clearfix { *zoom: 1; }
+	</style>
 
 </head>
 <body>
 
-  <h1>jQuery imagesLoaded</h1>
-  
-  <p><a href="https://github.com/desandro/imagesloaded">github.com/desandro/imagesloaded</a></p>
-  
-  <p>Images should be stacked vertically, with 1 pixel space between each.</p>
-  
-  <p>
-    <button id="clone">Clone &amp; append more images</button>
-    <button id="all-done">How many images are loaded?</button>
-  </p>
-  
-  <div id="holder">
+	<h1>jQuery imagesLoaded</h1>
 
-    <div id="alpha" class="column">
-      <img src="http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg" alt="Stanley" />
-      <img src="http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg" alt="Officer" />
-      <img src="http://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg" alt="Tony" />
-      <img src="http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg" alt="Giraffe" />
-      <img src="http://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg" alt="Kendra" />
-      <img src="http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg" alt="Gavin" />
-      <img src="http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg" alt="Anita" />
-      <img src="http://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg" alt="Take My Portrait" />
-      <img src="http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg" alt="Wonder" />
-    </div>
+	<p><a href="https://github.com/desandro/imagesloaded">github.com/desandro/imagesloaded</a></p>
 
-  </div>
-  
-  <script src="http://code.jquery.com/jquery.min.js"></script>
-  <script src="jquery.imagesloaded.js"></script>
-  <script>
-    $(function(){
-      var $holder = $('#holder'),
-          $alpha = $('#alpha'),
-          containerCount = 1;
+	<p>Broken images should be marked as <span class="broken">Red</span>, and properly loaded images as <span class="proper">Green</span>.</p>
 
-      function positionImages( $container, $images ) {
-        var y = 0;
-        $images.each( function() {
-          var $this = $(this).css({ top: y });
-          y += $this.height() + 1;
-          // console.log( y )
-        });
-        $container.height(y);
-      }
+	<p id="controls">
+		<button data-action="addProper">Add proper image</button>
+		<button data-action="addBroken">Add broken image</button>
+		<button data-action="removeLast">Remove last image</button>
+		<button data-action="removeLast5">Remove last 5 images</button>
+	</p>
 
-      $alpha.imagesLoaded( function( $images ) {
-        positionImages( this, $images );
-      });
+	<hr>
 
-      $('#clone').click(function(){
-        $alpha.clone().appendTo( $holder )
-          .css({ left: containerCount * 250 })
-          .imagesLoaded( function( $images ) {
-            positionImages( this, $images );
-          });
-        containerCount++;
-      });
-      
-      $('#all-done').click(function(){
-        $holder.find('img').imagesLoaded(function( $images ){
-          alert( $images.length + ' images have been loaded.' );
-        });
-      });
+	<ul id="holder" class="clearfix"></ul>
 
-    });
-  </script>
+	<hr>
+
+	<div id="message">Loading...</div>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="jquery.imagesloaded.js"></script>
+<script>
+$(function(){
+
+	// Global variables
+	var holder = $('#holder'),
+		message = $('#message'),
+		controls = $('#controls'),
+		image_urls = [
+			'http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg',
+			'http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg',
+			'http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg',
+			'http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg'
+		],
+		additional_urls = [
+			'http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg',
+			'http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg',
+			'https://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg',
+			'https://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg',
+			'https://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg'
+		],
+		broken_urls = [
+			'https://nonexistent.flickr.com/4144/5013039541_17f2579e33.jpg',
+			'http://nonexistent.flickr.com/4144/5013039541_17f2579e33.jpg',
+			'missing.jpg',
+			'https://example.com/foo.jpg',
+			'http://example.com/bar.jpg',
+			'https://example.com/image.jpg'
+		];
+
+	// Attach images
+	function addImages( urls, random ){
+
+		var output = '';
+		if( random ){
+			output = '<li><img src="'+urls[ Math.floor( Math.random() * urls.length ) ]+'" alt="Image"></li>';
+		} else {
+			for( var i = 0; i < urls.length; i++ ){
+				output += '<li><img src="'+urls[i]+'" alt="Image"></li>';
+			}
+		}
+		holder.append(output);
+
+		checkImages();
+
+	}
+
+	// Loaded images check
+	function checkImages(){
+
+		holder.children().removeClass();
+		message.empty();
+
+		var dfd = $("#holder").imagesLoaded(function( $images, $proper, $broken ){
+
+			$proper.parent().addClass('proper');
+			$broken.parent().addClass('broken');
+
+			var msg = 'Total images: <strong>'+$images.length+'</strong> <span>|</span> ';
+			msg += 'Proper images: <strong class="proper">' + $proper.length + '</strong> <span>|</span> ';
+			msg += 'Broken images: <strong class="broken">' + $broken.length + '</strong>';
+
+			message.append('<p>'+msg+'</p>');
+
+		});
+
+		dfd.progress(function( total, loaded ){
+			var progress = '';
+			for( var i = 1; i <= total; i++ ){
+				progress += i <= loaded ? '&#x25A0;' : '&#x25A1;';
+			}
+			total == loaded ? message.empty() : message.html('<p><code>Progress: [' + progress + ']</code></p>');
+		}).always(function(){
+			message.append('<p>Deferred is: <strong>' + dfd.state() + '</strong></p>');
+		});
+
+	}
+
+	// Controls
+	controls.find('[data-action]').click(function(){
+
+		var el = $(this),
+			action = el.data('action');
+
+		switch( action ){
+
+			case 'addProper':
+				addImages( additional_urls, 1 );
+			break;
+
+			case 'addBroken':
+				addImages( broken_urls, 1 );
+			break;
+
+			case 'removeLast':
+				holder.children().slice(-1).remove();
+				checkImages();
+			break;
+
+			case 'removeLast5':
+				holder.children().slice(-5).remove();
+				checkImages();
+			break;
+
+		}
+
+	});
+
+	// Trigger first check
+	addImages( image_urls );
+
+
+});
+
+</script>
 
 </body>
 </html>

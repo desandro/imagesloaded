@@ -14,25 +14,37 @@
   // execute a callback when all images have loaded.
   // needed because .load() doesn't work on cached images
 
-  // callback function gets image collection as argument
-  //  `this` is the container
+  // callback is executed when all images has fineshed loading
+  // callback function arguments: $all_images, $proper_images, $broken_images
+  // `this` is the jQuery wrapped container
+
+  // returns previous jQuery wrapped container extended with deferred object
+  // done method arguments: .done( function( $all_images ){ ... } )
+  // fail method arguments: .fail( function( $all_images, $proper_images, $broken_images ){ ... } )
+  // progress method arguments: .progress( function( images_count, loaded_count, proper_count, broken_count )
 
   $.fn.imagesLoaded = function( callback ) {
     var $this = this,
+        deferred = $.Deferred(),
         $images = $this.find('img').add( $this.filter('img') ),
         len = $images.length,
         blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-        loaded = [];
+        loaded = [],
+        proper = [],
+        broken = [];
 
-    function triggerCallback() {
-      callback.call( $this, $images );
+    function doneLoading() {
+      !broken.length ? deferred.resolve( $images ) : deferred.reject( $images, $(proper), $(broken) );
+      callback.call( $this, $images, $(proper), $(broken) );
     }
 
     function imgLoaded( event ) {
       if ( event.target.src !== blank && $.inArray( this, loaded ) === -1 ){
         loaded.push(this);
+        event.type == 'error' ? broken.push(this) : proper.push(this);
+        deferred.notify( $images.length, loaded.length, proper.length, broken.length );
         if ( --len <= 0 ){
-          setTimeout( triggerCallback );
+          setTimeout( doneLoading );
           $images.unbind( '.imagesLoaded', imgLoaded );
         }
       }
@@ -40,10 +52,10 @@
 
     // if no images, trigger immediately
     if ( !len ) {
-      triggerCallback();
+      doneLoading();
     }
 
-    $images.bind( 'load.imagesLoaded error.imagesLoaded',  imgLoaded ).each( function() {
+    $images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoaded ).each( function() {
       // cached images don't fire load sometimes, so we reset src.
       var src = this.src;
       // webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
@@ -52,6 +64,6 @@
       this.src = src;
     });
 
-    return $this;
+    return deferred.promise( $this );
   };
 })(jQuery);
