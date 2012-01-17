@@ -34,19 +34,37 @@ $.fn.imagesLoaded = function( callback ) {
 		broken = [];
 
 	function doneLoading() {
-		!broken.length ? deferred.resolve( $images ) : deferred.reject( $images, $(proper), $(broken) );
-		callback.call( $this, $images, $(proper), $(broken) );
+		var $proper = $(proper),
+			$broken = $(broken);
+
+		if ( broken.length ) {
+			deferred.reject( $images, $proper, $broken );
+		} else {
+			deferred.resolve( $images );
+		}
+
+		callback.call( $this, $images, $proper, $broken );
 	}
 
 	function imgLoaded( event ) {
-		if ( event.target.src !== blank && $.inArray( this, loaded ) === -1 ) {
-			loaded.push(this);
-			event.type == 'error' ? broken.push(this) : proper.push(this);
-			deferred.notify( $images.length, loaded.length, proper.length, broken.length );
-			if ( --len <= 0 ){
-				setTimeout( doneLoading );
-				$images.unbind( '.imagesLoaded', imgLoaded );
-			}
+		// dont proceed if img src is blank or if img is already loaded
+		if ( event.target.src === blank || $.inArray( this, loaded ) !== -1 ) {
+			return;
+		}
+
+		loaded.push( this );
+		// keep track of broken and properly loaded images
+		if ( event.type === 'error' ) {
+			broken.push( this );
+		} else {
+			proper.push( this );
+		}
+
+		deferred.notify( $images.length, loaded.length, proper.length, broken.length );
+
+		if ( --len <= 0 ){
+			setTimeout( doneLoading );
+			$images.unbind( '.imagesLoaded', imgLoaded );
 		}
 	}
 
