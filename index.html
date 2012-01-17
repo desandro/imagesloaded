@@ -6,6 +6,21 @@
 
 	<style media="screen">
 		body { margin: 0; padding: 0 1em 1em 1em; font-family: sans-serif; }
+
+		#basic-holder { position: relative; height: 1400px; }
+
+		#basic-holder .column {
+			position: absolute;
+			border: 2px solid;
+			width: 122px;
+		}
+
+		#basic-holder .column img {
+			width: 120px;
+			position: absolute;
+			left: 1px;
+		}
+
 		#holder { margin: 1em 0; padding: 0; list-style: none; }
 		#holder li { float: left; margin: 0.5em 1em 0.5em 0; padding: 1em; height: 100px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
 		#holder li.proper { border-color: green; background: #9D9; }
@@ -30,6 +45,31 @@
 	<h1>jQuery imagesLoaded</h1>
 
 	<p><a href="https://github.com/desandro/imagesloaded">github.com/desandro/imagesloaded</a></p>
+
+	<h2 id="basic">Basic</h2>
+
+	<p>Images should be stacked vertically, with 1 pixel space between each.</p>
+
+	<p>
+		<button id="basic-clone">Clone &amp; append more images</button>
+		<button id="basic-all-done">How many images are loaded?</button>
+	</p>
+
+	<div id="basic-holder">
+
+		<div class="column">
+			<img src="http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg" alt="Stanley" />
+			<img src="http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg" alt="Officer" />
+			<img src="http://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg" alt="Tony" />
+			<img src="http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg" alt="Giraffe" />
+			<img src="http://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg" alt="Kendra" />
+			<img src="http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg" alt="Gavin" />
+			<img src="http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg" alt="Anita" />
+			<img src="http://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg" alt="Take My Portrait" />
+			<img src="http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg" alt="Wonder" />
+		</div>
+
+	</div>
 
 	<h2 id="deferred">Deferred</h2>
 
@@ -56,6 +96,40 @@
 <script src="jquery.imagesloaded.js"></script>
 <script>
 $(function(){
+
+	// -------------------------- Basic example -------------------------- //
+
+	var $basicHolder = $('#basic-holder'),
+		$col = $basicHolder.children().eq(0),
+		basicContainerCount = 1;
+
+	function positionImages( $container, $images ) {
+		var y = 0;
+		$images.each( function() {
+			var $this = $(this).css({ top: y });
+			y += $this.height() + 1;
+		});
+		$container.height(y);
+	}
+
+	$col.imagesLoaded( function( $images ) {
+		positionImages( this, $images );
+	});
+
+	$('#basic-clone').click(function(){
+		$col.clone().appendTo( $basicHolder )
+			.css({ left: basicContainerCount * 130 })
+			.imagesLoaded( function( $images ) {
+				positionImages( this, $images );
+			});
+		basicContainerCount++;
+	});
+
+	$('#basic-all-done').click(function(){
+		$basicHolder.find('img').imagesLoaded(function( $images ){
+			alert( $images.length + ' images have been loaded.' );
+		});
+	});
 
 	// -------------------------- Deferred -------------------------- //
 
