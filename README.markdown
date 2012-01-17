@@ -1,6 +1,10 @@
 # imagesLoaded
 
+http://desandro.github.com/imagesloaded/
+
 A small jQuery plugin that triggers a callback after all the selected/child images have been loaded. Because you can't do `.load()` on cached images.
+
+## Basic usage
 
 ```js
 $('#my-container').imagesLoaded( function( $images ) {
@@ -15,9 +19,7 @@ You can call `imagesLoaded` on a set of images as well.
 $('.article img').imagesLoaded( myFunction );
 ```
 
-[**See demo**](http://desandro.github.com/imagesloaded/)
-
-Used in [Masonry](http://desandro.masonry.com/) and [Isotope](http://isotope.metafizzy.co/).
+## Deferred
 
 ## Contribute
 

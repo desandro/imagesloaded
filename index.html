@@ -8,16 +8,16 @@
 		body { margin: 0; padding: 0 1em 1em 1em; font-family: sans-serif; }
 		#holder { margin: 1em 0; padding: 0; list-style: none; }
 		#holder li { float: left; margin: 0.5em 1em 0.5em 0; padding: 1em; height: 100px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
-		#holder li.proper { border-color: #738f56; background: #a8ce9b; }
-		#holder li.broken { border-color: #936767; background: #d79c9c; }
+		#holder li.proper { border-color: green; background: #9D9; }
+		#holder li.broken { border-color: black; background: #D11; }
 		#holder li img { height: 100px; background: #222; }
 
 		#message span { color: #ccc; margin: 0 10px; }
 
 		hr { height: 2px; color: #ccc; background: #ccc; border: 0; }
 
-		.proper { color: #3c3; }
-		.broken { color: #c33; }
+		.proper { color: green; }
+		.broken { background: red; color: white; padding: 2px; }
 
 		.clearfix:before, .clearfix:after { content: ""; display: table; }
 		.clearfix:after { clear: both; }
@@ -31,7 +31,11 @@
 
 	<p><a href="https://github.com/desandro/imagesloaded">github.com/desandro/imagesloaded</a></p>
 
-	<p>Broken images should be marked as <span class="broken">Red</span>, and properly loaded images as <span class="proper">Green</span>.</p>
+	<h2 id="deferred">Deferred</h2>
+
+	<p><code>imagesLoaded()</code> returns a <a href="http://api.jquery.com/category/deferred-object/">jQuery Deferred object</a></code>. This is useful for determining if there are any broken images in the collection.</p>
+
+	<p>After adding an image, broken images should be marked as <span class="broken">Red</span>, and properly loaded images as <span class="proper">Green</span>.</p>
 
 	<p id="controls">
 		<button data-action="addProper">Add proper image</button>
@@ -53,6 +57,8 @@
 <script>
 $(function(){
 
+	// -------------------------- Deferred -------------------------- //
+
 	// Global variables
 	var holder = $('#holder'),
 		message = $('#message'),
@@ -71,9 +77,9 @@ $(function(){
 			'https://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg'
 		],
 		broken_urls = [
-			'https://nonexistent.flickr.com/4144/5013039541_17f2579e33.jpg',
-			'http://nonexistent.flickr.com/4144/5013039541_17f2579e33.jpg',
 			'missing.jpg',
+			'absent.png',
+			'not-here.gif',
 			'https://example.com/foo.jpg',
 			'http://example.com/bar.jpg',
 			'https://example.com/image.jpg'
