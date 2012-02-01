@@ -25,7 +25,8 @@
 
 $.fn.imagesLoaded = function( callback ) {
 	var $this = this,
-		deferred = $.Deferred(),
+		deferred = $.isFunction($.Deferred) ? $.Deferred() : 0,
+		hasNotify = $.isFunction(deferred.notify),
 		$images = $this.find('img').add( $this.filter('img') ),
 		len = $images.length,
 		blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
@@ -37,10 +38,12 @@ $.fn.imagesLoaded = function( callback ) {
 		var $proper = $(proper),
 			$broken = $(broken);
 
-		if ( broken.length ) {
-			deferred.reject( $images, $proper, $broken );
-		} else {
-			deferred.resolve( $images );
+		if ( deferred ) {
+			if ( broken.length ) {
+				deferred.reject( $images, $proper, $broken );
+			} else {
+				deferred.resolve( $images );
+			}
 		}
 
 		callback.call( $this, $images, $proper, $broken );
@@ -52,7 +55,9 @@ $.fn.imagesLoaded = function( callback ) {
 			return;
 		}
 
+		// store element in loaded images array
 		loaded.push( this );
+
 		// keep track of broken and properly loaded images
 		if ( event.type === 'error' ) {
 			broken.push( this );
@@ -60,7 +65,9 @@ $.fn.imagesLoaded = function( callback ) {
 			proper.push( this );
 		}
 
-		deferred.notify( $images.length, loaded.length, proper.length, broken.length );
+		if ( hasNotify ) {
+			deferred.notify( $images.length, loaded.length, proper.length, broken.length );
+		}
 
 		if ( --len <= 0 ){
 			setTimeout( doneLoading );
@@ -82,7 +89,7 @@ $.fn.imagesLoaded = function( callback ) {
 		this.src = src;
 	});
 
-	return deferred.promise( $this );
+	return deferred ? deferred.promise( $this ) : $this;
 };
 
 })(jQuery);

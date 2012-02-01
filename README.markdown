@@ -74,6 +74,13 @@ dfd.progress( function( total, loaded, proper, broken ){
 });
 ```
 
+### Requirements
+
+Deferred is being used only when present, so having older versions of jQuery doesn't break the plugin, just removes the functionality.
+For using any Deferred method, you need jQuery **v1.5** and higher.
+For using Deferred progress method, you need jQuery **v1.7** and higher.
+For availability of other Deferred methods, read the [jQuery Deferred object documentation](http://api.jquery.com/category/deferred-object/).
+
 ## Contribute
 
 It ain't easy knowing when images have loaded. [Every browser has its own little quirks](https://github.com/desandro/imagesloaded/wiki/Browser-quirks) that make this a difficult task to develop a cross-browser solution. Pull requests, testing, [issues](https://github.com/desandro/imagesloaded/issues), and commentary are all highly encouraged (pleasepleaseplease) and very much appreciated.
