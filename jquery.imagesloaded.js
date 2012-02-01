@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v1.2.1
+ * jQuery imagesLoaded plugin v1.2.2
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -65,6 +65,9 @@ $.fn.imagesLoaded = function( callback ) {
 			proper.push( this );
 		}
 
+		// cache event type in element data for future calls
+		$.data( this, 'imagesLoaded', event.type );
+
 		if ( hasNotify ) {
 			deferred.notify( $images.length, loaded.length, proper.length, broken.length );
 		}
@@ -81,6 +84,13 @@ $.fn.imagesLoaded = function( callback ) {
 	}
 
 	$images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoaded ).each( function() {
+		// find out if this image has been already checked for status
+		var cachedEvent = $.data( this, 'imagesLoaded' );
+		// if it was, trigger the corresponding event and finish
+		if ( cachedEvent ) {
+			$(this).triggerHandler( cachedEvent );
+			return;
+		}
 		// cached images don't fire load sometimes, so we reset src.
 		var src = this.src;
 		// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
