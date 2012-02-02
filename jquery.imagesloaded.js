@@ -1,11 +1,10 @@
 /*!
- * jQuery imagesLoaded plugin v1.2.2
+ * jQuery imagesLoaded plugin v1.2.3
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
  */
-
-(function($, undefined) {
+;(function($, undefined) {
 
 // $('#my-container').imagesLoaded(myFunction)
 // or
@@ -46,7 +45,9 @@ $.fn.imagesLoaded = function( callback ) {
 			}
 		}
 
-		callback.call( $this, $images, $proper, $broken );
+		if ( $.isFunction( callback ) ) {
+			callback.call( $this, $images, $proper, $broken );
+		}
 	}
 
 	function imgLoaded( event ) {
