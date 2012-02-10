@@ -6,6 +6,9 @@
  */
 ;(function($, undefined) {
 
+// blank image data-uri
+var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
 // $('#my-container').imagesLoaded(myFunction)
 // or
 // $('img').imagesLoaded(myFunction)
@@ -28,7 +31,6 @@ $.fn.imagesLoaded = function( callback ) {
 		hasNotify = $.isFunction(deferred.notify),
 		$images = $this.find('img').add( $this.filter('img') ),
 		len = $images.length,
-		blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
 		loaded = [],
 		proper = [],
 		broken = [];
@@ -52,7 +54,7 @@ $.fn.imagesLoaded = function( callback ) {
 
 	function imgLoaded( event ) {
 		// dont proceed if img src is blank or if img is already loaded
-		if ( event.target.src === blank || $.inArray( this, loaded ) !== -1 ) {
+		if ( event.target.src === BLANK || $.inArray( this, loaded ) !== -1 ) {
 			return;
 		}
 
@@ -96,7 +98,7 @@ $.fn.imagesLoaded = function( callback ) {
 		var src = this.src;
 		// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
 		// data uri bypasses webkit log warning (thx doug jones)
-		this.src = blank;
+		this.src = BLANK;
 		this.src = src;
 	});
 
