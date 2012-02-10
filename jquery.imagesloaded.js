@@ -69,7 +69,7 @@ $.fn.imagesLoaded = function( callback ) {
 		}
 
 		// cache event type in element data for future calls
-		$.data( this, 'imagesLoaded', event.type );
+		$.data( this, 'imagesLoaded', { event: event.type, src: this.src } );
 
 		if ( hasNotify ) {
 			deferred.notify( $images.length, loaded.length, proper.length, broken.length );
@@ -87,15 +87,15 @@ $.fn.imagesLoaded = function( callback ) {
 	}
 
 	$images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoaded ).each( function() {
+		var src = this.src;
 		// find out if this image has been already checked for status
-		var cachedEvent = $.data( this, 'imagesLoaded' );
-		// if it was, trigger the corresponding event and finish
-		if ( cachedEvent ) {
-			$(this).triggerHandler( cachedEvent );
+		var cached = $.data( this, 'imagesLoaded' );
+		// if it was, and src has not changed, trigger the corresponding event
+		if ( cached && cached.src == src ) {
+			$(this).triggerHandler( cached.event );
 			return;
 		}
 		// cached images don't fire load sometimes, so we reset src.
-		var src = this.src;
 		// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
 		// data uri bypasses webkit log warning (thx doug jones)
 		this.src = BLANK;
