@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v1.2.3
+ * jQuery imagesLoaded plugin v1.2.4
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
