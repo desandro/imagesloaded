@@ -53,23 +53,25 @@ $.fn.imagesLoaded = function( callback ) {
 	}
 
 	function imgLoaded( event ) {
+		var img = event.target;
+
 		// dont proceed if img src is blank or if img is already loaded
-		if ( event.target.src === BLANK || $.inArray( this, loaded ) !== -1 ) {
+		if ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
 			return;
 		}
 
 		// store element in loaded images array
-		loaded.push( this );
+		loaded.push( img );
 
 		// keep track of broken and properly loaded images
 		if ( event.type === 'error' ) {
-			broken.push( this );
+			broken.push( img );
 		} else {
-			proper.push( this );
+			proper.push( img );
 		}
 
 		// cache event type in element data for future calls
-		$.data( this, 'imagesLoaded', { event: event.type, src: this.src } );
+		$.data( img, 'imagesLoaded', { event: event.type, src: img.src } );
 
 		if ( hasNotify ) {
 			deferred.notify( $images.length, loaded.length, proper.length, broken.length );
@@ -91,7 +93,7 @@ $.fn.imagesLoaded = function( callback ) {
 		// find out if this image has been already checked for status
 		var cached = $.data( this, 'imagesLoaded' );
 		// if it was, and src has not changed, trigger the corresponding event
-		if ( cached && cached.src == src ) {
+		if ( cached && cached.src === src ) {
 			$(this).triggerHandler( cached.event );
 			return;
 		}
