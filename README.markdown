@@ -2,7 +2,7 @@
 
 http://desandro.github.com/imagesloaded/
 
-A small jQuery plugin that triggers a callback after all the selected/child images have been loaded. Because you can't do `.load()` on cached images.
+A jQuery plugin that triggers a callback after all the selected/child images have been loaded. Because you can't do `.load()` on cached images.
 
 ## Basic usage
 
@@ -64,13 +64,14 @@ dfd.fail( function( $images, $proper, $broken ){
 });
 
 // Notified
-dfd.progress( function( total, loaded, proper, broken ){
-  // callback provides four integer arguments:
-  // total:  number of total images in set
-  // loaded: number of all loaded images so far
-  // proper: number of properly loaded images so far
-  // broken: number of broken images so far
-  console.log( 'Loading progress: ' + ( Math.round( ( loaded * 100 ) / total ) ) + '%' );
+dfd.progress( function( isBroken, $images, $proper, $broken ){
+  // function scope (this) is a jQuery object with image that has just finished loading
+  // callback provides four arguments:
+  // isBroken: boolean value of whether the loaded image (this) is broken
+  // $images:  jQuery object with all images in set
+  // $proper:  jQuery object with properly loaded images so far
+  // $broken:  jQuery object with broken images so far
+  console.log( 'Loading progress: ' + ( $proper.length + $broken.length ) ' out of ' + $images.length );
 });
 ```
 
@@ -80,6 +81,34 @@ Deferred is being used only when present, so having older versions of jQuery doe
 For using any Deferred method, you need jQuery **v1.5** and higher.
 For using Deferred progress method, you need jQuery **v1.7** and higher.
 For availability of other Deferred methods, read the [jQuery Deferred object documentation](http://api.jquery.com/category/deferred-object/).
+
+## Behavior notes
+
+### Caching
+
+The state of all once checked images is cached, so the calls repeated on the same images don't have to go through a determining process for each image again.
+Determining might be slow in older browsers in which we have to reset src, and also might introduce image flickering.
+
+Image state is stored in `$.data` associated to that particular image DOM element. That means that everything is stored per page load,
+so you don't have to worry that temporarily unavailable images will be considered broken on a next page load as well. This is just for a multiple calls within one page load.
+
+If, however, you need it from some reason, you can remove this data from an image with:
+
+```js
+$.removeData( img, 'imagesLoaded' );
+```
+
+### Image flickering
+
+In IE (particularly in older versions) you might see images flicker as plugin has to refresh all `src` attributes to catch event types. That is the only known
+way how to check for loading status of both proper and broken images in IE browsers, as these dinosaurs don't bother changing any image attribute once an image has
+been recognized as broken. The only thing they do is send an `error` event.
+
+Thankfully, this flickering is invisible most of the time.
+
+## Known issues
+
++ unreliable differentiation between proper and broken images in Opera versions lower than 11 (market share ~0.1%)
 
 ## Contribute
 
