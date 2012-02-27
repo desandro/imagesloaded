@@ -179,13 +179,9 @@ $(function(){
 	// Loaded images check
 	function checkImages(){
 
-		holder.children().removeClass();
 		message.empty();
 
 		var dfd = $("#holder").imagesLoaded(function( $images, $proper, $broken ){
-
-			$proper.parent().addClass('proper');
-			$broken.parent().addClass('broken');
 
 			var msg = 'Total images: <strong>'+$images.length+'</strong> <span>|</span> ';
 			msg += 'Proper images: <strong class="proper">' + $proper.length + '</strong> <span>|</span> ';
@@ -195,8 +191,14 @@ $(function(){
 
 		});
 
-		dfd.progress(function( total, loaded ){
-			var progress = '';
+		dfd.progress(function( isBroken, $images, $proper, $broken ){
+			// Set image state class
+			this.parent().addClass( isBroken ? 'broken' : 'proper' );
+
+			// Progress message
+			var progress = '',
+				total = $images.length,
+				loaded = $proper.length + $broken.length;
 			for( var i = 1; i <= total; i++ ){
 				progress += i <= loaded ? '&#x25A0;' : '&#x25A1;';
 			}
