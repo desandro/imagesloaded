@@ -5,9 +5,10 @@
  * MIT License. by Paul Irish et al.
  */
 
-/*jshint curly: true, eqeqeq: true, noempty: true, undef: true, browser: true */
+/*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
 
 ;(function($, undefined) {
+'use strict';
 
 // blank image data-uri bypasses webkit log warning (thx doug jones)
 var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
