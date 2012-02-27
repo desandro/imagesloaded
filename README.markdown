@@ -87,10 +87,10 @@ For availability of other Deferred methods, read the [jQuery Deferred object doc
 ### Caching
 
 The state of all once checked images is cached, so the calls repeated on the same images don't have to go through a determining process for each image again.
-Determining might be slow in older browsers in which we have to reset src, and also might introduce image flickering.
+Determining might be slow in older browsers in which we have to reset `src`, and also might introduce image flickering.
 
 Image state is stored in `$.data` associated to that particular image DOM element. That means that everything is stored per page load,
-so you don't have to worry that temporarily unavailable images will be considered broken on a next page load as well. This is just for a multiple calls within one page load.
+so you don't have to worry that temporarily unavailable images will be considered as broken on a next page load as well. This is just for a multiple calls within one page load.
 
 If, however, you need it from some reason, you can remove this data from an image with:
 
@@ -101,14 +101,15 @@ $.removeData( img, 'imagesLoaded' );
 ### Image flickering
 
 In IE (particularly in older versions) you might see images flicker as plugin has to refresh all `src` attributes to catch event types. That is the only known
-way how to check for loading status of both proper and broken images in IE browsers, as these dinosaurs don't bother changing any image attribute once an image has
-been recognized as broken. The only thing they do is send an `error` event.
+way how to check for loading status of both proper and broken images in IE browsers, as these dinosaurs don't bother changing any image property once an image has
+been recognized as broken. The only thing they do is send an `error` event. Without refreshing `src` and catching it, it would be impossible to differentiate
+between broken images and proper images that are still loading.
 
 Thankfully, this flickering is invisible most of the time.
 
 ## Known issues
 
-+ unreliable differentiation between proper and broken images in Opera versions lower than 11 (market share ~0.1%)
++ unreliable differentiation between proper and broken images in Opera versions lower than 11 (market share ~0.1%), but callback still fires
 
 ## Contribute
 
