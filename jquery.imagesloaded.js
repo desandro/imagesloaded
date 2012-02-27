@@ -1,11 +1,13 @@
 /*!
- * jQuery imagesLoaded plugin v2.0.0
+ * jQuery imagesLoaded plugin v2.0.1
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
  */
+
+/*jshint curly: true, eqeqeq: true, noempty: true, undef: true, browser: true */
+
 ;(function($, undefined) {
-'use strict';
 
 // blank image data-uri bypasses webkit log warning (thx doug jones)
 var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
@@ -73,7 +75,7 @@ $.fn.imagesLoaded = function( callback ) {
 	} else {
 		$images.bind( 'load.imagesLoaded error.imagesLoaded', function( event ){
 			// trigger imgLoaded
-			imgLoaded( event.target, event.type == 'error' );
+			imgLoaded( event.target, event.type === 'error' );
 		}).each( function( i, el ) {
 			var src = el.src;
 
@@ -105,4 +107,4 @@ $.fn.imagesLoaded = function( callback ) {
 	return deferred ? deferred.promise( $this ) : $this;
 };
 
-})(jQuery);
+})(window.jQuery);
