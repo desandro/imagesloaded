@@ -6,6 +6,7 @@
  */
 
 /*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
+/*global jQuery: false */
 
 ;(function($, undefined) {
 'use strict';
@@ -108,4 +109,4 @@ $.fn.imagesLoaded = function( callback ) {
 	return deferred ? deferred.promise( $this ) : $this;
 };
 
-})(window.jQuery);
+})(jQuery);
