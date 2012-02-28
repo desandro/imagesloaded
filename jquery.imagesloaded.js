@@ -1,9 +1,13 @@
 /*!
- * jQuery imagesLoaded plugin v2.0.0
+ * jQuery imagesLoaded plugin v2.0.1
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
  */
+
+/*jshint curly: true, eqeqeq: true, noempty: true, strict: true, undef: true, browser: true */
+/*global jQuery: false */
+
 ;(function($, undefined) {
 'use strict';
 
@@ -73,7 +77,7 @@ $.fn.imagesLoaded = function( callback ) {
 	} else {
 		$images.bind( 'load.imagesLoaded error.imagesLoaded', function( event ){
 			// trigger imgLoaded
-			imgLoaded( event.target, event.type == 'error' );
+			imgLoaded( event.target, event.type === 'error' );
 		}).each( function( i, el ) {
 			var src = el.src;
 
