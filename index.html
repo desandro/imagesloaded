@@ -3,249 +3,200 @@
 <head>
 	<meta charset="utf-8">
 	<title>jQuery imagesLoaded</title>
-
-	<style media="screen">
-		body { margin: 0; padding: 0 1em 1em 1em; font-family: sans-serif; }
-
-		#basic-holder { position: relative; height: 1400px; }
-
-		#basic-holder .column {
-			position: absolute;
-			border: 2px solid;
-			width: 122px;
-		}
-
-		#basic-holder .column img {
-			width: 120px;
-			position: absolute;
-			left: 1px;
-		}
-
-		#holder { margin: 1em 0; padding: 0; list-style: none; }
-		#holder li { float: left; margin: 0.5em 1em 0.5em 0; padding: 1em; height: 100px; border: 1px solid #ccc; background: #eee; border-radius: 3px; }
-		#holder li.proper { border-color: green; background: #9D9; }
-		#holder li.broken { border-color: black; background: #D11; }
-		#holder li img { height: 100px; background: #222; }
-
-		#message span { color: #ccc; margin: 0 10px; }
-
-		hr { height: 2px; color: #ccc; background: #ccc; border: 0; }
-
-		.proper { color: green; }
-		.broken { background: red; color: white; padding: 2px; }
-
-		.clearfix:before, .clearfix:after { content: ""; display: table; }
-		.clearfix:after { clear: both; }
-		.clearfix { *zoom: 1; }
-	</style>
-
+	<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body id="top">
 
-	<h1>jQuery imagesLoaded</h1>
+<div id="header" class="container header">
 
-	<p><a href="https://github.com/desandro/imagesloaded">github.com/desandro/imagesloaded</a></p>
-
-	<h2 id="basic">Basic</h2>
-
-	<p>Images should be stacked vertically, with 1 pixel space between each.</p>
-
-	<p>
-		<button id="basic-clone">Clone &amp; append more images</button>
-		<button id="basic-all-done">How many images are loaded?</button>
-	</p>
-
-	<div id="basic-holder">
-
-		<div class="column">
-			<img src="http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg" alt="Stanley" />
-			<img src="http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg" alt="Officer" />
-			<img src="http://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg" alt="Tony" />
-			<img src="http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg" alt="Giraffe" />
-			<img src="http://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg" alt="Kendra" />
-			<img src="http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg" alt="Gavin" />
-			<img src="http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg" alt="Anita" />
-			<img src="http://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg" alt="Take My Portrait" />
-			<img src="http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg" alt="Wonder" />
+	<div id="download">
+		<h6>Download Latest</h6>
+		<div class="btn-group">
+			<a href="//github.com/desandro/imagesloaded/raw/master/jquery.imagesloaded.js" class="btn btn-large">Development</a>
+			<a href="//github.com/desandro/imagesloaded/raw/master/jquery.imagesloaded.min.js" class="btn btn-large">Minified</a>
 		</div>
+	</div>
+
+	<h1>imagesLoaded</h1>
+	<p>jQuery plugin that triggers a callback after all images have been loaded</p>
+
+</div>
+
+<div id="nav">
+	<div class="container">
+
+		<ul id="tabs" class="clearfix">
+			<li class="active">
+				<a href="#" data-activate="simple">Simple example with cloning test</a>
+			</li>
+			<li>
+				<a href="#" data-activate="advanced">Example utilizing the whole plugin functionality</a>
+			</li>
+		</ul>
+
+	</div>
+</div>
+
+
+<div id="sections" class="container">
+
+	<div id="simple">
+
+		<div class="controlbar clearfix">
+
+			<button class="btn btn-black fright" data-action="clone">Clone holder and reposition images</button>
+
+			<button class="btn btn-black" data-action="run">Run example</button>
+			<button class="btn btn-red" data-action="empty">Empty holder</button>
+
+		</div>
+
+		<hr>
+
+		<div class="holder"></div>
+
+		<hr>
+
+		<div class="info-bubble">
+			<p>This test loads images with <code>position: absolute;</code>, and when they are done loading, positions them next to each other based on their width.</p>
+
+			<p>Cloning test checks for premature callback execution in WebKit browsers.
+			It it fails, images will be on top of each other in the upper left corner of their holder. This should never happen :)
+			<small><em>(You can click on cloned holders to remove them.)</em></small></p>
+		</div>
+
+		<h2>Code</h2>
+
+<pre class="prettyprint lang-js">
+// Call imagesLoaded and position images
+holder.imagesLoaded(function( $images, $proper, $broken ){
+
+	var $container = this,
+		x = 1;
+
+	$images.each( function() {
+		var $this = $(this).css({ left: x });
+		x += $this.width() + 1;
+	});
+
+	$container.width(x);
+
+});
+</pre>
 
 	</div>
 
-	<h2 id="deferred">Deferred</h2>
 
-	<p><code>imagesLoaded()</code> returns a <a href="http://api.jquery.com/category/deferred-object/">jQuery Deferred object</a></code>. This is useful for determining if there are any broken images in the collection.</p>
+	<div id="advanced" class="hidden">
 
-	<p>After adding an image, broken images should be marked as <span class="broken">Red</span>, and properly loaded images as <span class="proper">Green</span>.</p>
+		<div class="controlbar clearfix">
 
-	<p id="controls">
-		<button data-action="addProper">Add proper image</button>
-		<button data-action="addBroken">Add broken image</button>
-		<button data-action="removeLast">Remove last image</button>
-		<button data-action="removeLast5">Remove last 5 images</button>
-	</p>
+			<div class="fleft btn-group">
+				<button class="btn btn-black" data-action="loadImages" data-count="7">Load 7</button>
+				<button class="btn btn-black" data-action="loadImages" data-count="14">14</button>
+				<button class="btn btn-black" data-action="loadImages" data-count="21">21</button>
+			</div>
 
-	<hr>
+			<div class="fright btn-group">
+				<button class="btn btn-red" data-action="removeImages" data-count="7">Remove 7</button>
+				<button class="btn btn-red" data-action="removeImages" data-count="14">14</button>
+				<button class="btn btn-red" data-action="removeImages" data-count="21">21</button>
+			</div>
 
-	<ul id="holder" class="clearfix"></ul>
+			<div class="center">
 
-	<hr>
+				<div class="status">
+					Total <span class="label totalcount">0</span>
+					<span class="divider">/</span>
+					Proper <span class="label label-success propercount">0</span>
+					<span class="divider">/</span>
+					Broken <span class="label label-important brokencount">0</span>
+					<span class="divider">/</span>
+					Deferred is <span class="label dfdstatus">pending</span>
+				</div>
 
-	<div id="message">Loading...</div>
+				<div class="progress progress-success progress-striped">
+					<div class="bar"></div>
+				</div>
 
-<script src="http://code.jquery.com/jquery.min.js"></script>
-<script src="jquery.imagesloaded.js"></script>
-<script>
-$(function(){
+			</div>
 
-	// -------------------------- Basic example -------------------------- //
+		</div>
 
-	var $basicHolder = $('#basic-holder'),
-		$col = $basicHolder.children().eq(0),
-		basicContainerCount = 1;
+		<hr>
 
-	function positionImages( $container, $images ) {
-		var y = 0;
-		$images.each( function() {
-			var $this = $(this).css({ top: y });
-			y += $this.height() + 1;
-		});
-		$container.height(y);
-	}
+		<ul class="holder clearfix"></ul>
 
-	$col.imagesLoaded( function( $images ) {
-		positionImages( this, $images );
-	});
+		<hr>
 
-	$('#basic-clone').click(function(){
-		$col.clone().appendTo( $basicHolder )
-			.css({ left: basicContainerCount * 130 })
-			.imagesLoaded( function( $images ) {
-				positionImages( this, $images );
-			});
-		basicContainerCount++;
-	});
+		<div class="info-bubble">
+			<p>There is 10% chance for loading broken images.</p>
 
-	$('#basic-all-done').click(function(){
-		$basicHolder.find('img').imagesLoaded(function( $images ){
-			alert( $images.length + ' images have been loaded.' );
-		});
-	});
+			<p>As images are being loaded, <code>.progress()</code> method removes loading overlay from proper images, marks broken images as red,
+			and updates progress bar to represent loading status.</p>
 
-	// -------------------------- Deferred -------------------------- //
+			<p>Deferred object is rejected if at least one image in stack is broken.</p>
 
-	// Global variables
-	var holder = $('#holder'),
-		message = $('#message'),
-		controls = $('#controls'),
-		image_urls = [
-			'http://farm5.static.flickr.com/4113/5013039951_3a47ccd509.jpg',
-			'http://farm5.static.flickr.com/4144/5013039541_17f2579e33.jpg',
-			'http://farm5.static.flickr.com/4153/5013039741_d860fb640b.jpg',
-			'http://farm5.static.flickr.com/4113/5013039697_a15e41fcd8.jpg'
-		],
-		additional_urls = [
-			'http://farm5.static.flickr.com/4089/5013040075_bac12ff74e.jpg',
-			'http://farm5.static.flickr.com/4131/5013039885_0d16ac87bc.jpg',
-			'https://farm5.static.flickr.com/4146/5013646070_f1f44b1939.jpg',
-			'https://farm5.static.flickr.com/4086/5013039583_26717f6e89.jpg',
-			'https://farm5.static.flickr.com/4124/5013646314_c7eaf84918.jpg'
-		],
-		broken_urls = [
-			'missing.jpg',
-			'absent.png',
-			'not-here.gif',
-			'https://example.com/foo.jpg',
-			'http://example.com/bar.jpg',
-			'https://example.com/image.jpg'
-		];
+			<p>Clicking on images removes the image and updates the stack info. <small><em>(Remove broken images to test deferred resolution.)</em></small></p>
+		</div>
 
-	// Attach images
-	function addImages( urls, random ){
+		<h2>Code</h2>
 
-		var output = '';
-		if( random ){
-			output = '<li><img src="'+urls[ Math.floor( Math.random() * urls.length ) ]+'" alt="Image"></li>';
-		} else {
-			for( var i = 0; i < urls.length; i++ ){
-				output += '<li><img src="'+urls[i]+'" alt="Image"></li>';
-			}
-		}
-		holder.append(output);
+<pre class="prettyprint lang-js">
+// Call imagesLoaded with callback and save the deferred object
+var dfd = $("#holder").imagesLoaded(function( $images, $proper, $broken ){
 
-		checkImages();
-
-	}
-
-	// Loaded images check
-	function checkImages(){
-
-		message.empty();
-
-		var dfd = $("#holder").imagesLoaded(function( $images, $proper, $broken ){
-
-			var msg = 'Total images: <strong>'+$images.length+'</strong> <span>|</span> ';
-			msg += 'Proper images: <strong class="proper">' + $proper.length + '</strong> <span>|</span> ';
-			msg += 'Broken images: <strong class="broken">' + $broken.length + '</strong>';
-
-			message.append('<p>'+msg+'</p>');
-
-		});
-
-		dfd.progress(function( isBroken, $images, $proper, $broken ){
-			// Set image state class
-			this.parent().addClass( isBroken ? 'broken' : 'proper' );
-
-			// Progress message
-			var progress = '',
-				total = $images.length,
-				loaded = $proper.length + $broken.length;
-			for( var i = 1; i <= total; i++ ){
-				progress += i <= loaded ? '&#x25A0;' : '&#x25A1;';
-			}
-			total == loaded ? message.empty() : message.html('<p><code>Progress: [' + progress + ']</code></p>');
-		}).always(function(){
-			message.append('<p>Deferred is: <strong>' + dfd.state() + '</strong></p>');
-		});
-
-	}
-
-	// Controls
-	controls.find('[data-action]').click(function(){
-
-		var el = $(this),
-			action = el.data('action');
-
-		switch( action ){
-
-			case 'addProper':
-				addImages( additional_urls, 1 );
-			break;
-
-			case 'addBroken':
-				addImages( broken_urls, 1 );
-			break;
-
-			case 'removeLast':
-				holder.children().slice(-1).remove();
-				checkImages();
-			break;
-
-			case 'removeLast5':
-				holder.children().slice(-5).remove();
-				checkImages();
-			break;
-
-		}
-
-	});
-
-	// Trigger first check
-	addImages( image_urls );
-
+	totalLabel.text( $images.length );
+	properLabel.text( $proper.length );
+	brokenLabel.text( $broken.length );
 
 });
 
-</script>
+// Deferred magic
+dfd.progress(function( isBroken, $images, $proper, $broken ){
+
+	var loadingSpan = this.siblings('.loading');
+
+	if( isBroken ){
+		loadingSpan.removeClass('loading').addClass('broken')
+	} else {
+		loadingSpan.fadeOut(200, function(){ $(this).remove(); });
+	}
+
+	progressBar.css({ width: Math.round( ( ( $proper.length + $broken.length ) * 100 ) / $images.length ) + '%' });
+
+}).always(function(){
+
+	var dfdState = dfd.state();
+
+	dfdLabel.addClass( dfdState === 'resolved' ? 'label-success' : 'label-important' ).text( dfdState.toUpperCase() );
+
+	progress.hide();
+	statusBar.show();
+	progressBar.css({ width: 0 });
+
+});
+</pre>
+
+	</div>
+
+</div>
+
+<div id="footer">
+	<div class="container">
+		<span class="fright"><a href="#top">Back to top &uarr;</a></span>
+		<p>Licensed under the <a href="http://www.opensource.org/licenses/MIT">MIT license</a>.</p>
+		<p>Images pulled from <a href="http://lorempixel.com">LoremPixel</a> service with the help of <a href="https://github.com/Darsain/loremImages">loremImages</a> plugin.</p>
+	</div>
+</div>
+
+<a href="//github.com/desandro/imagesloaded/"><img style="position:absolute;top:0;left:0;border:0;" src="https://a248.e.akamai.net/assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="jquery.imagesloaded.js"></script>
+<script src="js/jquery.loremimages.min.js"></script>
+<script src="js/prettify.js"></script>
+<script src="js/scripts.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,2 @@
+(function(b){b.fn.loremImages=function(e,d,j){var a=b.extend({},b.fn.loremImages.defaults,j);return this.each(function(c,k){var f=b(k),g="";for(c=0;c<a.count;c++){var h=e+Math.round(Math.random()*a.randomWidth),i=d+Math.round(Math.random()*a.randomHeight);g+=a.itemBuilder.call(f,c,"//lorempixel.com/"+(a.grey?"g/":"")+h+"/"+i+"/"+(a.category?a.category+"/":"")+"?"+Math.round(Math.random()*1E3),h,i)}f.append(g)})};b.fn.loremImages.defaults={count:10,grey:0,randomWidth:0,randomHeight:0,category:0,itemBuilder:function(e,
+d){return'<img src="'+d+'" alt="Lorempixel">'}}})(jQuery);
