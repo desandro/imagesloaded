@@ -5,7 +5,7 @@ $(function(){
 	// -----------------------------------------------------------------------------------
 	(function(){
 
-		// Tabs navgation
+		// Tabs navigation
 		var $tabs = $('#tabs').find('a'),
 			$container = $('#sections'),
 			$sections = $container.children();
@@ -23,8 +23,9 @@ $(function(){
 		});
 
 		// Back to top button
-		$('a[href=#top]').on('click', function(){
-			$(document).scroll(0,0);
+		$('a[href="#top"]').on('click', function(e){
+			e.preventDefault();
+			$(document).scrollTop(0);
 		});
 
 	})();
