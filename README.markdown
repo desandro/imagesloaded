@@ -71,7 +71,7 @@ dfd.progress( function( isBroken, $images, $proper, $broken ){
   // $images:  jQuery object with all images in set
   // $proper:  jQuery object with properly loaded images so far
   // $broken:  jQuery object with broken images so far
-  console.log( 'Loading progress: ' + ( $proper.length + $broken.length ) ' out of ' + $images.length );
+  console.log( 'Loading progress: ' + ( $proper.length + $broken.length ) + ' out of ' + $images.length );
 });
 ```
 
