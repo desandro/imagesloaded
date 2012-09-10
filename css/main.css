@@ -50,9 +50,13 @@ mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
 
 pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
 
-pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 0.8em; background: #f8f8f8; border: 1px solid #ccc; }
-
-code { padding: 3px 4px; color: #d14; background-color: #f7f7f9; border: 1px solid #e1e1e8; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 0.8em; background: #f8f8f8;
+	-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	-moz-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	-ms-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	-o-box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+	box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+}
 
 q { quotes: none; }
 q:before, q:after { content: ""; content: none; }
@@ -396,12 +400,7 @@ button.btn.small, input[type="submit"].btn.small { *padding-top: 3px; *padding-b
 .label-important { background-color: #b94a48; }
 .label-warning { background-color: #f89406; }
 .label-success { background-color: #468847; }
-.label-info { background-color: #3a87ad; }/*
-.label:hover { color: #ffffff; text-decoration: none; }
-.label-important:hover { background-color: #953b39; }
-.label-warning:hover { background-color: #c67605; }
-.label-success:hover { background-color: #356635; }
-.label-info:hover { background-color: #2d6987; }*/
+.label-info { background-color: #3a87ad; }
 
 /* Progress */
 .progress {
@@ -476,8 +475,7 @@ button.btn.small, input[type="submit"].btn.small { *padding-top: 3px; *padding-b
 #tabs li { display: block; float: left; width: 50%; text-align: center; font-weight: bold; }
 #tabs li a { display: block; padding: 1.5em 0; text-transform: uppercase; border-radius: 0; text-decoration: none; color: #eee; text-shadow: -1px -1px 0 rgba(0,0,0,0.5); }
 #tabs li a:hover { background: #4a4a4a; }
-#tabs li.active { position: relative; top: 2px; }
-#tabs li.active a { color: #424242; background: #fff; text-shadow: none; }
+#tabs li a.active { position: relative; top: 2px; color: #424242; background: #fff; text-shadow: none; }
 
 /* Controls */
 .controlbar { margin: 2em 0 1.5em; }
@@ -489,16 +487,17 @@ button.btn.small, input[type="submit"].btn.small { *padding-top: 3px; *padding-b
 
 /* Advanced test */
 #advanced .controlbar .center { margin: 7px auto 0 auto; width: 50%; text-align: center; }
+#advanced .controlbar .center span { text-transform: uppercase; }
 #advanced .holder { width: 945px; min-height: 160px; margin: 0 0 0 -5px; padding: 0; list-style: none; }
 #advanced .holder li { position: relative; float: left; margin: 2px 0 3px 5px; padding: 0; width: 130px; height: 160px; cursor: pointer; }
 #advanced .holder li img { position: relative; display: block; width: 130px; height: 160px; z-index: 1; }
 #advanced .holder li span { position: absolute; display: block; bottom: 0; right: 0; top: 0; left: 0; z-index: 2;
 	background-repeat: no-repeat; background-position: center center; background-color: #222;
 }
-#advanced .holder li span.loading { background-image: url('../images/loading.gif'); }
-#advanced .holder li span.broken { background-image: url('../images/broken.png'); background-color: #be3730; }
+#advanced .holder li span.loading { background-image: url('../img/loading.gif'); }
+#advanced .holder li span.broken { background-image: url('../img/broken.png'); background-color: #be3730; }
 #advanced .holder li:hover span { background-image: none; }
-#advanced .holder li span.remove { display: none; background-image: url('../images/close.png'); background-color: #222; background-color: rgba(0,0,0,0.5);  }
+#advanced .holder li span.remove { display: none; background-image: url('../img/close.png'); background-color: #222; background-color: rgba(0,0,0,0.5);  }
 #advanced .holder li:hover span.remove { display: block; }
 
 /* Simple test */
@@ -506,7 +505,7 @@ button.btn.small, input[type="submit"].btn.small { *padding-top: 3px; *padding-b
 #simple .holder img { position: absolute; top: 1px; }
 #simple .clone { cursor: pointer; }
 #simple .clone span.remove { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
-	background: url('../images/close.png') no-repeat center center; background-color: #222; background-color: rgba(0,0,0,0.5);
+	background: url('../img/close.png') no-repeat center center; background-color: #222; background-color: rgba(0,0,0,0.5);
 }
 #simple .clone:hover span.remove { display: block; }
 
@@ -544,8 +543,40 @@ button.btn.small, input[type="submit"].btn.small { *padding-top: 3px; *padding-b
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
-/* PrettyPrint styles */
-.pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}
-.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}
-.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}
-ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+code[class*="language-"],
+pre[class*="language-"] {color: black;text-shadow: 0 1px white;font-family: Consolas, Monaco, 'Andale Mono', monospace;direction:ltr;text-align:left;white-space:pre;
+word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;}
+pre[class*="language-"] {padding:1em;margin:.5em0;overflow:auto;}
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {background:#f5f2f0;}
+:not(pre) > code[class*="language-"] {padding:.1em;border-radius:.3em;}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {color: slategray;}
+.token.punctuation {color: #999;}
+.namespace {opacity: .7;}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {color: #905;}
+.token.selector,
+.token.attr-name,
+.token.string {color: #690;}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {color: #a67f59;background: hsla(0,0%,100%,.5);}
+.token.atrule,
+.token.attr-value,
+.token.keyword {color: #07a;}
+.token.regex,
+.token.important {color: #e90;}
+.token.important {font-weight: bold;}
+.token.entity {cursor: help;}
