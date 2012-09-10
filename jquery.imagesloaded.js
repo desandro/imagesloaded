@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v2.0.1
+ * jQuery imagesLoaded plugin v2.1.0
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -22,6 +22,17 @@ $.fn.imagesLoaded = function( callback ) {
 		loaded = [],
 		proper = [],
 		broken = [];
+
+	// Register deferred callbacks
+	if ($.isPlainObject(callback)) {
+		$.each(callback, function (key, value) {
+			if (key === 'callback') {
+				callback = value;
+			} else if (deferred) {
+				deferred[key](value);
+			}
+		});
+	}
 
 	function doneLoading() {
 		var $proper = $(proper),

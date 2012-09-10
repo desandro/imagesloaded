@@ -7,14 +7,14 @@ jQuery(function($){
 	(function(){
 
 		// Variables
-		var simple = $('#simple'),
-			holder = simple.find('.holder'),
-			controlbar = simple.find('.controlbar');
+		var $simple = $('#simple'),
+			$holder = $simple.find('.holder'),
+			$controlbar = $simple.find('.controlbar');
 
-		function runTest( holder ){
+		function runTest( $holder ){
 
 			// Call imagesLoaded and position images
-			holder.imagesLoaded(function( $images, $proper, $broken ){
+			$holder.imagesLoaded(function( $images, $proper, $broken ){
 
 				var $container = this,
 					x = 1;
@@ -31,7 +31,7 @@ jQuery(function($){
 		}
 
 		// Controls
-		controlbar.find('[data-action]').click(function(){
+		$controlbar.find('[data-action]').click(function(){
 
 			var el = $(this),
 				action = el.data('action');
@@ -40,7 +40,7 @@ jQuery(function($){
 
 				case 'run':
 					//Empty holder and apped images
-					holder.empty().append(
+					$holder.empty().append(
 						'<img src="img/img1.jpg" alt="Lorempixel">' +
 						'<img src="img/img2.jpg" alt="Lorempixel">' +
 						'<img src="img/img3.jpg" alt="Lorempixel">' +
@@ -48,15 +48,15 @@ jQuery(function($){
 						'<img src="img/img5.jpg" alt="Lorempixel">' +
 						'<img src="img/img6.jpg" alt="Lorempixel">'
 					);
-					runTest( holder );
+					runTest( $holder );
 				break;
 
 				case 'empty':
-					holder.empty().width('auto');
+					$holder.empty().width('auto');
 				break;
 
 				case 'clone':
-					var clone = holder.clone().addClass('clone').append('<span class="remove"/>').insertAfter( holder );
+					var clone = $holder.clone().addClass('clone').append('<span class="remove"/>').insertAfter( $holder );
 					runTest( clone );
 				break;
 
@@ -65,7 +65,7 @@ jQuery(function($){
 		});
 
 		// Click-delete holders
-		simple.on('click', '.clone', function(){
+		$simple.on('click', '.clone', function(){
 
 			$(this).fadeOut( 200, function(){
 
@@ -85,16 +85,16 @@ jQuery(function($){
 	(function(){
 
 		// Variables
-		var advanced = $('#advanced'),
-			holder = advanced.find('.holder'),
-			statusBar = advanced.find('.status'),
-				totalLabel = statusBar.find('.totalcount'),
-				properLabel = statusBar.find('.propercount'),
-				brokenLabel = statusBar.find('.brokencount'),
-				dfdLabel = statusBar.find('.dfdstatus'),
-			progress = advanced.find('.progress'),
-			progressBar = progress.find('.bar'),
-			controlbar = advanced.find('.controlbar'),
+		var $advanced = $('#advanced'),
+			$holder = $advanced.find('.holder'),
+			$statusBar = $advanced.find('.status'),
+				$totalLabel = $statusBar.find('.totalcount'),
+				$properLabel = $statusBar.find('.propercount'),
+				$brokenLabel = $statusBar.find('.brokencount'),
+				$dfdLabel = $statusBar.find('.dfdstatus'),
+			$progress = $advanced.find('.progress'),
+			$progressBar = $progress.find('.bar'),
+			$controlbar = $advanced.find('.controlbar'),
 			broken_urls = [
 				'missing.jpg',
 				'absent.png',
@@ -109,48 +109,48 @@ jQuery(function($){
 		function checkImages(){
 
 			// Reset status & progress bar
-			holder.children().removeClass();
-			dfdLabel.removeClass('label-success label-important');
-			progressBar.css({ width: 0 });
-			statusBar.hide();
-			progress.show();
+			$holder.children().removeClass();
+			$dfdLabel.removeClass('label-success label-important');
+			$progressBar.css({ width: 0 });
+			$statusBar.hide();
+			$progress.show();
 
-			// Call imagesLoaded with callback, defer the determination, and save the deferred object
-			var dfd = holder.imagesLoaded(function( $images, $proper, $broken ){
+			// Call imagesLoaded with multiple callbacks, and save the deferred object
+			var dfd = $holder.imagesLoaded({
+					callback: function($images, $proper, $broken){
 
-				totalLabel.text( $images.length );
-				properLabel.text( $proper.length );
-				brokenLabel.text( $broken.length );
+						$totalLabel.text( $images.length );
+						$properLabel.text( $proper.length );
+						$brokenLabel.text( $broken.length );
 
-			}, true);
+					},
+					progress: function (isBroken, $images, $proper, $broken) {
 
-			// Deferred magic
-			dfd.progress(function( isBroken, $images, $proper, $broken ){
+						var loadingSpan = this.siblings('.loading');
 
-				var loadingSpan = this.siblings('.loading');
+						if( isBroken ){
+							loadingSpan.removeClass('loading').addClass('broken');
+						} else {
+							loadingSpan.fadeOut(200, function(){ $(this).remove(); });
+						}
 
-				if( isBroken ){
-					loadingSpan.removeClass('loading').addClass('broken');
-				} else {
-					loadingSpan.fadeOut(200, function(){ $(this).remove(); });
-				}
+						$progressBar.css({ width: Math.round( ( ( $proper.length + $broken.length ) * 100 ) / $images.length ) + '%' });
 
-				progressBar.css({ width: Math.round( ( ( $proper.length + $broken.length ) * 100 ) / $images.length ) + '%' });
+					}
+				});
 
-			}).always(function(){
+			// Subsequent deferred method registration (not to be used with progress method)
+			dfd.always(function(){
 
 				var dfdState = dfd.state();
 
-				dfdLabel.addClass( 'label-' + ( dfdState === 'resolved' ? 'success' : 'important' ) ).text( dfdState );
+				$dfdLabel.addClass( 'label-' + ( dfdState === 'resolved' ? 'success' : 'important' ) ).text( dfdState );
 
-				progress.hide();
-				statusBar.show();
-				progressBar.css({ width: 0 });
+				$progress.hide();
+				$statusBar.show();
+				$progressBar.css({ width: 0 });
 
 			});
-
-			// Start the determination process
-			dfd.start();
 
 		}
 
@@ -161,7 +161,7 @@ jQuery(function($){
 				brokenPercentile = 10;
 			}
 
-			holder.loremImages( 600, 800, { count: count, randomWidth: 100, itemBuilder: function( i, url ){
+			$holder.loremImages( 600, 800, { count: count, randomWidth: 100, itemBuilder: function( i, url ){
 
 				url = Math.random()*100 < brokenPercentile ? broken_urls[Math.floor( Math.random() * broken_urls.length )]+'?'+Math.round( Math.random()*1000 ) : url;
 
@@ -174,7 +174,7 @@ jQuery(function($){
 		}
 
 		// Controls
-		controlbar.find('[data-action]').click(function(){
+		$controlbar.find('[data-action]').click(function(){
 
 			var el = $(this),
 				action = el.data('action'),
@@ -187,7 +187,7 @@ jQuery(function($){
 				break;
 
 				case 'removeImages':
-					holder.children().slice(-count).remove();
+					$holder.children().slice(-count).remove();
 					checkImages();
 				break;
 
@@ -196,7 +196,7 @@ jQuery(function($){
 		});
 
 		// Click-delete images
-		holder.on('click', 'li', function(){
+		$holder.on('click', 'li', function(){
 
 			$(this).fadeOut( 200, function(){
 

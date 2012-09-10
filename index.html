@@ -69,17 +69,17 @@
 
 	<pre><code class="language-javascript">
 // Call imagesLoaded and position images
-holder.imagesLoaded(function( $images, $proper, $broken ){
+$holder.imagesLoaded(function( $images, $proper, $broken ){
 
-	var $container = this,
-		x = 1;
+    var $container = this,
+        x = 1;
 
-	$images.each( function() {
-		var $this = $(this).css({ left: x });
-		x += $this.width() + 1;
-	});
+    $images.each( function() {
+        var $this = $(this).css({ left: x });
+        x += $this.width() + 1;
+    });
 
-	$container.width(x);
+    $container.width(x);
 
 });
 	</code></pre>
@@ -143,37 +143,40 @@ holder.imagesLoaded(function( $images, $proper, $broken ){
 			<h2>Code</h2>
 
 	<pre><code class="language-javascript">
-// Call imagesLoaded with callback and save the deferred object
-var dfd = $("#holder").imagesLoaded(function( $images, $proper, $broken ){
+// Call imagesLoaded with multiple callbacks, and save the deferred object
+var dfd = $holder.imagesLoaded({
+        callback: function($images, $proper, $broken){
 
-	totalLabel.text( $images.length );
-	properLabel.text( $proper.length );
-	brokenLabel.text( $broken.length );
+            $totalLabel.text( $images.length );
+            $properLabel.text( $proper.length );
+            $brokenLabel.text( $broken.length );
 
-});
+        },
+        progress: function (isBroken, $images, $proper, $broken) {
 
-// Deferred magic
-dfd.progress(function( isBroken, $images, $proper, $broken ){
+            var loadingSpan = this.siblings('.loading');
 
-	var loadingSpan = this.siblings('.loading');
+            if( isBroken ){
+                loadingSpan.removeClass('loading').addClass('broken');
+            } else {
+                loadingSpan.fadeOut(200, function(){ $(this).remove(); });
+            }
 
-	if( isBroken ){
-		loadingSpan.removeClass('loading').addClass('broken')
-	} else {
-		loadingSpan.fadeOut(200, function(){ $(this).remove(); });
-	}
+            $progressBar.css({ width: Math.round( ( ( $proper.length + $broken.length ) * 100 ) / $images.length ) + '%' });
 
-	progressBar.css({ width: Math.round( ( ( $proper.length + $broken.length ) * 100 ) / $images.length ) + '%' });
+        }
+    });
 
-}).always(function(){
+// Subsequent deferred method registration (not to be used with progress method)
+dfd.always(function(){
 
-	var dfdState = dfd.state();
+    var dfdState = dfd.state();
 
-	dfdLabel.addClass( 'label-' + ( dfdState === 'resolved' ? 'success' : 'important' ) ).text( dfdState );
+    $dfdLabel.addClass( 'label-' + ( dfdState === 'resolved' ? 'success' : 'important' ) ).text( dfdState );
 
-	progress.hide();
-	statusBar.show();
-	progressBar.css({ width: 0 });
+    $progress.hide();
+    $statusBar.show();
+    $progressBar.css({ width: 0 });
 
 });
 	</code></pre>
