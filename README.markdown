@@ -34,7 +34,8 @@ Callback argument can be a function, or an object map with deferred methods.
 
 #### callback:function
 
-Pass a function to be called when all images has finished with loading. This is the simplest way how to use imagesLoaded.
+Function that will be called when all images has finished with loading, regardless of their final state (proper/broken).
+This is the simplest way how to use imagesLoaded.
 
 ##### *this*
 
