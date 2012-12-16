@@ -82,7 +82,7 @@ $.fn.imagesLoaded = function( callback ) {
 		// call doneLoading and clean listeners if all images are loaded
 		if ( $images.length === loaded.length ) {
 			setTimeout( doneLoading );
-			$images.unbind( 'load.imagesLoaded error.imagesLoaded', imgLoadedHandler );
+			$images.unbind( '.imagesLoaded', imgLoadedHandler );
 		}
 	}
 
