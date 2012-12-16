@@ -1,5 +1,5 @@
 /*!
- * jQuery imagesLoaded plugin v2.1.0
+ * jQuery imagesLoaded plugin v2.1.1
  * http://github.com/desandro/imagesloaded
  *
  * MIT License. by Paul Irish et al.
@@ -50,7 +50,7 @@ $.fn.imagesLoaded = function( callback ) {
 			callback.call( $this, $images, $proper, $broken );
 		}
 	}
-	
+
 	function imgLoadedHandler( event ) {
 		imgLoaded( event.target, event.type === 'error' );
 	}
