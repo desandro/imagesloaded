@@ -57,7 +57,7 @@ $.fn.imagesLoaded = function( callback ) {
 
 	function imgLoaded( img, isBroken ) {
 		// don't proceed if BLANK image, or image is already loaded
-		if ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
+		if ( typeof img.src === "string" && ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) ) {
 			return;
 		}
 
@@ -92,30 +92,32 @@ $.fn.imagesLoaded = function( callback ) {
 	} else {
 		$images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoadedHandler )
 		.each( function( i, el ) {
-			var src = el.src;
-
-			// find out if this image has been already checked for status
-			// if it was, and src has not changed, call imgLoaded on it
-			var cached = $.data( el, 'imagesLoaded' );
-			if ( cached && cached.src === src ) {
-				imgLoaded( el, cached.isBroken );
-				return;
-			}
-
-			// if complete is true and browser supports natural sizes, try
-			// to check for image status manually
-			if ( el.complete && el.naturalWidth !== undefined ) {
-				imgLoaded( el, el.naturalWidth === 0 || el.naturalHeight === 0 );
-				return;
-			}
-
-			// cached images don't fire load sometimes, so we reset src, but only when
-			// dealing with IE, or image is complete (loaded) and failed manual check
-			// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-			if ( el.readyState || el.complete ) {
-				el.src = BLANK;
-				el.src = src;
-			}
+			if ( typeof src === "string" ) {
+				var src = el.src;
+	
+				// find out if this image has been already checked for status
+				// if it was, and src has not changed, call imgLoaded on it
+				var cached = $.data( el, 'imagesLoaded' );
+				if ( cached && cached.src === src ) {
+					imgLoaded( el, cached.isBroken );
+					return;
+				}
+	
+				// if complete is true and browser supports natural sizes, try
+				// to check for image status manually
+				if ( el.complete && el.naturalWidth !== undefined ) {
+					imgLoaded( el, el.naturalWidth === 0 || el.naturalHeight === 0 );
+					return;
+				}
+	
+				// cached images don't fire load sometimes, so we reset src, but only when
+				// dealing with IE, or image is complete (loaded) and failed manual check
+				// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+				if ( el.readyState || el.complete ) {
+					el.src = BLANK;
+					el.src = src;
+				}	
+			}			
 		});
 	}
 
