@@ -57,7 +57,7 @@ $.fn.imagesLoaded = function( callback ) {
 
 	function imgLoaded( img, isBroken ) {
 		// don't proceed if BLANK image, or image is already loaded
-		if ( typeof img.src === "string" && ( img.src === BLANK || $.inArray( img, loaded ) !== -1 ) ) {
+		if ( typeof img.src !== "string" || img.src === BLANK || $.inArray( img, loaded ) !== -1 ) {
 			return;
 		}
 
