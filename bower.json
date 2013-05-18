@@ -2,8 +2,13 @@
   "name": "imagesloaded",
   "version": "2.1.1",
   "description": "jQuery is all like _You images done yet or what?_",
-  "main": "jquery.imagesloaded.js",
+  "main": "imagesloaded.js",
   "dependencies": {
+    "eventEmitter": ">=3",
+    "eventie": "desandro/eventie",
+    "jquery-bridget": ">=1"
+  },
+  "devDependencies": {
     "jquery": ">=1.4.3"
   }
 }
