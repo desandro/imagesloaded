@@ -3,6 +3,7 @@ test( 'basics', function() {
   'use strict';
 
   var elem = document.querySelector('#basics');
+  var images = elem.querySelectorAll('img');
   var isCallbacked, isDone, isAlways, isAllProgressed;
   // stop();
   var imgLoader = new ImagesLoaded( elem, function( obj ) {
@@ -26,8 +27,8 @@ test( 'basics', function() {
   imgLoader.on( 'progress', function( loader, image ) {
     ok( image.isLoaded, 'image is loaded');
     progressCount++;
-    if ( progressCount >= 4 ) {
-      equal( progressCount, 4, 'progressed 4 times' );
+    if ( progressCount >= images.length ) {
+      equal( progressCount, images.length, 'progressed right amount of times' );
       isAllProgressed = true;
       checkReady();
     }
