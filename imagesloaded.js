@@ -99,7 +99,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     this.hasAnyBroken = false;
     function onConfirm( image ) {
       _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
-      _this.emit( 'progress', [ _this, image ] );
+      _this.emit( 'progress', _this, image );
       checkedCount++;
       if ( checkedCount === length ) {
         _this.complete();
@@ -116,8 +116,8 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   ImagesLoaded.prototype.complete = function() {
     var eventName = this.hasAnyBroken ? 'fail' : 'done';
-    this.emit( eventName, [ this ] );
-    this.emit( 'always', [ this ] );
+    this.emit( eventName, this );
+    this.emit( 'always', this );
     this.isComplete = true;
   };
 
@@ -171,7 +171,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   LoadingImage.prototype.confirm = function( isLoaded ) {
     this.isConfirmed = true;
     this.isLoaded = isLoaded;
-    this.emit( 'confirm', [ this ] );
+    this.emit( 'confirm', this );
   };
 
   // trigger specified handler for event type

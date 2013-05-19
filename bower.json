@@ -4,11 +4,12 @@
   "description": "jQuery is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "eventEmitter": ">=3",
+    "eventEmitter": ">=4<5",
     "eventie": "desandro/eventie",
     "jquery-bridget": ">=1"
   },
   "devDependencies": {
-    "jquery": ">=1.4.3"
+    "jquery": ">=1.4.3",
+    "qunit": ">=1.10"
   }
 }

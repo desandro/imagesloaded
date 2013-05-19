@@ -5,6 +5,11 @@
   "undef": true,
   "unused": true,
   "predef": {
-    "define": false
+    "define": false,
+
+    "ImagesLoaded": false,
+    "test": false,
+    "ok": false,
+    "equal": false
   }
 }
