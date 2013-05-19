@@ -82,18 +82,24 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       var elem = this.elements[i];
       // filter siblings
       if ( elem.nodeName === 'IMG' ) {
-        this.images.push( elem );
+        this.addImage( elem );
       }
       // find children
       var childElems = elem.querySelectorAll('img');
       // concat childElems to filterFound array
       for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {
         var img = childElems[j];
-        // this.images.push( img );
-        var loadingImage = new LoadingImage( img );
-        this.images.push( loadingImage );
+        this.addImage( img );
       }
     }
+  };
+
+  /**
+   * @param {Image} img
+   */
+  ImagesLoaded.prototype.addImage = function( img ) {
+    var loadingImage = new LoadingImage( img );
+    this.images.push( loadingImage );
   };
 
   ImagesLoaded.prototype.check = function() {
