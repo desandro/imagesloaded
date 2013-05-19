@@ -1,6 +1,7 @@
 {
   "browser": true,
   "devel": true,
+  "newcap": false,
   "strict": true,
   "undef": true,
   "unused": true,
@@ -10,6 +11,8 @@
     "ImagesLoaded": false,
     "test": false,
     "ok": false,
-    "equal": false
+    "equal": false,
+    "start": false,
+    "stop": false
   }
 }
