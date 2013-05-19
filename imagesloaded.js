@@ -179,7 +179,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
 
     // If none of the checks above matched, simulate loading on detached element.
-    var proxyImage = new Image();
+    var proxyImage = this.proxyImage = new Image();
     eventie.bind( proxyImage, 'load', this );
     eventie.bind( proxyImage, 'error', this );
     proxyImage.src = this.img.src;
@@ -211,19 +211,19 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
   };
 
-  LoadingImage.prototype.onload = function( event ) {
+  LoadingImage.prototype.onload = function() {
     this.confirm( true, 'onload' );
-    this.unbindProxyEvents( event.target );
+    this.unbindProxyEvents();
   };
 
   LoadingImage.prototype.onerror = function() {
     this.confirm( false, 'onerror' );
-    this.unbindProxyEvents( event.target );
+    this.unbindProxyEvents();
   };
 
-  LoadingImage.prototype.unbindProxyEvents = function( proxyImage ) {
-    eventie.unbind( proxyImage, 'load', this );
-    eventie.unbind( proxyImage, 'error', this );
+  LoadingImage.prototype.unbindProxyEvents = function() {
+    eventie.unbind( this.proxyImage, 'load', this );
+    eventie.unbind( this.proxyImage, 'error', this );
   };
 
   // -----  ----- //
