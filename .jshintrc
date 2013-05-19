@@ -1,6 +1,5 @@
 {
   "browser": true,
-  "devel": true,
   "newcap": false,
   "strict": true,
   "undef": true,

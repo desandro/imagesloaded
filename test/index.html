@@ -11,8 +11,7 @@
   <script src="../components/eventEmitter/EventEmitter.js"></script>
   <script src="../components/eventie/eventie.js"></script>
   <script src="../components/qunit/qunit.js"></script>
-  <script src="../components/jquery/jquery.min.js"></script>
-  <script src="../components/jquery-bridget/jquery.bridget.js"></script>
+  <script src="../components/jquery/jquery.js"></script>
 
   <script src="../imagesloaded.js"></script>
 
@@ -22,6 +21,8 @@
   <script src="local-files.js"></script>
   <script src="data-uri.js"></script>
   <script src="append.js"></script>
+  <script src="jquery-success.js"></script>
+  <script src="jquery-fail.js"></script>
 
 </head>
 <body>
@@ -52,6 +53,21 @@
   </div>
 
   <div id="append"></div>
+
+  <div id="jquery-success">
+    <img src="http://i.imgur.com/YbYCPFF.png" />
+    <img src="http://i.imgur.com/6UdOxeB.png" />
+    <img src="http://i.imgur.com/qd8G15D.png" />
+  </div>
+
+  <div id="jquery-fail">
+    <img src="http://i.imgur.com/xmSh2.jpg" />
+    <img src="img/bowser-jr.jpg" />
+    <img src="http://i.imgur.com/ZAVN3.png">
+    <!-- thunder cloud has bad permissions, should 403 -->
+    <img src="img/thunder-cloud.jpg" />
+    <img src="foobar.jpg" />
+  </div>
 
 </body>
 </html>

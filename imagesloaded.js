@@ -7,6 +7,8 @@
 
 'use strict';
 
+var $ = window.jQuery;
+var console = window.console;
 var hasConsole = typeof console !== undefined;
 
 // -------------------------- helpers -------------------------- //
@@ -74,8 +76,6 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       this.on( 'always', onAlways );
     }
 
-    // TODO extend options
-
     this.getImages();
 
     // HACK check async to allow time to bind listeners
@@ -127,8 +127,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
         console.log( 'confirm', image, message );
       }
 
-      _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
-      _this.emit( 'progress', _this, image );
+      _this.progress( image );
       checkedCount++;
       if ( checkedCount === length ) {
         _this.complete();
@@ -143,12 +142,36 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
   };
 
+  ImagesLoaded.prototype.progress = function( image ) {
+    this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
+    this.emit( 'progress', this, image );
+    if ( this.jqDeferred ) {
+      this.jqDeferred.notify( this, image );
+    }
+  };
+
   ImagesLoaded.prototype.complete = function() {
     var eventName = this.hasAnyBroken ? 'fail' : 'done';
+    this.isComplete = true;
     this.emit( eventName, this );
     this.emit( 'always', this );
-    this.isComplete = true;
+    if ( this.jqDeferred ) {
+      var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
+      this.jqDeferred[ jqMethod ]( this );
+    }
   };
+
+  // -------------------------- jquery -------------------------- //
+
+  if ( $ ) {
+    $.fn.imagesLoaded = function( options, callback ) {
+      var instance = new ImagesLoaded( this, options, callback );
+      // add jQuery Deferred object
+      instance.jqDeferred = new $.Deferred();
+      return instance.jqDeferred.promise( $(this) );
+    };
+  }
+
 
   // --------------------------  -------------------------- //
 

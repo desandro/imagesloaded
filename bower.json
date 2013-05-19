@@ -1,15 +1,14 @@
 {
   "name": "imagesloaded",
-  "version": "2.1.1",
-  "description": "jQuery is all like _You images done yet or what?_",
+  "version": "3.0.0",
+  "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "eventEmitter": ">=4<5",
-    "eventie": "desandro/eventie",
-    "jquery-bridget": ">=1"
+    "eventEmitter": "4.x",
+    "eventie": "desandro/eventie"
   },
   "devDependencies": {
-    "jquery": ">=1.4.3",
+    "jquery": "~1.9",
     "qunit": ">=1.10"
   }
 }
