@@ -36,7 +36,6 @@ function makeArray( obj ) {
 
 function defineImagesLoaded( EventEmitter, eventie ) {
 
-
   /**
    * @param {Array, Element, NodeList} elem
    * @param {Object or Function} options - if function, use as callback
@@ -58,7 +57,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       this.on( 'always', onAlways );
     }
 
-    // extend options
+    // TODO extend options
 
     this.getImages();
 
@@ -68,6 +67,8 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       _this.check();
     });
   }
+
+  ImagesLoaded.prototype = new EventEmitter();
 
   ImagesLoaded.prototype.getImages = function() {
     this.images = [];
@@ -85,7 +86,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {
         var img = childElems[j];
         // this.images.push( img );
-        var loadingImage = new LoadingImage( img, this );
+        var loadingImage = new LoadingImage( img );
         this.images.push( loadingImage );
       }
     }
@@ -96,7 +97,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var checkedCount = 0;
     var length = this.images.length;
     this.hasAnyBroken = false;
-    function onCheck( image ) {
+    function onConfirm( image ) {
       _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
       _this.emit( 'progress', [ _this, image ] );
       checkedCount++;
@@ -108,7 +109,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
     for ( var i=0; i < length; i++ ) {
       var loadingImage = this.images[i];
-      loadingImage.on( 'confirm', onCheck );
+      loadingImage.on( 'confirm', onConfirm );
       loadingImage.check();
     }
   };
@@ -124,10 +125,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   var cache = {};
 
-  function LoadingImage( img, collection ) {
+  function LoadingImage( img ) {
     this.img = img;
-    this.collection = collection;
   }
+
+  LoadingImage.prototype = new EventEmitter();
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
@@ -151,7 +153,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var proxyImage = this.proxyImage = new Image();
     eventie.bind( proxyImage, 'load', this );
     eventie.bind( proxyImage, 'error', this );
-    proxyImage.src = this.src;
+    proxyImage.src = this.img.src;
   };
 
   LoadingImage.prototype.useCached = function( cached ) {
