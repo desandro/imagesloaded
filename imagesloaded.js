@@ -37,7 +37,7 @@ function makeArray( obj ) {
 function defineImagesLoaded( EventEmitter, eventie ) {
 
   /**
-   * @param {Array, Element, NodeList} elem
+   * @param {Array, Element, NodeList, String} elem
    * @param {Object or Function} options - if function, use as callback
    * @param {Function} onAlways - callback function
    */
@@ -45,6 +45,10 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     // coerce ImagesLoaded() without new, to be new ImagesLoaded()
     if ( !( this instanceof ImagesLoaded ) ) {
       return new ImagesLoaded( elem, options );
+    }
+    // use elem as selector string
+    if ( typeof elem === 'string' ) {
+      elem = document.querySelectorAll( elem );
     }
 
     this.elements = makeArray( elem );
