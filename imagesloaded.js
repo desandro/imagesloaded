@@ -7,7 +7,17 @@
 
 'use strict';
 
+var hasConsole = typeof console !== undefined;
+
 // -------------------------- helpers -------------------------- //
+
+// extend objects
+function extend( a, b ) {
+  for ( var prop in b ) {
+    a[ prop ] = b[ prop ];
+  }
+  return a;
+}
 
 var objToString = Object.prototype.toString;
 function isArray( obj ) {
@@ -52,9 +62,12 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
 
     this.elements = makeArray( elem );
+    this.options = extend( {}, this.options );
 
     if ( typeof options === 'function' ) {
       onAlways = options;
+    } else {
+      extend( this.options, options );
     }
 
     if ( onAlways ) {
@@ -73,6 +86,8 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   }
 
   ImagesLoaded.prototype = new EventEmitter();
+
+  ImagesLoaded.prototype.options = {};
 
   ImagesLoaded.prototype.getImages = function() {
     this.images = [];
@@ -107,7 +122,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var checkedCount = 0;
     var length = this.images.length;
     this.hasAnyBroken = false;
-    function onConfirm( image ) {
+    function onConfirm( image, message ) {
+      if ( _this.options.debug && hasConsole ) {
+        console.log( 'confirm', image, message );
+      }
+
       _this.hasAnyBroken = _this.hasAnyBroken || !image.isLoaded;
       _this.emit( 'progress', _this, image );
       checkedCount++;
@@ -155,7 +174,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     // try to check for image status manually.
     if ( this.img.complete && this.img.naturalWidth !== undefined ) {
       // report based on naturalWidth
-      this.confirm( this.img.naturalWidth !== 0 );
+      this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
       return;
     }
 
@@ -168,20 +187,20 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   LoadingImage.prototype.useCached = function( cached ) {
     if ( cached.isConfirmed ) {
-      this.confirm( cached.isLoaded );
+      this.confirm( cached.isLoaded, 'cached was confirmed' );
     } else {
       var _this = this;
       cached.on( 'confirm', function( image ) {
-        _this.confirm( image.isLoaded );
+        _this.confirm( image.isLoaded, 'cache emitted confirmed' );
         return true; // bind once
       });
     }
   };
 
-  LoadingImage.prototype.confirm = function( isLoaded ) {
+  LoadingImage.prototype.confirm = function( isLoaded, message ) {
     this.isConfirmed = true;
     this.isLoaded = isLoaded;
-    this.emit( 'confirm', this );
+    this.emit( 'confirm', this, message );
   };
 
   // trigger specified handler for event type
@@ -193,12 +212,12 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   };
 
   LoadingImage.prototype.onload = function( event ) {
-    this.confirm( true );
+    this.confirm( true, 'onload' );
     this.unbindProxyEvents( event.target );
   };
 
   LoadingImage.prototype.onerror = function() {
-    this.confirm( false );
+    this.confirm( false, 'onerror' );
     this.unbindProxyEvents( event.target );
   };
 
