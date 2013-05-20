@@ -23,9 +23,12 @@ module.exports = function( grunt ) {
       var bowerSources = JSON.parse( sourcesSrc );
       // set bowerMap
 
-      // remove EventEmitter.min.js
+      // remove jquery, qunit, & EventEmitter.min.js
       var bowerJsSources = bowerSources['.js'].filter( function( src ) {
-        return src.indexOf('.min.js') === -1;
+        var isMin = src.indexOf('.min.js') !== -1;
+        var isJquery = src.indexOf('jquery.js') !== -1;
+        var isQunit = src.indexOf('qunit.js') !== -1;
+        return !isMin && !isJquery && !isQunit;
       });
       // add bower JS to JS collection
       var jsSrcs = grunt.config.get('concat.pkgd.src');
