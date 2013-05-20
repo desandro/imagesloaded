@@ -24,7 +24,7 @@ module.exports = function( grunt ) {
     var page = grunt.file.read('assets/page.html');
     var content = page.replace( '{{{ content }}}', readmeHTML );
 
-    grunt.file.write( 'build/index.html', content );
+    grunt.file.write( 'index.html', content );
   });
 
 };

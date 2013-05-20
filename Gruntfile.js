@@ -23,10 +23,6 @@ module.exports = function( grunt ) {
         options: {
           banner: banner
         }
-      },
-      css: {
-        src: [ 'components/normalize-css/normalize.css', 'assets/*.css' ],
-        dest: 'build/styles.css'
       }
     },
 
@@ -37,14 +33,6 @@ module.exports = function( grunt ) {
         },
         options: {
           banner: banner
-        }
-      }
-    },
-
-    copy: {
-      scripts: {
-        files: {
-          'build/scripts.js': 'assets/scripts.js'
         }
       }
     },
@@ -74,8 +62,7 @@ module.exports = function( grunt ) {
     'bower-list-sources',
     'concat',
     'uglify',
-    'page',
-    'copy'
+    'page'
   ]);
 
 };
