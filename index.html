@@ -8,19 +8,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700" />
-  <!-- <link rel="stylesheet" href="../components/normalize-css/normalize.css" />
-  <link rel="stylesheet" href="../assets/page.css" /> -->
   <link rel="stylesheet" href="assets/styles.css" />
 
 </head>
 <body>
 
+  <div id="fork-me"><a href="https://github.com/desandro/imagesloaded">Fork me on GitHub</a></div>
+
   <div id="content">
     <h1>imagesLoaded</h1>
+<p class="tagline">JavaScript is all like &quot;You images done yet or what?&quot;</p>
+
 <p><a href="http://desandro.github.io/imagesloaded/">desandro.github.io/imagesloaded</a></p>
 <p>Detect when images have been loaded.</p>
+<h2>Demo</h2>
+
+<div id="demo">
+  <div id="status">
+    <progress max="7" value="0"></progress>
+  </div>
+  <p>
+    <button id="add">Add images</button>
+    <button id="reset">Reset demo</button>
+  </p>
+  <div id="image-container"></div>
+</div>
+
+<p><a href="http://codepen.io/desandro/pen/hlzaw">Edit this example on CodePen</a> or try the <a href="#">jQuery example</a>.</p>
+
+<p>Just to keep things interesting, there&rsquo;s a 10% chance of adding a broken image.</p>
+
+
 <h2>Install</h2>
-<p>Get a packaged source file from <a href="http://desandro.github.io/imagesloaded/">desandro.github.io/imagesloaded</a> or install via <a href="http://bower.io">Bower</a></p>
+<p>Get a packaged source file:</p>
+<ul>
+<li><a href="http://desandro.github.io/imagesloaded/imagesloaded.pkgd.min.js">imagesloaded.pkgd.min.js</a></li>
+<li><a href="http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js">imagesloaded.pkgd.js</a></li>
+</ul>
+<p>Or install via <a href="http://bower.io">Bower</a>:</p>
 <pre><code class="lang-bash">bower install imagesloaded</code></pre>
 <h2>Usage</h2>
 <pre><code class="lang-js">ImagesLoaded( elem, callback )
@@ -41,17 +66,17 @@ ImagesLoaded( <span class="string">'#container'</span>, <span class="keyword">fu
 ImagesLoaded( posts, <span class="keyword">function</span>() {...});</code></pre>
 <h2>Events</h2>
 <p>ImagesLoaded is an Event Emitter. You can bind event listeners to events.</p>
-<pre><code>var imgLoad = ImagesLoaded( elem );
-function onAlways( instance ) {
-  console.log(&#39;all images are loaded&#39;);
+<pre><code class="lang-js"><span class="keyword">var</span> imgLoad = ImagesLoaded( elem );
+<span class="function"><span class="keyword">function</span> <span class="title">onAlways</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'all images are loaded'</span>);
 }
-// bind with .on()
-imgLoad.on( &#39;always&#39;, onAlways );
-// unbind with .off()
-imgLoad.off( &#39;always&#39;, onAlways );</code></pre>
+<span class="comment">// bind with .on()</span>
+imgLoad.on( <span class="string">'always'</span>, onAlways );
+<span class="comment">// unbind with .off()</span>
+imgLoad.off( <span class="string">'always'</span>, onAlways );</code></pre>
 <h3>always</h3>
 <pre><code class="lang-js">imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function</span>( instance ) {
-  console.log(<span class="string">'all images have been loaded'</span>);
+  console.log(<span class="string">'ALWAYS - all images have been loaded'</span>);
 });</code></pre>
 <p>Triggered after all images have been either loaded or confirmed broken.</p>
 <ul>
@@ -59,12 +84,12 @@ imgLoad.off( &#39;always&#39;, onAlways );</code></pre>
 </ul>
 <h3>done</h3>
 <pre><code class="lang-js">imgLoad.on( <span class="string">'done'</span>, <span class="keyword">function</span>( instance ) {
-  console.log(<span class="string">'all images have been successfully loaded'</span>);
+  console.log(<span class="string">'DONE  - all images have been successfully loaded'</span>);
 });</code></pre>
 <p>Triggered after all images have successfully loaded without any broken images.</p>
 <h3>fail</h3>
-<pre><code class="lang-js">imgLoad.on( <span class="string">'done'</span>, <span class="keyword">function</span>( instance ) {
-  console.log(<span class="string">'all images loaded, at least one is broken'</span>);
+<pre><code class="lang-js">imgLoad.on( <span class="string">'fail'</span>, <span class="keyword">function</span>( instance ) {
+  console.log(<span class="string">'FAIL - all images loaded, at least one is broken'</span>);
 });</code></pre>
 <p>Triggered after all images have been loaded with at least one broken image.</p>
 <h3>progress</h3>
@@ -115,18 +140,15 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
     <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
     console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src + );
   });</code></pre>
+<h2>Contributors</h2>
+<p>This project has a <a href="https://github.com/desandro/imagesloaded/graphs/contributors">storied legacy</a>. Its current incarnation was developed by <a href="http://darsa.in/">Tomas Sardyha @Darsain</a> and <a href="http://desandro.com">David DeSandro @desandro</a>.</p>
 <h2>MIT License</h2>
 <p>ImagesLoaded is released under the <a href="http://desandro.mit-license.org/">MIT License</a>. Have at it.</p>
 
   </div>
 
-<!-- <script src="../components/eventEmitter/EventEmitter.js"></script>
-<script src="../components/eventie/eventie.js"></script>
-<script src="../draggabilly.js"></script>
-<script src="../assets/scripts.js"></script> -->
-
 <script src="imagesloaded.pkgd.min.js"></script>
-<script src="scripts.js"></script>
+<script src="assets/scripts.js"></script>
 
 </body>
 </html>
