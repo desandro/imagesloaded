@@ -413,7 +413,8 @@ body {
 
 h1, h2, h3, h4, h5,
 .tagline,
-#fork-me {
+#fork-me,
+#demo button {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
 }
 
@@ -479,6 +480,99 @@ a:hover { color: #04F; }
   color: #FC3;
   background: #320;
 }
+
+/* demo
+------------------------- */
+
+#image-container {
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  min-height: 165px;
+}
+
+/* clear fix */
+#image-container:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+#image-container img {
+  max-height: 140px;
+  border-radius: 5px;
+}
+
+#image-container li {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+
+#image-container li img,
+#status {
+  -webkit-transition: opacity 0.4s;
+     -moz-transition: opacity 0.4s;
+      -ms-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+}
+
+#image-container li.is-loading {
+  background-color: black;
+  background-image: url('http://desandro.github.io/imagesloaded/img/loading.gif');
+}
+
+#image-container  li.is-broken {
+  background-image: url('http://desandro.github.io/imagesloaded/img/broken.png');
+  background-color: #be3730;
+  width: 120px;
+}
+
+#image-container li.is-loading img,
+#image-container li.is-broken img {
+  opacity: 0;
+}
+
+#demo button {
+  font-size: 18px;
+  padding: 10px 20px;;
+  border-radius: 8px;
+  color: white;
+  background-color: #888;
+  border: none;
+  background-image: -webkit-linear-gradient( hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.3) );
+  background-image:         linear-gradient( hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.3) );
+}
+
+#demo #add { background-color: #88F; }
+#demo #add:hover { background-color: #AAF; }
+
+#demo #reset { background-color: #333; }
+#demo #reset:hover { background-color: #555; }
+
+#demo button:active {
+  box-shadow: inset 0 2px 14px hsla(0, 0%, 0%, 0.8);
+}
+
+#status {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: hsla( 0, 0%, 0%, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2; /* over other stuff */
+}
+
+#status progress { font-size: 28px; }
 
 /* syntax highlighting
 ------------------------- */
@@ -548,6 +642,11 @@ code .at_rule { color: #088; }
 
   #content > ul {
     padding-left: 126px;
+  }
+
+  #content > #demo {
+    padding-right: 1.0em;
+    max-width: none;
   }
 
    #fork-me {

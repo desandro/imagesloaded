@@ -21,6 +21,9 @@ module.exports = function( grunt ) {
 
   grunt.registerTask( 'page', function() {
     var readmeHTML = marked( grunt.file.read('README.md') );
+    // insert demo
+    var demoHTML = grunt.file.read('assets/demo.html');
+    readmeHTML = readmeHTML.replace( '<!-- demo -->', demoHTML );
     var page = grunt.file.read('assets/page.html');
     var content = page.replace( '{{{ content }}}', readmeHTML );
 
