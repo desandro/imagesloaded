@@ -265,7 +265,7 @@ if ( typeof define === 'function' && define.amd ) {
     defineImagesLoaded );
 } else {
   // browser global
-  window.ImagesLoaded = defineImagesLoaded(
+  window.imagesLoaded = defineImagesLoaded(
     window.EventEmitter,
     window.eventie
   );

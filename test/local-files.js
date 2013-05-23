@@ -1,9 +1,11 @@
 test( 'local files', function() {
 
+  'use strict';
+
   var elem = document.querySelector('#locals');
   var isCallbacked, isFailed, isAlways, isAllProgressed;
   // stop();
-  var imgLoader = new ImagesLoaded( elem, function( obj ) {
+  var imgLoader = new imagesLoaded( elem, function( obj ) {
     ok( true, 'callback function triggered' );
     equal( imgLoader, obj, 'callback argument and instance match' );
     isCallbacked = true;

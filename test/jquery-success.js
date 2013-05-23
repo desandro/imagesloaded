@@ -9,19 +9,19 @@ test( 'jquery success', function() {
 
   $('#jquery-success').imagesLoaded( function( instance ) {
       ok( true, 'callback triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isCallbacked = true;
       checkReady();
     })
     .done( function( instance ) {
       ok( true, 'done triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isDone = true;
       checkReady();
     })
     .always( function( instance ) {
       ok( true, 'always triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isAlways = true;
       checkReady();
     })

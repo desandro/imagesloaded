@@ -10,19 +10,19 @@ test( 'jquery fail', function() {
 
   $('#jquery-fail').imagesLoaded( function( instance ) {
       ok( true, 'callback triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isCallbacked = true;
       checkReady();
     })
     .fail( function( instance ) {
       ok( true, 'done triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isFailed = true;
       checkReady();
     })
     .always( function( instance ) {
       ok( true, 'always triggered' );
-      ok( instance instanceof ImagesLoaded, 'instance instanceof ImagesLoaded' );
+      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
       isAlways = true;
       checkReady();
     })

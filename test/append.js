@@ -12,7 +12,7 @@ test( 'append', function() {
   elem.appendChild( fragment );
 
   stop();
-  var imgLoad = ImagesLoaded( elem, { debug: true } ).on( 'done', function() {
+  var imgLoad = imagesLoaded( elem, { debug: true } ).on( 'done', function() {
     ok( 'appended images loaded' );
     start();
   }); 
