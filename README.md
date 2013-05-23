@@ -6,6 +6,8 @@
 
 Detect when images have been loaded.
 
+<!-- demo -->
+
 ## Install
 
 Get a packaged source file:
