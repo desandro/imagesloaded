@@ -1,12 +1,19 @@
 # imagesLoaded
 
+<p class="tagline">JavaScript is all like "You images done yet or what?"</p>
+
 [desandro.github.io/imagesloaded](http://desandro.github.io/imagesloaded/)
 
 Detect when images have been loaded.
 
 ## Install
 
-Get a packaged source file from [desandro.github.io/imagesloaded](http://desandro.github.io/imagesloaded/) or install via [Bower](http://bower.io)
+Get a packaged source file:
+
++ [imagesloaded.pkgd.min.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.min.js)
++ [imagesloaded.pkgd.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js)
+
+Or install via [Bower](http://bower.io):
 
 ``` bash
 bower install imagesloaded
@@ -40,7 +47,7 @@ ImagesLoaded( posts, function() {...});
 
 ImagesLoaded is an Event Emitter. You can bind event listeners to events.
 
-```
+``` js
 var imgLoad = ImagesLoaded( elem );
 function onAlways( instance ) {
   console.log('all images are loaded');
@@ -55,7 +62,7 @@ imgLoad.off( 'always', onAlways );
 
 ``` js
 imgLoad.on( 'always', function( instance ) {
-  console.log('all images have been loaded');
+  console.log('ALWAYS - all images have been loaded');
 });
 ```
 
@@ -67,7 +74,7 @@ Triggered after all images have been either loaded or confirmed broken.
 
 ``` js
 imgLoad.on( 'done', function( instance ) {
-  console.log('all images have been successfully loaded');
+  console.log('DONE  - all images have been successfully loaded');
 });
 ```
 
@@ -76,8 +83,8 @@ Triggered after all images have successfully loaded without any broken images.
 ### fail
 
 ``` js
-imgLoad.on( 'done', function( instance ) {
-  console.log('all images loaded, at least one is broken');
+imgLoad.on( 'fail', function( instance ) {
+  console.log('FAIL - all images loaded, at least one is broken');
 });
 ```
 
@@ -154,6 +161,10 @@ $('#container').imagesLoaded()
     console.log( 'image is ' + result + ' for ' + image.img.src + );
   });
 ```
+
+## Contributors
+
+This project has a [storied legacy](https://github.com/desandro/imagesloaded/graphs/contributors). Its current incarnation was developed by [Tomas Sardyha @Darsain](http://darsa.in/) and [David DeSandro @desandro](http://desandro.com).
 
 ## MIT License
 
