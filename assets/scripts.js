@@ -22,7 +22,7 @@ window.onload = function() {
     }
     container.insertBefore( fragment, container.firstChild );
     // use ImagesLoaded
-    var imgLoad = ImagesLoaded( container );
+    var imgLoad = imagesLoaded( container );
     imgLoad.on( 'progress', onProgress );
     imgLoad.on( 'always', onAlways );
     // reset progress counter
