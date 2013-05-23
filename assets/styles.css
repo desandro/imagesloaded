@@ -399,25 +399,32 @@ table {
 /* Styles
 ------------------------- */
 
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
   font-size: 15px;
   line-height: 1.5;
-  background: #FD2;
-  color: #321;
-  padding: 0 8px;
+  color: #320;
+  background: #FC0;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5,
+.tagline {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
 }
 
 pre, code {
   font-family: Consolas, Menlo, monospace;
-  background: hsla(0, 0%, 0%, 0.06);
+  background: #320;
+  color: #FED;
 }
 
+#content {
+  padding: 0 8px;
+}
 
 pre {
   padding: 1.0em;
@@ -435,17 +442,21 @@ pre code {
   padding: 0;
 }
 
-#content {
-}
+
+
 
 h2 {
-  border-top: 1px solid hsla(0, 0%, 0%, 0.2);
+  border-top: 2px solid white;
   padding-top: 1.0em;
   margin-top: 2.0em;
 }
 
 h3 {
   font-weight: normal;
+}
+
+.tagline {
+  font-size: 18px;
 }
 
 a {
@@ -459,11 +470,11 @@ a:hover { color: #04F; }
 ------------------------- */
 
 code .string,
-code .tag .value { color: #072; }
+code .tag .value { color: #2D4; }
 code .number, /* integer */
 code .cp, /* doctype */
-code .literal { color: #07D; } /*boolean*/
-code .keyword { color: #C31; } /* keyword */
+code .literal { color: #78F; } /*boolean*/
+code .keyword { color: #F84; } /* keyword */
 code .kd, /* storage */
 code .attribute { color: #A61; } /* markup attribute */
 code .p  { color: #EDB; } /* punctuation */
@@ -471,7 +482,7 @@ code .o  { color: #F63; }   /* operator */
 code .nb { color: #AA97AC;} /* support */
 
 /* comment */
-code .comment { color: #A84; font-style: italic; }
+code .comment { color: #876; font-style: italic; }
 
 code .tag { color: #37B; } /* Markup open tag */
 
@@ -503,8 +514,26 @@ code .at_rule { color: #088; }
   }
 
   #content {
-    width: 720px;
-    padding-left: 180px;
+    padding: 0;
+  }
+
+  #content > * {
+    padding-left: 100px;
+    max-width: 820px;
+  }
+
+  #content > h2 {
+    max-width: none;
+  }
+
+  #content > pre {
+    padding-left: 1.0em;
+    margin-left: 100px;
+    max-width: 720px;
+}
+
+  #content > ul {
+    padding-left: 126px;
   }
 
   .example-frame .example {
