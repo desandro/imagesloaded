@@ -412,7 +412,8 @@ body {
 }
 
 h1, h2, h3, h4, h5,
-.tagline {
+.tagline,
+#fork-me {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
 }
 
@@ -442,9 +443,6 @@ pre code {
   padding: 0;
 }
 
-
-
-
 h2 {
   border-top: 2px solid white;
   padding-top: 1.0em;
@@ -465,6 +463,22 @@ a {
 }
 
 a:hover { color: #04F; }
+
+#fork-me {
+  position: absolute;
+  right: 0px;
+  top: 0;
+}
+
+#fork-me a {
+  padding: 5px 20px;
+  background: white;
+}
+
+#fork-me a:hover {
+  color: #FC3;
+  background: #320;
+}
 
 /* syntax highlighting
 ------------------------- */
@@ -536,10 +550,26 @@ code .at_rule { color: #088; }
     padding-left: 126px;
   }
 
-  .example-frame .example {
-    position: absolute;
-    left: 107.5%;
-    width: 64%;
+   #fork-me {
+     overflow: hidden;
+     width: 270px;
+     height: 200px;
+   }
+
+  #fork-me a {
+    display: block;
+    padding: 5px;
+    text-align: center;
+    -webkit-transform-origin: 50px top;
+       -moz-transform-origin: 50px top;
+        -ms-transform-origin: 50px top;
+         -o-transform-origin: 50px top;
+            transform-origin: 50px top;
+    -webkit-transform: translateX(100px) rotate(45deg);
+       -moz-transform: translateX(100px) rotate(45deg);
+        -ms-transform: translateX(100px) rotate(45deg);
+         -o-transform: translateX(100px) rotate(45deg);
+            transform: translateX(100px) rotate(45deg);
   }
 
 }
