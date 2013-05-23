@@ -48,25 +48,25 @@
 <p>Or install via <a href="http://bower.io">Bower</a>:</p>
 <pre><code class="lang-bash">bower install imagesloaded</code></pre>
 <h2>Usage</h2>
-<pre><code class="lang-js">ImagesLoaded( elem, callback )
+<pre><code class="lang-js">imagesLoaded( elem, callback )
 <span class="comment">// you can use `new` if you like</span>
-<span class="keyword">new</span> ImagesLoaded( elem, callback )</code></pre>
+<span class="keyword">new</span> imagesLoaded( elem, callback )</code></pre>
 <ul>
 <li><code>elem</code> <em>Element, NodeList, Array, or Selector String</em></li>
 <li><code>callback</code> <em>Function</em> - function triggered after all images have been loaded</li>
 </ul>
 <pre><code class="lang-js"><span class="comment">// element</span>
-ImagesLoaded( document.querySelector(<span class="string">'#container'</span>), <span class="keyword">function</span>( instance ) {
+imagesLoaded( document.querySelector(<span class="string">'#container'</span>), <span class="keyword">function</span>( instance ) {
   console.log(<span class="string">'all images are loaded'</span>);
 });
 <span class="comment">// selector string</span>
-ImagesLoaded( <span class="string">'#container'</span>, <span class="keyword">function</span>() {...});
+imagesLoaded( <span class="string">'#container'</span>, <span class="keyword">function</span>() {...});
 <span class="comment">// multiple elements</span>
 <span class="keyword">var</span> posts = document.querySelectorAll(<span class="string">'.post'</span>);
-ImagesLoaded( posts, <span class="keyword">function</span>() {...});</code></pre>
+imagesLoaded( posts, <span class="keyword">function</span>() {...});</code></pre>
 <h2>Events</h2>
-<p>ImagesLoaded is an Event Emitter. You can bind event listeners to events.</p>
-<pre><code class="lang-js"><span class="keyword">var</span> imgLoad = ImagesLoaded( elem );
+<p>imagesLoaded is an Event Emitter. You can bind event listeners to events.</p>
+<pre><code class="lang-js"><span class="keyword">var</span> imgLoad = imagesLoaded( elem );
 <span class="function"><span class="keyword">function</span> <span class="title">onAlways</span><span class="params">( instance )</span> {</span>
   console.log(<span class="string">'all images are loaded'</span>);
 }
@@ -80,7 +80,7 @@ imgLoad.off( <span class="string">'always'</span>, onAlways );</code></pre>
 });</code></pre>
 <p>Triggered after all images have been either loaded or confirmed broken.</p>
 <ul>
-<li><code>instance</code> <em>ImagesLoaded</em> - the ImagesLoaded instance</li>
+<li><code>instance</code> <em>imagesLoaded</em> - the imagesLoaded instance</li>
 </ul>
 <h3>done</h3>
 <pre><code class="lang-js">imgLoad.on( <span class="string">'done'</span>, <span class="keyword">function</span>( instance ) {
@@ -99,7 +99,7 @@ imgLoad.off( <span class="string">'always'</span>, onAlways );</code></pre>
 });</code></pre>
 <p>Triggered after each image has been loaded.</p>
 <ul>
-<li><code>instance</code> <em>ImagesLoaded</em> - the ImagesLoaded instance</li>
+<li><code>instance</code> <em>imagesLoaded</em> - the imagesLoaded instance</li>
 <li><code>image</code> <em>LoadingImage</em> - the LoadingImage instance of the loaded image</li>
 </ul>
 <h2>Properties</h2>
@@ -107,9 +107,9 @@ imgLoad.off( <span class="string">'always'</span>, onAlways );</code></pre>
 <p><em>Image</em> - The <code>img</code> element</p>
 <h3>LoadingImage.isLoaded</h3>
 <p><em>Boolean</em> - <code>true</code> when the image has succesfully loaded</p>
-<h3>ImagesLoaded.images</h3>
+<h3>imagesLoaded.images</h3>
 <p>Array of <em>LoadingImage</em> instances for each image detected</p>
-<pre><code class="lang-js"><span class="keyword">var</span> imgLoad = ImagesLoaded(<span class="string">'#container'</span>);
+<pre><code class="lang-js"><span class="keyword">var</span> imgLoad = imagesLoaded(<span class="string">'#container'</span>);
 imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function</span>() {
   console.log( imgLoad.images.length + <span class="string">' images loaded'</span> );
   <span class="comment">// detect which image is broken</span>
@@ -120,7 +120,7 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
   }
 });</code></pre>
 <h2>jQuery</h2>
-<p>If you include jQuery, ImagesLoaded can be used as a jQuery Plugin.</p>
+<p>If you include jQuery, imagesLoaded can be used as a jQuery Plugin.</p>
 <pre><code class="lang-js">$(<span class="string">'#container'</span>).imagesLoaded( <span class="keyword">function</span>() {
   <span class="comment">// images have loaded</span>
 });</code></pre>
@@ -143,7 +143,7 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
 <h2>Contributors</h2>
 <p>This project has a <a href="https://github.com/desandro/imagesloaded/graphs/contributors">storied legacy</a>. Its current incarnation was developed by <a href="http://darsa.in/">Tomas Sardyha @Darsain</a> and <a href="http://desandro.com">David DeSandro @desandro</a>.</p>
 <h2>MIT License</h2>
-<p>ImagesLoaded is released under the <a href="http://desandro.mit-license.org/">MIT License</a>. Have at it.</p>
+<p>imagesLoaded is released under the <a href="http://desandro.mit-license.org/">MIT License</a>. Have at it.</p>
 
   </div>
 
