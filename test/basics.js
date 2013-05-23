@@ -6,7 +6,7 @@ test( 'basics', function() {
   var images = elem.querySelectorAll('img');
   var isCallbacked, isDone, isAlways, isAllProgressed;
   // stop();
-  var imgLoader = new ImagesLoaded( elem, function( obj ) {
+  var imgLoader = new imagesLoaded( elem, function( obj ) {
     ok( true, 'callback function triggered' );
     equal( imgLoader, obj, 'callback argument and instance match' );
     isCallbacked = true;

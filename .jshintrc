@@ -7,7 +7,7 @@
   "predef": {
     "define": false,
 
-    "ImagesLoaded": false,
+    "imagesLoaded": false,
     "test": false,
     "ok": false,
     "equal": false,

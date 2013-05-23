@@ -24,9 +24,9 @@ bower install imagesloaded
 ## Usage
 
 ``` js
-ImagesLoaded( elem, callback )
+imagesLoaded( elem, callback )
 // you can use `new` if you like
-new ImagesLoaded( elem, callback )
+new imagesLoaded( elem, callback )
 ```
 
 + `elem` _Element, NodeList, Array, or Selector String_
@@ -34,23 +34,23 @@ new ImagesLoaded( elem, callback )
 
 ``` js
 // element
-ImagesLoaded( document.querySelector('#container'), function( instance ) {
+imagesLoaded( document.querySelector('#container'), function( instance ) {
   console.log('all images are loaded');
 });
 // selector string
-ImagesLoaded( '#container', function() {...});
+imagesLoaded( '#container', function() {...});
 // multiple elements
 var posts = document.querySelectorAll('.post');
-ImagesLoaded( posts, function() {...});
+imagesLoaded( posts, function() {...});
 ```
 
 
 ## Events
 
-ImagesLoaded is an Event Emitter. You can bind event listeners to events.
+imagesLoaded is an Event Emitter. You can bind event listeners to events.
 
 ``` js
-var imgLoad = ImagesLoaded( elem );
+var imgLoad = imagesLoaded( elem );
 function onAlways( instance ) {
   console.log('all images are loaded');
 }
@@ -70,7 +70,7 @@ imgLoad.on( 'always', function( instance ) {
 
 Triggered after all images have been either loaded or confirmed broken.
 
-+ `instance` _ImagesLoaded_ - the ImagesLoaded instance
++ `instance` _imagesLoaded_ - the imagesLoaded instance
 
 ### done
 
@@ -103,7 +103,7 @@ imgLoad.on( 'progress', function( instance, image ) {
 
 Triggered after each image has been loaded.
 
-+ `instance` _ImagesLoaded_ - the ImagesLoaded instance
++ `instance` _imagesLoaded_ - the imagesLoaded instance
 + `image` _LoadingImage_ - the LoadingImage instance of the loaded image
 
 ## Properties
@@ -116,12 +116,12 @@ _Image_ - The `img` element
 
 _Boolean_ - `true` when the image has succesfully loaded
 
-### ImagesLoaded.images
+### imagesLoaded.images
 
 Array of _LoadingImage_ instances for each image detected
 
 ``` js
-var imgLoad = ImagesLoaded('#container');
+var imgLoad = imagesLoaded('#container');
 imgLoad.on( 'always', function() {
   console.log( imgLoad.images.length + ' images loaded' );
   // detect which image is broken
@@ -135,7 +135,7 @@ imgLoad.on( 'always', function() {
 
 ## jQuery
 
-If you include jQuery, ImagesLoaded can be used as a jQuery Plugin.
+If you include jQuery, imagesLoaded can be used as a jQuery Plugin.
 
 ``` js
 $('#container').imagesLoaded( function() {
@@ -170,4 +170,4 @@ This project has a [storied legacy](https://github.com/desandro/imagesloaded/gra
 
 ## MIT License
 
-ImagesLoaded is released under the [MIT License](http://desandro.mit-license.org/). Have at it.
+imagesLoaded is released under the [MIT License](http://desandro.mit-license.org/). Have at it.
