@@ -526,11 +526,11 @@ a:hover { color: #04F; }
 
 #image-container li.is-loading {
   background-color: black;
-  background-image: url('http://desandro.github.io/imagesloaded/img/loading.gif');
+  background-image: url('loading.gif');
 }
 
 #image-container  li.is-broken {
-  background-image: url('http://desandro.github.io/imagesloaded/img/broken.png');
+  background-image: url('broken.png');
   background-color: #be3730;
   width: 120px;
 }
@@ -605,7 +605,7 @@ code .at_rule { color: #088; }
 
 
 /* tablet and desktop */
-@media screen and (min-width: 920px) {
+@media screen and (min-width: 830px) {
 
   h1 {
     font-size: 70px;
@@ -616,7 +616,7 @@ code .at_rule { color: #088; }
   h2 {
     font-size: 28px;
   }
-  
+
   h3 {
     font-size: 22px;
   }
@@ -638,7 +638,7 @@ code .at_rule { color: #088; }
     padding-left: 1.0em;
     margin-left: 100px;
     max-width: 720px;
-}
+  }
 
   #content > ul {
     padding-left: 126px;
