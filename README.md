@@ -32,6 +32,8 @@ new imagesLoaded( elem, callback )
 + `elem` _Element, NodeList, Array, or Selector String_
 + `callback` _Function_ - function triggered after all images have been loaded
 
+Using a callback function is the same as binding it to the `always` event (see below).
+
 ``` js
 // element
 imagesLoaded( document.querySelector('#container'), function( instance ) {
@@ -97,7 +99,7 @@ Triggered after all images have been loaded with at least one broken image.
 ``` js
 imgLoad.on( 'progress', function( instance, image ) {
   var result = image.isLoaded ? 'loaded' : 'broken';
-  console.log( 'image is ' + result + ' for ' + image.img.src + );
+  console.log( 'image is ' + result + ' for ' + image.img.src );
 });
 ```
 

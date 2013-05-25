@@ -78,6 +78,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
     this.getImages();
 
+    if ( $ ) {
+      // add jQuery Deferred object
+      this.jqDeferred = new $.Deferred();
+    }
+
     // HACK check async to allow time to bind listeners
     var _this = this;
     setTimeout( function() {
@@ -166,8 +171,6 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   if ( $ ) {
     $.fn.imagesLoaded = function( options, callback ) {
       var instance = new ImagesLoaded( this, options, callback );
-      // add jQuery Deferred object
-      instance.jqDeferred = new $.Deferred();
       return instance.jqDeferred.promise( $(this) );
     };
   }

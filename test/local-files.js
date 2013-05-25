@@ -25,7 +25,7 @@ test( 'local files', function() {
   var progressCount = 0;
   imgLoader.on( 'progress', function( loader, image ) {
     ok( true, 'image progressed');
-    if ( image.img.src.indexOf('img/thunder-cloud.jpg') !== -1 ) {
+    if ( image.img.src.indexOf('img/not-there.jpg') !== -1 ) {
       ok( !image.isLoaded, 'thunder cloud is not loaded' );
     } else {
       ok( image.isLoaded, 'image is loaded' );
