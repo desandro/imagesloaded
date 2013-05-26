@@ -4,11 +4,10 @@
 
 var progressElem, statusElem;
 var supportsProgress;
-var loadedImageCount;
+var loadedImageCount, imageCount;
 
 window.onload = function() {
   var demo = document.querySelector('#demo');
-  var addButton = demo.querySelector('#add');
   var container = demo.querySelector('#image-container');
   statusElem = demo.querySelector('#status');
   progressElem = demo.querySelector('progress');
@@ -17,32 +16,23 @@ window.onload = function() {
     // IE does not support progress
     progressElem.toString().indexOf('Unknown') === -1;
 
-  addButton.onclick = function() {
+  demo.querySelector('#add').onclick = function() {
     // add new images
-    var fragment = document.createDocumentFragment();
-    for ( var i = 0; i < 7; i++ ) {
-      var item = getImageItem();
-      fragment.appendChild( item );
-    }
+    var fragment = getItemsFragment();
     container.insertBefore( fragment, container.firstChild );
     // use ImagesLoaded
     var imgLoad = imagesLoaded( container );
     imgLoad.on( 'progress', onProgress );
     imgLoad.on( 'always', onAlways );
     // reset progress counter
-    statusElem.style.opacity = 1;
-    loadedImageCount = 0;
-    if ( supportsProgress ) {
-      progressElem.setAttribute( 'max', imgLoad.images.length );
-    }
-    updateProgress( 0, imgLoad );
+    imageCount = imgLoad.images.length;
+    resetProgress();
+    updateProgress( 0 );
   };
 
   // reset container
   document.querySelector('#reset').onclick = function() {
-    while ( container.firstChild ) {
-      container.removeChild( container.firstChild );
-    }
+    empty( container );
   };
 };
 
@@ -55,28 +45,22 @@ function setText( elem, value ) {
   elem[ textSetter ] = value;
 }
 
-// -----  ----- //
-
-function updateProgress( value, imgLoad ) {
-  if ( supportsProgress ) {
-    progressElem.setAttribute( 'value', value );
-  } else {
-    // if you don't support progress elem
-    setText( statusElem, value + ' / ' + imgLoad.images.length );
+function empty( elem ) {
+  while ( elem.firstChild ) {
+    elem.removeChild( elem.firstChild );
   }
 }
 
-// triggered after each item is loaded
-function onProgress( imgLoad, image ) {
-  // change class if the image is loaded or broken
-  image.img.parentNode.className = image.isLoaded ? '' : 'is-broken';
-  // update progress element
-  loadedImageCount++;
-  updateProgress( loadedImageCount, imgLoad );
-}
+// -----  ----- //
 
-function onAlways() {
-  statusElem.style.opacity = 0;
+// return doc fragment with
+function getItemsFragment() {
+  var fragment = document.createDocumentFragment();
+  for ( var i = 0; i < 7; i++ ) {
+    var item = getImageItem();
+    fragment.appendChild( item );
+  }
+  return fragment;
 }
 
 // return an <li> with a <img> in it
@@ -90,15 +74,46 @@ function getImageItem() {
   var height = Math.round( 140 * size );
   var rando = Math.ceil( Math.random() * 1000 );
   // 10% chance of broken image src
-  var src = rando < 100 ? '//foo/broken.jpg' :
-    // use lorempixel for great random images
-    '//lorempixel.com/' + width + '/' + height + '/';
   // random parameter to prevent cached images
-  img.src = src + '?' + rando;
+  img.src = rando < 100 ? '//foo/broken-' + rando + '.jpg' :
+    // use lorempixel for great random images
+    '//lorempixel.com/' + width + '/' + height + '/' + '?' + rando;
   item.appendChild( img );
   return item;
 }
 
+// -----  ----- //
+
+function resetProgress() {
+  statusElem.style.opacity = 1;
+  loadedImageCount = 0;
+  if ( supportsProgress ) {
+    progressElem.setAttribute( 'max', imageCount );
+  }
+}
+
+function updateProgress( value ) {
+  if ( supportsProgress ) {
+    progressElem.setAttribute( 'value', value );
+  } else {
+    // if you don't support progress elem
+    setText( statusElem, value + ' / ' + imageCount );
+  }
+}
+
+// triggered after each item is loaded
+function onProgress( imgLoad, image ) {
+  // change class if the image is loaded or broken
+  image.img.parentNode.className = image.isLoaded ? '' : 'is-broken';
+  // update progress element
+  loadedImageCount++;
+  updateProgress( loadedImageCount );
+}
+
+// hide status when done
+function onAlways() {
+  statusElem.style.opacity = 0;
+}
 
 })( window );
 
