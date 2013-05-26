@@ -411,10 +411,12 @@ body {
   background: #FC0;
 }
 
+/* Montserrat */
 h1, h2, h3, h4, h5,
 .tagline,
 #fork-me,
-#demo button {
+#demo button,
+#status {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
 }
 
@@ -425,7 +427,7 @@ pre, code {
 }
 
 #content {
-  padding: 0 8px;
+  padding: 0 8px 3.0em;
 }
 
 pre {
@@ -566,6 +568,8 @@ a:hover { color: #04F; }
   position: fixed;
   right: 20px;
   top: 20px;
+  background: #222;
+  color: white;
   background: hsla( 0, 0%, 0%, 0.8);
   padding: 20px;
   border-radius: 10px;
@@ -622,7 +626,7 @@ code .at_rule { color: #088; }
   }
 
   #content {
-    padding: 0;
+    padding: 0 0 6.0em;
   }
 
   #content > * {

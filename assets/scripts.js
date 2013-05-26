@@ -2,16 +2,20 @@
 
 'use strict';
 
-var progressElem;
+var progressElem, statusElem;
+var supportsProgress;
 var loadedImageCount;
-var statusElem;
 
 window.onload = function() {
-  var demo = document.querySelector('#demo')
+  var demo = document.querySelector('#demo');
   var addButton = demo.querySelector('#add');
   var container = demo.querySelector('#image-container');
   statusElem = demo.querySelector('#status');
   progressElem = demo.querySelector('progress');
+
+  supportsProgress = progressElem &&
+    // IE does not support progress
+    progressElem.toString().indexOf('Unknown') === -1;
 
   addButton.onclick = function() {
     // add new images
@@ -28,8 +32,10 @@ window.onload = function() {
     // reset progress counter
     statusElem.style.opacity = 1;
     loadedImageCount = 0;
-    progressElem.setAttribute( 'value', 0 );
-    progressElem.setAttribute( 'max', imgLoad.images.length );
+    if ( supportsProgress ) {
+      progressElem.setAttribute( 'max', imgLoad.images.length );
+    }
+    updateProgress( 0, imgLoad );
   };
 
   // reset container
@@ -40,13 +46,33 @@ window.onload = function() {
   };
 };
 
+// ----- set text helper ----- //
+
+var docElem = document.documentElement;
+var textSetter = docElem.textContent !== undefined ? 'textContent' : 'innerText';
+
+function setText( elem, value ) {
+  elem[ textSetter ] = value;
+}
+
+// -----  ----- //
+
+function updateProgress( value, imgLoad ) {
+  if ( supportsProgress ) {
+    progressElem.setAttribute( 'value', value );
+  } else {
+    // if you don't support progress elem
+    setText( statusElem, value + ' / ' + imgLoad.images.length );
+  }
+}
+
 // triggered after each item is loaded
 function onProgress( imgLoad, image ) {
   // change class if the image is loaded or broken
   image.img.parentNode.className = image.isLoaded ? '' : 'is-broken';
   // update progress element
   loadedImageCount++;
-  progressElem.setAttribute( 'value', loadedImageCount );
+  updateProgress( loadedImageCount, imgLoad );
 }
 
 function onAlways() {
