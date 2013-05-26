@@ -55,6 +55,7 @@
 <li><code>elem</code> <em>Element, NodeList, Array, or Selector String</em></li>
 <li><code>callback</code> <em>Function</em> - function triggered after all images have been loaded</li>
 </ul>
+<p>Using a callback function is the same as binding it to the <code>always</code> event (see below).</p>
 <pre><code class="lang-js"><span class="comment">// element</span>
 imagesLoaded( document.querySelector(<span class="string">'#container'</span>), <span class="keyword">function</span>( instance ) {
   console.log(<span class="string">'all images are loaded'</span>);
@@ -95,7 +96,7 @@ imgLoad.off( <span class="string">'always'</span>, onAlways );</code></pre>
 <h3>progress</h3>
 <pre><code class="lang-js">imgLoad.on( <span class="string">'progress'</span>, <span class="keyword">function</span>( instance, image ) {
   <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
-  console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src + );
+  console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
 });</code></pre>
 <p>Triggered after each image has been loaded.</p>
 <ul>
