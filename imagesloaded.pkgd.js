@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v3.0.0
+ * imagesLoaded PACKAGED v3.0.1
  * JavaScript is all like "You images are done yet or what?"
  */
 
@@ -460,7 +460,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.0.0
+ * imagesLoaded v3.0.1
  * JavaScript is all like "You images are done yet or what?"
  */
 
@@ -470,7 +470,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 var $ = window.jQuery;
 var console = window.console;
-var hasConsole = typeof console !== undefined;
+var hasConsole = typeof console !== 'undefined';
 
 // -------------------------- helpers -------------------------- //
 
