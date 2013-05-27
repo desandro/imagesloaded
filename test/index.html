@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>imagesLoaded tests</title>
+
+  <link rel="stylesheet" href="../components/qunit/qunit.css" />
+  <link rel="stylesheet" href="tests.css" />
+
+  <script src="../components/eventEmitter/EventEmitter.js"></script>
+  <script src="../components/eventie/eventie.js"></script>
+  <script src="../components/qunit/qunit.js"></script>
+  <script src="../components/jquery/jquery.js"></script>
+
+  <script src="../imagesloaded.js"></script>
+
+  <script src="basics.js"></script>
+  <script src="selector-string.js"></script>
+  <script src="single-element.js"></script>
+  <script src="local-files.js"></script>
+  <script src="data-uri.js"></script>
+  <script src="append.js"></script>
+  <script src="jquery-success.js"></script>
+  <script src="jquery-fail.js"></script>
+
+</head>
+<body>
+
+  <h1>imagesLoaded tests</h1>
+
+  <div id="qunit"></div>
+
+  <div id="basics">
+    <img src="http://i.imgur.com/xrQHn.jpg" />
+    <img src="http://i.imgur.com/b3fBJ.jpg" />
+    <img src="http://i.imgur.com/xmSh2.jpg" />
+    <img src="http://i.imgur.com/iIpJm.jpg" />
+    <img src="http://i.imgur.com/cvZZl10.gif" />
+  </div>
+
+  <img id="mario-with-shell" src="http://i.imgur.com/ZAVN3.png" >
+
+  <div id="locals">
+    <img src="img/blue-shell.jpg" />
+    <img src="img/bowser-jr.jpg" />
+    <!-- thunder cloud has bad permissions, should 403 -->
+    <img src="img/not-there.jpg" />
+  </div>
+
+  <div id="data-uri">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAARgAA/+4ADkFkb2JlAGTAAAAAAf/bAIQABAMDAwMDBAMDBAYEAwQGBwUEBAUHCAYGBwYGCAoICQkJCQgKCgwMDAwMCgwMDQ0MDBERERERFBQUFBQUFBQUFAEEBQUIBwgPCgoPFA4ODhQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgAMAAwAwERAAIRAQMRAf/EAJMAAAEFAQEBAAAAAAAAAAAAAAYAAwQHCAUBAgEAAgIDAQEAAAAAAAAAAAAAAAUEBgECAwcIEAABAwMDAgQFAwUAAAAAAAACAQMEEQUGACESMQdBUSIyYUJiExRSIwihgiQVFhEAAQMCBQEFBgcAAAAAAAAAAQARAgMEITFBEgVRYYGRIgZxocHRchPw4TJCIxQH/9oADAMBAAIRAxEAPwDf2hCWhC42R5JBxuF+RJq7JcqMWIC/uOmngnkKfMXh/TSTmOZt+MoGrVP0x1kez4nTwCl21rOvPbHvPRRMHuFzutmcuF2NClPyn1ERSjYNiXEQD4DTx389RvTl/VvrKNxUzqGRA6B2AHgt72lGlVMI/tbxRJqyKCloQloQm31eRlxY4iT6CqtCaqIqVNkVURaJXWk9207W3Ng+T9qyGfFUtPutrbyFIuazTtWRyy+1FbuIKyw9v6QiO7tODVdhEuXmldfM/qbi+arXMql2A2hDmAHQM7D29+Kt9tc04w20Rh7+9FkKZIx1VFhf8bkv3I5biqqu6p5Kvw0u9N+sL3iav9eX8tJ22dPoOnsy7FwrW8bnzZS6/NHkZ4pEdt42yZIxQlaP3DXwXX1LQqmrTjMxMNwfbLMdh7VWJBiQ7p3Xdapt99mMy5JkOC1HZEnHXTVBEQBKkSqvRERN9CFSFx7q5PkqOz8TfZs2ON8lizJDIvyZLadHlFxeLYF1BOKlTdadNWy34emIg1XMjoNElr35EmgEORO4uaXWUNnya2QMpxZ50FemSWBhuxXBJFB9tKGDn219ftAtvStdJvUnEQHHXEqQJIpTaP6jI7SwGrk5KVZ3z1IieDkfgqDkOf8AcEsmQ7FGbs+LspRm7SowzJkh2u7iNGvFhpE9iqJGXVeOvPfQX+Yw4+Iu+Q89zIOIPhSfqdanXSOQxxU6+5oSBhROA9/5Isgd08vxltq5ZQ+zfccNUKZIYZFiUwz4ugjXocEfcQ8UKnRa7a9cuOHpyiftOJDQ6pPR5AmTTCvONJYmR2ZcVwXosgBdYeBeQG2aIQkKp1RUWqaqZDJ0qL7p5U9nz1w7cY887FtMSQLGR3JteKyVb9TkJrxQK0F4/HcE8V1ZONsAwrVMtB8Uru7v7flGaGZlqdt8AGnXUOMwQqTYogjTolUTy1Z4yEkid1DwPIrzLzLKbNdba7GsFo+wlruDraCxL/IqQ/jkgopIAJ+9Ui9dKcemlUjWlUkCPKGbwXWpCAhEjMu697gZHfYmW4pabRbnZVjuzjwXa4NAJsRRZ4kX5JKKqCE2pfaUVH1pvXprANaE4iIwLv4IpxgYSJzGSnwLQ7cbe4DLyNx3iJRbVEIadFoi+emkpiJXEll2O1uXu9u5cLt1fnXZVinS1ZsFwMuSwjfWoRHK7q0p1RkvkqgL6aKlc5Pj3BrQ7x8fmn1pd7/Kc1W9zukjtr3AvuMX0VjPSpsm5WqQ5sEyFMeJ4XGyXYlFSVtxE3Eh36ppnYV4VKMRqAyj3luTJwuxIvzV6bKG2+ipJFRJQXdBXqqeVNMwAEs2mKYKZc7MItPG3NbH2PI4jLnH6gL01+IrocrIAllgkk26XgSaYJuG2XueJxHnOPjxAdq+XJaaHKCBHPFSYeQt2JoYDj9Ejigipruop4rrBiDmsGBlih+DOkdzc8s2K2BFkPtTI1wukltOTcOFDeB43XFTZFLigNoq1Ii26Lpdf3EKdEjUhgmdpbyEnK1plWF4pm8BLZltoi3eEKqTYSm0MmyXqTZ7EBbdQVF1R4VJQLxLJ2Q6zdlX8asvxO5O3TtPLbulofLktiukhWpbH0syTRRcBPAXaEn6i0+teV24T8VFq24mEMOdve/F3f8Awf8AjljPJRClS5sQIqeFeYOGS0+kFXTGXLUgMCosbJl9tdu+/FoeWEuHpKc3QZUSdFKMXxQnHGyT+4E0R5aiRiidk6IsX/jVmOW3Jq5d15bdqsrBcksdrfV2Y/T5XZIIgttr8yNciX9Q6X3XK7g0PFSqVuILSmLYbiuE2/8A1eJ2iLaIKrycbitoCuElfU4XuMt+pqq6QTqSmXkXUoBl/9k=" />
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAwCAMAAAC/knOqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMBQTFRFkF0QF27/Bgsp/fQF+fr6jqvpDEG2zp4CCx9Ys4IFo5JU8MqQXJH2Ulxj89QDC0bIsrKxIHn//fxztcv2iYqG5ebmCjCHzNjxAzTYRmih2drcCzijMof+OB8U/Pg59PHXE2D9xMK9eUMDAVf8kXNP/fvr2eP0p6WgOUtnAkX7Eljwa3WB5er2UXjVC0jZAh9/EFHa8PHyl5mZJVKt6NM34dzNz87NASGpsbzZDlDytq4tLWfs4bQFyLNp////+/v7DjziEwAAAEB0Uk5T////////////////////////////////////////////////////////////////////////////////////AMJ7sUQAAAPaSURBVHjadNWLdqo6EAZgQKGRA0YUYzRQY1ELqFykiojV93+rM0FQbLt/VlcvfpmVhGQq3V6TjgyjLOWyNIzR9sdn0stvE0MuQrmOZxmjf9pRybln+sJZspWZiSU7o7+twTmXtcU3BmhZ4f6/zLJk2ej+ttsyDIXVN4klsGzqmQP1ZXn9044TQbmcuS5Yx3Ic380cy2rj2qZJktzrui7MFqiDKlutcv1ip0mNseuGFbaedeVd235qGOMkAo4VJYB4AVcUbHG5erjxtN1ME8kwpgHybV0/63vbRF5QrUFk+7ADwpgGD82nva9+p4m+CQKYWFjwUH3YKYNkjPrnCr6/D4fz93f46WsKuIDqu8amPmGE5bnZr2u+fw2Hwwr3N4FYRZKsazshBLCggPv9S79K56saV+NRbU8McO6+ifSavL1dLtVQk2LYT7VtY/hcgnw8HgkGAL9Q2E78tDGJfWBV3CbiFwnqmzlsfmPXUDd2pTtUFAVVj6IIDtVNqmGtmW+aEYJQDZ9puM/gPTX7cNtBYeS7r+z+hVyfAp0+3gUsDsXKP5IXGLPne7uVUJf8TRFPEi1Ln1YVq/sbazzBbN8+v2LGjCguzNBtllVRwovoPtvnvcgYihlpLaueQeFRjY1f79vWhxfCGKpz54gVRYTZ7Nedn8JeiPNG7lhBGS2KIKdZ99edT6cKQjEiBGMf+UhhZRFQSnG02/60J9i0qmCMcsbimPGABkXIRYdQX+2EaaEcinOc57GWlWXpeR7cYqsUPWj0YksKN73QNEpLdZJer9d0rToeVC2LEG5+2rIqLjjXKKPJ6PrMxPJkK6DcsdSn3dIo5DnK8113de22tOHJWhyUDp88rBFFPEJxvruu0jYVOEE0tCyjsSMchQVBOZ3Px+MfeOehmHJLbs76LioKpuT5QND0hV4nnqZoGPrb3Z6iKNIUJc6Os5nA3ZfKTgCvGtq3Kuw2BIpMP5/O/8JGQEzC4N/BGuyuwAyZKYvtw/GOYc7A4RHf1ICNbUIi2blJqocJWt5Skm8OiyPo8aGufX/UQJvd9sSPZFUqKfGPcHRYPF0MBovT8VhXh3TT1cqgFM7kzESslEbqUezdyszJ4HvwKfhi8eCra0incwFm+1N9Hub9ztnffOqf+0/IY8BhpWbnTmfePjurs2iJZ922dXsPqQcMFouqWfbnLfst+ii05t7Stjd2lb0Y1Lt0hkA73y3bexNddzjs93S7yd5e9i4XaPFQ5tLqD5LohxfouG+S5G/u8T8+7l34Al25+7SHpVRlKS312fo4OA0Ws7Fe/1FaLg+V+l+AAQAurhhy+upm/wAAAABJRU5ErkJggg==" />
+  </div>
+
+  <div id="append"></div>
+
+  <div id="jquery-success">
+    <img src="http://i.imgur.com/YbYCPFF.png" />
+    <img src="http://i.imgur.com/6UdOxeB.png" />
+    <img src="http://i.imgur.com/qd8G15D.png" />
+  </div>
+
+  <div id="jquery-fail">
+    <img src="http://i.imgur.com/xmSh2.jpg" />
+    <img src="img/bowser-jr.jpg" />
+    <img src="http://i.imgur.com/ZAVN3.png">
+    <!-- thunder cloud has bad permissions, should 403 -->
+    <img src="img/not-there.jpg" />
+    <img src="foobar.jpg" />
+  </div>
+
+</body>
+</html>
