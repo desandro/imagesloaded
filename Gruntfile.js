@@ -10,7 +10,7 @@ module.exports = function( grunt ) {
     var src = grunt.file.read('imagesloaded.js');
     var re = new RegExp('^\\s*(?:\\/\\*[\\s\\S]*?\\*\\/)\\s*');
     var matches = src.match( re );
-    return matches[0].replace( 'ImagesLoaded', 'ImagesLoaded PACKAGED' );
+    return matches[0].replace( 'imagesLoaded', 'imagesLoaded PACKAGED' );
   })();
 
   grunt.initConfig({

@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v3.0.0
+ * imagesLoaded PACKAGED v3.0.0
  * JavaScript is all like "You images are done yet or what?"
  */
 
