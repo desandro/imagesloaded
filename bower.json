@@ -5,7 +5,7 @@
   "main": "imagesloaded.js",
   "dependencies": {
     "eventEmitter": "4.x",
-    "eventie": "desandro/eventie"
+    "eventie": "desandro/eventie#>=1.0.3"
   },
   "devDependencies": {
     "jquery": "~1.9",
