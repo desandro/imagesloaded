@@ -3,6 +3,7 @@
 
 module.exports = function( grunt ) {
 
+  var _ = grunt.util._;
   var bowerJSON = grunt.file.readJSON('bower.json');
 
   // get banner comment from draggabilly.js
@@ -15,13 +16,16 @@ module.exports = function( grunt ) {
 
   grunt.initConfig({
 
-    concat: {
+    requirejs: {
       pkgd: {
-        // src will be set in package-sources task
-        src: [ bowerJSON.main ],
-        dest: 'imagesloaded.pkgd.js',
         options: {
-          banner: banner
+          name: bowerJSON.name,
+          out: 'imagesloaded.pkgd.js',
+          baseUrl: './',
+          optimize: 'none',
+          wrap: {
+            start: banner
+          }
         }
       }
     },
@@ -40,17 +44,17 @@ module.exports = function( grunt ) {
     watch: {
       content: {
         files: [ 'assets/*', 'README.md' ],
-        tasks: [ 'concat', 'page', 'copy' ]
+        tasks: [ 'bower-list-sources', 'requirejs', 'page', 'copy' ]
       },
       js: {
         files: [ 'imagesloaded.js' ],
-        tasks: [ 'concat', 'uglify' ]
+        tasks: [ 'bower-list-sources', 'requirejs', 'uglify' ]
       }
     }
 
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -60,7 +64,7 @@ module.exports = function( grunt ) {
 
   grunt.registerTask( 'default', [
     'bower-list-sources',
-    'concat',
+    'requirejs',
     'uglify',
     'page'
   ]);
