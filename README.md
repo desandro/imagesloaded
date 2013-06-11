@@ -166,6 +166,24 @@ $('#container').imagesLoaded()
   });
 ```
 
+## RequireJS
+
+imagesLoaded works with RequireJS.
+
+1. Install imagesLoaded and its dependencies
+2. Update your [RequireJS paths config](http://requirejs.org/docs/api.html#config-paths) so it can find those modules
+
+``` js
+requirejs.config({
+  paths: {
+    "eventie": "components/eventie/eventie",
+    "eventEmitter": "components/eventEmitter/EventEmitter"
+  }
+});
+```
+
+Consider taking a look at the [Grunt Bower RequireJS task](https://github.com/yeoman/grunt-bower-requirejs) to "Automagically wire-up installed Bower components into your RequireJS config."
+
 ## Contributors
 
 This project has a [storied legacy](https://github.com/desandro/imagesloaded/graphs/contributors). Its current incarnation was developed by [Tomas Sardyha @Darsain](http://darsa.in/) and [David DeSandro @desandro](http://desandro.com).
