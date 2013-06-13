@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v3.0.1
+ * imagesLoaded v3.0.2
  * JavaScript is all like "You images are done yet or what?"
  */
 
@@ -127,6 +127,12 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var checkedCount = 0;
     var length = this.images.length;
     this.hasAnyBroken = false;
+    // complete if no images
+    if ( !length ) {
+      this.complete();
+      return;
+    }
+
     function onConfirm( image, message ) {
       if ( _this.options.debug && hasConsole ) {
         console.log( 'confirm', image, message );
