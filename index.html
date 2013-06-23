@@ -117,7 +117,7 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
   <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, len = imgLoad.images.length; i &lt; len; i++ ) {
     <span class="keyword">var</span> image = imgLoad.images[i];
     <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
-    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src + );
+    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
   }
 });</code></pre>
 <h2>jQuery</h2>
@@ -139,7 +139,7 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
   })
   .progress( <span class="keyword">function</span>( instance, image ) {
     <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
-    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src + );
+    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
   });</code></pre>
 <h2>RequireJS</h2>
 <p>imagesLoaded works with RequireJS.</p>
