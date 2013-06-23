@@ -1,6 +1,6 @@
 {
   "name": "imagesloaded",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
