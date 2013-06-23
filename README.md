@@ -130,7 +130,7 @@ imgLoad.on( 'always', function() {
   for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
     var image = imgLoad.images[i];
     var result = image.isLoaded ? 'loaded' : 'broken';
-    console.log( 'image is ' + result + ' for ' + image.img.src + );
+    console.log( 'image is ' + result + ' for ' + image.img.src );
   }
 });
 ```
@@ -162,7 +162,7 @@ $('#container').imagesLoaded()
   })
   .progress( function( instance, image ) {
     var result = image.isLoaded ? 'loaded' : 'broken';
-    console.log( 'image is ' + result + ' for ' + image.img.src + );
+    console.log( 'image is ' + result + ' for ' + image.img.src );
   });
 ```
 
