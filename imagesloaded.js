@@ -155,10 +155,12 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   ImagesLoaded.prototype.progress = function( image ) {
     this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
-    this.emit( 'progress', this, image );
-    if ( this.jqDeferred ) {
-      this.jqDeferred.notify( this, image );
-    }
+    setTimeout( function() {
+      this.emit( 'progress', this, image );
+      if ( this.jqDeferred ) {
+        this.jqDeferred.notify( this, image );
+      }
+    });
   };
 
   ImagesLoaded.prototype.complete = function() {
