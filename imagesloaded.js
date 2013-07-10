@@ -48,12 +48,15 @@ function makeArray( obj ) {
 
 function defineImagesLoaded( EventEmitter, eventie ) {
 
+  var defaultTimeoutDuration = 12000;
+
   /**
    * @param {Array, Element, NodeList, String} elem
    * @param {Object or Function} options - if function, use as callback
    * @param {Function} onAlways - callback function
    */
   function ImagesLoaded( elem, options, onAlways ) {
+
     // coerce ImagesLoaded() without new, to be new ImagesLoaded()
     if ( !( this instanceof ImagesLoaded ) ) {
       return new ImagesLoaded( elem, options );
@@ -70,6 +73,9 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       onAlways = options;
     } else {
       extend( this.options, options );
+      if(options && options.timeout === true){
+      this.options.timeout = defaultTimeoutDuration;
+      }
     }
 
     if ( onAlways ) {
@@ -119,6 +125,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
    */
   ImagesLoaded.prototype.addImage = function( img ) {
     var loadingImage = new LoadingImage( img );
+    this.options && this.options.timeout ? loadingImage.timeoutDuration = this.options.timeout : loadingImage.timeout = null;
     this.images.push( loadingImage );
   };
 
@@ -184,15 +191,18 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   // --------------------------  -------------------------- //
 
-  var cache = {};
+  var cache = {}; // 10 milliseconds for testing
 
   function LoadingImage( img ) {
     this.img = img;
+    this.timeout = null;
   }
 
   LoadingImage.prototype = new EventEmitter();
 
   LoadingImage.prototype.check = function() {
+    var _this = this;
+
     // first check cached any previous images that have same src
     var cached = cache[ this.img.src ];
     if ( cached ) {
@@ -208,6 +218,13 @@ function defineImagesLoaded( EventEmitter, eventie ) {
       // report based on naturalWidth
       this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
       return;
+    }
+
+    if(typeof this.timeoutDuration !== 'undefined'){
+    this.timeout = setTimeout(function(){
+      console.warn("This image timed out",$(_this.img).prop('src'));
+      _this.confirm( false, 'timeout' );
+    },_this.timeoutDuration);
     }
 
     // If none of the checks above matched, simulate loading on detached element.
@@ -230,6 +247,9 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   };
 
   LoadingImage.prototype.confirm = function( isLoaded, message ) {
+    if(isLoaded){
+      clearTimeout(this.timeout);
+    }
     this.isConfirmed = true;
     this.isLoaded = isLoaded;
     this.emit( 'confirm', this, message );
