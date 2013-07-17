@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v3.0.2
+ * imagesLoaded v3.0.3
  * JavaScript is all like "You images are done yet or what?"
  */
 
@@ -156,6 +156,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   ImagesLoaded.prototype.progress = function( image ) {
     var _this = this;
     this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
+    // HACK - Chrome triggers event before object properties have changed. #83
     setTimeout( function() {
       _this.emit( 'progress', _this, image );
       if ( _this.jqDeferred ) {
