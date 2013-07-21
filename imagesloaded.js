@@ -154,9 +154,9 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   };
 
   ImagesLoaded.prototype.progress = function( image ) {
-    var _this = this;
     this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
     // HACK - Chrome triggers event before object properties have changed. #83
+    var _this = this;
     setTimeout( function() {
       _this.emit( 'progress', _this, image );
       if ( _this.jqDeferred ) {
@@ -168,12 +168,16 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   ImagesLoaded.prototype.complete = function() {
     var eventName = this.hasAnyBroken ? 'fail' : 'done';
     this.isComplete = true;
-    this.emit( eventName, this );
-    this.emit( 'always', this );
-    if ( this.jqDeferred ) {
-      var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
-      this.jqDeferred[ jqMethod ]( this );
-    }
+    var _this = this;
+    // HACK - another setTimeout so that confirm happens after progress
+    setTimeout( function() {
+      _this.emit( eventName, _this );
+      _this.emit( 'always', _this );
+      if ( _this.jqDeferred ) {
+        var jqMethod = _this.hasAnyBroken ? 'reject' : 'resolve';
+        _this.jqDeferred[ jqMethod ]( _this );
+      }
+    });
   };
 
   // -------------------------- jquery -------------------------- //
