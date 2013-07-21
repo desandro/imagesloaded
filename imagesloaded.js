@@ -276,8 +276,8 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 if ( typeof define === 'function' && define.amd ) {
   // AMD
   define( [
-      'eventEmitter',
-      'eventie'
+      'eventEmitter/EventEmitter',
+      'eventie/eventie'
     ],
     defineImagesLoaded );
 } else {
