@@ -1,6 +1,6 @@
 {
   "name": "imagesloaded",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
@@ -8,7 +8,7 @@
     "eventie": "desandro/eventie#>=1.0.3"
   },
   "devDependencies": {
-    "jquery": "~1.9",
+    "jquery": ">=1.9 <2.0",
     "qunit": ">=1.10"
   }
 }
