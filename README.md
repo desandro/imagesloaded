@@ -176,13 +176,11 @@ imagesLoaded works with RequireJS.
 ``` js
 requirejs.config({
   paths: {
-    "eventie": "components/eventie/eventie",
-    "eventEmitter": "components/eventEmitter/EventEmitter"
+    "eventie": "bower_components/eventie",
+    "eventEmitter": "bower_components/eventEmitter"
   }
 });
 ```
-
-Consider taking a look at the [Grunt Bower RequireJS task](https://github.com/yeoman/grunt-bower-requirejs) to "Automagically wire-up installed Bower components into your RequireJS config."
 
 ## Contributors
 
