@@ -194,6 +194,10 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   var cache = {};
 
+  $(document).on('clear-imagesloaded-cache', function () {
+      cache = {};
+  });
+
   function LoadingImage( img ) {
     this.img = img;
   }
