@@ -1,5 +1,14 @@
 # imagesLoaded
 
+## This is a fork of [desandro/imagesloaded](https://github.com/desandro/imagesloaded)
+
+I add an event handler _clear-imagesloaded-cache_ to enable you to clear the
+cache. This is necessary when dynamically refresh a part of your page that
+contains images. *imagesLoaded* looks in its cache and tells you the images are
+loaded when they in fact haven't yet.
+
+I've made a pull request for this: https://github.com/desandro/imagesloaded/pull/92
+
 <p class="tagline">JavaScript is all like "You images done yet or what?"</p>
 
 [desandro.github.io/imagesloaded](http://desandro.github.io/imagesloaded/)
