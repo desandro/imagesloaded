@@ -147,7 +147,7 @@ $('#container').imagesLoaded( function() {
 
 ### jQuery Deferred
 
-The jQuery plugin returns a [jQuery Deferred object](http://api.jquery.com/category/deferred-object/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`, similarly to the emitted events.
+The jQuery plugin returns a [jQuery Deferred.Promise object](http://api.jquery.com/deferred.promise/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`, similarly to the emitted events.
 
 ``` js
 $('#container').imagesLoaded()
@@ -164,6 +164,11 @@ $('#container').imagesLoaded()
     var result = image.isLoaded ? 'loaded' : 'broken';
     console.log( 'image is ' + result + ' for ' + image.img.src );
   });
+```
+You can access the Deferred object by:
+``` js
+var imgLoad = imagesLoaded( elem );
+imgLoad.jqDeferred
 ```
 
 ## RequireJS
