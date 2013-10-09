@@ -180,6 +180,10 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     });
   };
 
+  ImagesLoaded.prototype.abort = function() {
+    this.progress = this.complete = function() {};
+  };
+
   // -------------------------- jquery -------------------------- //
 
   if ( $ ) {
