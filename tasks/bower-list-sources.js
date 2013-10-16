@@ -2,42 +2,44 @@
  * bower-list-map task
  */
 
+/*jshint node: true, strict: false, undef: true, unused: true*/
+
 var spawn = require('child_process').spawn;
+var organizeSources = require('organize-bower-sources');
+
+// pass a command, return its contents
+function cli( command, callback ) {
+  var args = command.split(' ');
+  var arg1 = args.splice( 0, 1 );
+  var process = spawn( arg1[0], args );
+  var output = '';
+  process.stdout.setEncoding('utf8');
+  process.stdout.on( 'data',  function( data ) {
+    output += data;
+  });
+  process.on( 'close', function() {
+    callback( output );
+  });
+}
 
 module.exports = function( grunt ) {
-
-  'use strict';
 
   grunt.registerTask( 'bower-list-sources', function() {
     var done = this.async();
 
-    // get map JSON from bower list --map
-    var childProc = spawn('bower', 'list --sources'.split(' ') );
-    var sourcesSrc = '';
-    childProc.stdout.setEncoding('utf8');
-    childProc.stdout.on('data',  function( data ) {
-      sourcesSrc += data;
-    });
+    cli( 'bower list --json', function( mapSrc ) {
+      var bowerMap = JSON.parse( mapSrc );
+      var bowerSources = organizeSources( bowerMap );
 
-    childProc.on('close', function() {
-      var bowerSources = JSON.parse( sourcesSrc );
-      // set bowerMap
-
-      // remove jquery, qunit, & EventEmitter.min.js
       var bowerJsSources = bowerSources['.js'].filter( function( src ) {
-        var isMin = src.indexOf('.min.js') !== -1;
-        var isJquery = src.indexOf('jquery.js') !== -1;
-        var isQunit = src.indexOf('qunit.js') !== -1;
-        return !isMin && !isJquery && !isQunit;
+        // remove any *.min.js like EventEmitter
+        return src.indexOf('jquery') === -1 && src.indexOf('qunit') === -1;
       });
-      // add bower JS to JS collection
-      var jsSrcs = grunt.config.get('concat.pkgd.src');
-      jsSrcs = bowerJsSources.concat( jsSrcs );
 
       // set config so it gets concat and uglified
-      grunt.config.set( 'concat.pkgd.src', jsSrcs );
+      grunt.config.set( 'concat.pkgd.src', bowerJsSources );
       grunt.config.set( 'uglify.pkgd.files', {
-        'imagesloaded.pkgd.min.js': jsSrcs
+        'imagesloaded.pkgd.min.js': bowerJsSources
       });
 
       done();

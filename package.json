@@ -12,7 +12,8 @@
     "grunt-contrib-uglify": "~0.1.2",
     "grunt-contrib-watch": "~0.3.1",
     "highlight.js": "~7.3.0",
-    "marked": "~0.2.8"
+    "marked": "~0.2.8",
+    "organize-bower-sources": "git://github.com/desandro/organize-bower-sources.git"
   },
   "repository": {
     "type": "git",
