@@ -1,12 +1,13 @@
 {
   "name": "imagesloaded",
-  "version": "3.0.0",
+  "version": "3.0.4",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
-  "dependencies": {},
+  "dependencies": {
+    "requirejs": "~2.1.9"
+  },
   "devDependencies": {
     "grunt": "~0.4.0",
-    "grunt-contrib-concat": "~0.1.3",
     "grunt-contrib-copy": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-uglify": "~0.1.2",

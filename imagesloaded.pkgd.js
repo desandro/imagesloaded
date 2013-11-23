@@ -4,6 +4,7 @@
  * MIT License
  */
 
+
 /*!
  * EventEmitter v4.2.4 - git.io/ee
  * Oliver Caldwell
@@ -12,7 +13,7 @@
  */
 
 (function () {
-	'use strict';
+	
 
 	/**
 	 * Class for managing events.
@@ -455,7 +456,7 @@
 
 	// Expose the class either via AMD, CommonJS or the global object
 	if (typeof define === 'function' && define.amd) {
-		define(function () {
+		define('eventEmitter/EventEmitter',[],function () {
 			return EventEmitter;
 		});
 	}
@@ -479,7 +480,7 @@
 
 ( function( window ) {
 
-'use strict';
+
 
 var docElem = document.documentElement;
 
@@ -534,7 +535,7 @@ var eventie = {
 // transport
 if ( typeof define === 'function' && define.amd ) {
   // AMD
-  define( eventie );
+  define( 'eventie/eventie',eventie );
 } else {
   // browser global
   window.eventie = eventie;
@@ -550,7 +551,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 ( function( window ) {
 
-'use strict';
+
 
 var $ = window.jQuery;
 var console = window.console;

@@ -2,9 +2,10 @@
   "browser": true,
   "curly": true,
   "newcap": false,
-  "strict": true,
+  "strict": false,
   "undef": true,
   "unused": true,
+  "node": true,
   "predef": {
     "define": false,
 
