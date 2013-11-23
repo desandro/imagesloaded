@@ -3,9 +3,6 @@
   "version": "3.0.4",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
-  "dependencies": {
-    "requirejs": "~2.1.9"
-  },
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-copy": "~0.4.0",
@@ -14,7 +11,7 @@
     "grunt-contrib-watch": "~0.3.1",
     "highlight.js": "~7.3.0",
     "marked": "~0.2.8",
-    "organize-bower-sources": "git://github.com/desandro/organize-bower-sources.git"
+    "grunt-requirejs": "~0.4.0"
   },
   "repository": {
     "type": "git",
