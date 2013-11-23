@@ -142,16 +142,26 @@ imgLoad.on( <span class="string">'always'</span>, <span class="keyword">function
     console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
   });</code></pre>
 <h2 id="requirejs">RequireJS</h2>
-<p>imagesLoaded works with RequireJS.</p>
-<ol>
-<li>Install imagesLoaded and its dependencies</li>
-<li>Update your <a href="http://requirejs.org/docs/api.html#config-paths">RequireJS paths config</a> so it can find those modules</li>
-</ol>
+<p>imagesLoaded works with <a href="http://require.org">RequireJS</a>.</p>
+<p>You can require <a href="http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js">imagesloaded.pkgd.js</a>.</p>
+<pre><code class="lang-js">requirejs( [
+  <span class="string">'path/to/imagesloaded.pkgd.js'</span>,
+], <span class="keyword">function</span>( imagesLoaded ) {
+  imagesLoaded( <span class="string">'#container'</span>, <span class="keyword">function</span>() { ... });
+});</code></pre>
+<p>Or, you can manage dependencies with <a href="http://bower.io">Bower</a>. Set <code>baseUrl</code> to <code>bower_components</code> and set a path config for all your application code.</p>
 <pre><code class="lang-js">requirejs.config({
-  paths: {
-    <span class="string">"eventie"</span>: <span class="string">"bower_components/eventie"</span>,
-    <span class="string">"eventEmitter"</span>: <span class="string">"bower_components/eventEmitter"</span>
+  baseUrl: <span class="string">'bower_components/'</span>,
+  paths: { <span class="comment">// path your your app</span>
+    app: <span class="string">'../'</span>
   }
+});
+
+requirejs( [
+  <span class="string">'imagesloaded/imagesloaded'</span>,
+  <span class="string">'app/my-component.js'</span>
+], <span class="keyword">function</span>( imagesLoaded, myComp ) {
+  imagesLoaded( <span class="string">'#container'</span>, <span class="keyword">function</span>() { ... });
 });</code></pre>
 <h2 id="contributors">Contributors</h2>
 <p>This project has a <a href="https://github.com/desandro/imagesloaded/graphs/contributors">storied legacy</a>. Its current incarnation was developed by <a href="http://darsa.in/">Tomas Sardyha @Darsain</a> and <a href="http://desandro.com">David DeSandro @desandro</a>.</p>
