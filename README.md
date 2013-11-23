@@ -168,17 +168,33 @@ $('#container').imagesLoaded()
 
 ## RequireJS
 
-imagesLoaded works with RequireJS.
+imagesLoaded works with [RequireJS](http://require.org).
 
-1. Install imagesLoaded and its dependencies
-2. Update your [RequireJS paths config](http://requirejs.org/docs/api.html#config-paths) so it can find those modules
+You can require [imagesloaded.pkgd.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js).
+
+``` js
+requirejs( [
+  'path/to/imagesloaded.pkgd.js',
+], function( imagesLoaded ) {
+  imagesLoaded( '#container', function() { ... });
+});
+```
+
+Or, you can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
 
 ``` js
 requirejs.config({
-  paths: {
-    "eventie": "bower_components/eventie",
-    "eventEmitter": "bower_components/eventEmitter"
+  baseUrl: 'bower_components/',
+  paths: { // path your your app
+    app: '../'
   }
+});
+
+requirejs( [
+  'imagesloaded/imagesloaded',
+  'app/my-component.js'
+], function( imagesLoaded, myComp ) {
+  imagesLoaded( '#container', function() { ... });
 });
 ```
 
