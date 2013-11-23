@@ -28,6 +28,7 @@ module.exports = function( grunt ) {
     var content = page.replace( '{{{ content }}}', readmeHTML );
 
     grunt.file.write( 'index.html', content );
+    grunt.log.writeln('created index.html');
   });
 
 };
