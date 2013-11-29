@@ -228,7 +228,15 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   LoadingImage.prototype.useCached = function( cached ) {
     if ( cached.isConfirmed ) {
-      this.confirm( cached.isLoaded, 'cached was confirmed' );
+      var _this = this,
+        checkWidth = function() {
+          if (_this.img.naturalWidth !== 0) {
+            _this.confirm( cached.isLoaded, 'cached was confirmed' );
+          } else {
+            setTimeout(checkWidth, 2);
+          }
+        };
+      checkWidth();
     } else {
       var _this = this;
       cached.on( 'confirm', function( image ) {
