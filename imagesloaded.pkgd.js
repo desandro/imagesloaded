@@ -1,12 +1,12 @@
 /*!
- * imagesLoaded PACKAGED v3.0.4
+ * imagesLoaded PACKAGED v3.1.0
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
 
 
 /*!
- * EventEmitter v4.2.4 - git.io/ee
+ * EventEmitter v4.2.6 - git.io/ee
  * Oliver Caldwell
  * MIT license
  * @preserve
@@ -24,9 +24,9 @@
 	function EventEmitter() {}
 
 	// Shortcuts to improve speed and size
-
-	// Easy access to the prototype
 	var proto = EventEmitter.prototype;
+	var exports = this;
+	var originalGlobalValue = exports.EventEmitter;
 
 	/**
 	 * Finds the index of the listener for the event in it's storage array.
@@ -454,6 +454,16 @@
 		return this._events || (this._events = {});
 	};
 
+	/**
+	 * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	 *
+	 * @return {Function} Non conflicting EventEmitter class.
+	 */
+	EventEmitter.noConflict = function noConflict() {
+		exports.EventEmitter = originalGlobalValue;
+		return EventEmitter;
+	};
+
 	// Expose the class either via AMD, CommonJS or the global object
 	if (typeof define === 'function' && define.amd) {
 		define('eventEmitter/EventEmitter',[],function () {
@@ -544,7 +554,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.0.4
+ * imagesLoaded v3.1.0
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -738,8 +748,6 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   // --------------------------  -------------------------- //
 
-  var cache = {};
-
   function LoadingImage( img ) {
     this.img = img;
   }
@@ -748,13 +756,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
-    var cached = cache[ this.img.src ];
-    if ( cached ) {
-      this.useCached( cached );
+    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    if ( resource.isConfirmed ) {
+      this.confirm( resource.isLoaded, 'cached was confirmed' );
       return;
     }
-    // add this to cache
-    cache[ this.img.src ] = this;
 
     // If complete is true and browser supports natural sizes,
     // try to check for image status manually.
@@ -765,51 +771,80 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
 
     // If none of the checks above matched, simulate loading on detached element.
-    var proxyImage = this.proxyImage = new Image();
-    eventie.bind( proxyImage, 'load', this );
-    eventie.bind( proxyImage, 'error', this );
-    proxyImage.src = this.img.src;
-  };
+    var _this = this;
+    resource.on( 'confirm', function( resrc, message ) {
+      _this.confirm( resrc.isLoaded, message );
+      return true;
+    });
 
-  LoadingImage.prototype.useCached = function( cached ) {
-    if ( cached.isConfirmed ) {
-      this.confirm( cached.isLoaded, 'cached was confirmed' );
-    } else {
-      var _this = this;
-      cached.on( 'confirm', function( image ) {
-        _this.confirm( image.isLoaded, 'cache emitted confirmed' );
-        return true; // bind once
-      });
-    }
+    resource.check();
   };
 
   LoadingImage.prototype.confirm = function( isLoaded, message ) {
-    this.isConfirmed = true;
     this.isLoaded = isLoaded;
     this.emit( 'confirm', this, message );
   };
 
+  // -------------------------- Resource -------------------------- //
+
+  // Resource checks each src, only once
+  // separate class from LoadingImage to prevent memory leaks. See #115
+
+  var cache = {};
+
+  function Resource( src ) {
+    this.src = src;
+    // add to cache
+    cache[ src ] = this;
+  }
+
+  Resource.prototype = new EventEmitter();
+
+  Resource.prototype.check = function() {
+    // only trigger checking once
+    if ( this.isChecked ) {
+      return;
+    }
+    // simulate loading on detached element
+    var proxyImage = new Image();
+    eventie.bind( proxyImage, 'load', this );
+    eventie.bind( proxyImage, 'error', this );
+    proxyImage.src = this.src;
+    // set flag
+    this.isChecked = true;
+  };
+
+  // ----- events ----- //
+
   // trigger specified handler for event type
-  LoadingImage.prototype.handleEvent = function( event ) {
+  Resource.prototype.handleEvent = function( event ) {
     var method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
   };
 
-  LoadingImage.prototype.onload = function() {
+  Resource.prototype.onload = function( event ) {
     this.confirm( true, 'onload' );
-    this.unbindProxyEvents();
+    this.unbindProxyEvents( event );
   };
 
-  LoadingImage.prototype.onerror = function() {
+  Resource.prototype.onerror = function( event ) {
     this.confirm( false, 'onerror' );
-    this.unbindProxyEvents();
+    this.unbindProxyEvents( event );
   };
 
-  LoadingImage.prototype.unbindProxyEvents = function() {
-    eventie.unbind( this.proxyImage, 'load', this );
-    eventie.unbind( this.proxyImage, 'error', this );
+  // ----- confirm ----- //
+
+  Resource.prototype.confirm = function( isLoaded, message ) {
+    this.isConfirmed = true;
+    this.isLoaded = isLoaded;
+    this.emit( 'confirm', this, message );
+  };
+
+  Resource.prototype.unbindProxyEvents = function( event ) {
+    eventie.unbind( event.target, 'load', this );
+    eventie.unbind( event.target, 'error', this );
   };
 
   // -----  ----- //
