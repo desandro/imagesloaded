@@ -1,11 +1,11 @@
 {
   "name": "imagesloaded",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
     "eventEmitter": "4.x",
-    "eventie": "desandro/eventie#>=1.0.3"
+    "eventie": "eventie#>=1.0.4 <2"
   },
   "devDependencies": {
     "jquery": ">=1.9 <2.0",
