@@ -28,9 +28,9 @@
     }
   ],
   "bugs": "https://github.com/desandro/imagesloaded/issues",
-  "homepage": "https://desandro.github.io/imagesloaded",
-  "docs": "https://desandro.github.io/imagesloaded",
-  "download": "http://desandro.github.io/imagesloaded",
+  "homepage": "https://imagesloaded.desandro.com",
+  "docs": "https://imagesloaded.desandro.com",
+  "download": "http://imagesloaded.desandro.com",
   "dependencies": {
     "jquery": ">=1.7"
   }
