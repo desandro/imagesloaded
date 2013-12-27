@@ -2,7 +2,7 @@
 
 <p class="tagline">JavaScript is all like "You images done yet or what?"</p>
 
-[desandro.github.io/imagesloaded](http://desandro.github.io/imagesloaded/)
+[imagesloaded.desandro.com](http://imagesloaded.desandro.com)
 
 Detect when images have been loaded.
 
