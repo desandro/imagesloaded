@@ -12,8 +12,8 @@ Detect when images have been loaded.
 
 Get a packaged source file:
 
-+ [imagesloaded.pkgd.min.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.min.js)
-+ [imagesloaded.pkgd.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js)
++ [imagesloaded.pkgd.min.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js)
++ [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js)
 
 Or install via [Bower](http://bower.io):
 
@@ -170,7 +170,7 @@ $('#container').imagesLoaded()
 
 imagesLoaded works with [RequireJS](http://require.org).
 
-You can require [imagesloaded.pkgd.js](http://desandro.github.io/imagesloaded/imagesloaded.pkgd.js).
+You can require [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js).
 
 ``` js
 requirejs( [
