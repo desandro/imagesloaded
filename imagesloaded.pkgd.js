@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v3.1.1
+ * imagesLoaded PACKAGED v3.1.2
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -557,7 +557,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.1.1
+ * imagesLoaded v3.1.2
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -718,7 +718,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var _this = this;
     setTimeout( function() {
       _this.emit( 'progress', _this, image );
-      if ( _this.jqDeferred ) {
+      if ( _this.jqDeferred && _this.jqDeferred.notify ) {
         _this.jqDeferred.notify( _this, image );
       }
     });
