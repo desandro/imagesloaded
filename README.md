@@ -168,7 +168,7 @@ $('#container').imagesLoaded()
 
 ## RequireJS
 
-imagesLoaded works with [RequireJS](http://require.org).
+imagesLoaded works with [RequireJS](http://requirejs.org).
 
 You can require [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js).
 
