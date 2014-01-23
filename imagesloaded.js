@@ -12,10 +12,11 @@
   if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( [
-      window,
       'eventEmitter/EventEmitter',
       'eventie/eventie'
-    ], factory );
+    ], function( EventEmitter, eventie ) {
+      return factory( window, EventEmitter, eventie );
+    });
   } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
