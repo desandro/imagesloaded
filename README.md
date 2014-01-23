@@ -21,6 +21,12 @@ Or install via [Bower](http://bower.io):
 bower install imagesloaded
 ```
 
+Or install via [Component](https://github.com/component/component):
+
+``` js
+bower install desandro/imagesloaded
+```
+
 ## Usage
 
 ``` js
