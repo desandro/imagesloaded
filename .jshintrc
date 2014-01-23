@@ -7,8 +7,6 @@
   "unused": true,
   "node": true,
   "predef": {
-    "define": false,
-
     "imagesLoaded": false,
     "test": false,
     "ok": false,

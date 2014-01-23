@@ -1,10 +1,42 @@
 /*!
- * imagesLoaded v3.1.2
+ * imagesLoaded v3.1.3
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
 
-( function( window ) {
+( function( window, factory ) { 'use strict';
+  // universal module definition
+
+  /*global define: false, module: false, require: false */
+
+  if ( typeof define === 'function' && define.amd ) {
+    // AMD
+    define( [
+      window,
+      'eventEmitter/EventEmitter',
+      'eventie/eventie'
+    ], factory );
+  } else if ( typeof exports === 'object' ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('EventEmitter'),
+      require('eventie')
+    );
+  } else {
+    // browser global
+    window.imagesLoaded = factory(
+      window,
+      window.EventEmitter,
+      window.eventie
+    );
+  }
+
+})( this,
+
+// --------------------------  factory -------------------------- //
+
+function factory( window, EventEmitter, eventie ) {
 
 'use strict';
 
@@ -45,9 +77,7 @@ function makeArray( obj ) {
   return ary;
 }
 
-// --------------------------  -------------------------- //
-
-function defineImagesLoaded( EventEmitter, eventie ) {
+  // -------------------------- imagesLoaded -------------------------- //
 
   /**
    * @param {Array, Element, NodeList, String} elem
@@ -295,23 +325,5 @@ function defineImagesLoaded( EventEmitter, eventie ) {
   // -----  ----- //
 
   return ImagesLoaded;
-}
 
-// -------------------------- transport -------------------------- //
-
-if ( typeof define === 'function' && define.amd ) {
-  // AMD
-  define( [
-      'eventEmitter/EventEmitter',
-      'eventie/eventie'
-    ],
-    defineImagesLoaded );
-} else {
-  // browser global
-  window.imagesLoaded = defineImagesLoaded(
-    window.EventEmitter,
-    window.eventie
-  );
-}
-
-})( window );
+});
