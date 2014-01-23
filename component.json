@@ -8,8 +8,8 @@
   ],
   "main": "imagesloaded.js",
   "dependencies": {
-    "desandro/eventie": ">=1 <2",
-    "Wolfy87/EventEmitter": ">=4 <5"
+    "desandro/eventie": "*",
+    "Wolfy87/EventEmitter": "*"
   },
   "license": "MIT"
 }
