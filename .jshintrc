@@ -6,8 +6,6 @@
   "undef": true,
   "unused": true,
   "predef": {
-    "define": false,
-
     "imagesLoaded": false,
     "test": false,
     "ok": false,
