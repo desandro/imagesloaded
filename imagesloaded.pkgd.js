@@ -578,7 +578,7 @@ if ( typeof define === 'function' && define.amd ) {
     // CommonJS
     module.exports = factory(
       window,
-      require('EventEmitter'),
+      require('eventEmitter'),
       require('eventie')
     );
   } else {
