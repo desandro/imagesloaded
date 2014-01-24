@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v3.1.3
+ * imagesLoaded PACKAGED v3.1.4
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -557,7 +557,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.1.3
+ * imagesLoaded v3.1.4
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -570,10 +570,11 @@ if ( typeof define === 'function' && define.amd ) {
   if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( [
-      window,
       'eventEmitter/EventEmitter',
       'eventie/eventie'
-    ], factory );
+    ], function( EventEmitter, eventie ) {
+      return factory( window, EventEmitter, eventie );
+    });
   } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
