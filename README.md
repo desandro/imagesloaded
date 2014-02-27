@@ -191,7 +191,7 @@ Or, you can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to 
 ``` js
 requirejs.config({
   baseUrl: 'bower_components/',
-  paths: { // path your your app
+  paths: { // path to your app
     app: '../'
   }
 });
