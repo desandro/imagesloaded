@@ -1,6 +1,6 @@
 {
   "name": "imagesloaded",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
@@ -15,6 +15,7 @@
     "**/.*",
     "test",
     "component.json",
-    "imagesloaded.jquery.json"
+    "imagesloaded.jquery.json",
+    "package.json"
   ]
 }
