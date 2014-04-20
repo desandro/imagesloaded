@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v3.1.4
+ * imagesLoaded PACKAGED v3.1.5
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -557,7 +557,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.1.4
+ * imagesLoaded v3.1.5
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -695,6 +695,10 @@ function makeArray( obj ) {
         this.addImage( elem );
       }
       // find children
+      // no non-element nodes, #143
+      if ( !elem.nodeType || !( elem.nodeType === 1 || elem.nodeType === 9 ) ) {
+        continue;
+      }
       var childElems = elem.querySelectorAll('img');
       // concat childElems to filterFound array
       for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {

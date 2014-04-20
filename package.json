@@ -1,11 +1,10 @@
 {
   "name": "imagesloaded",
-  "version": "3.0.4",
+  "version": "3.1.5",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
   "devDependencies": {
     "grunt": "~0.4.0",
-    "grunt-contrib-copy": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-uglify": "~0.1.2",
     "grunt-contrib-watch": "~0.3.1",
