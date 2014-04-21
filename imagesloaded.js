@@ -21,7 +21,7 @@
     // CommonJS
     module.exports = factory(
       window,
-      require('eventEmitter'),
+      require('wolfy87-eventemitter'),
       require('eventie')
     );
   } else {

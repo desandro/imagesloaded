@@ -21,5 +21,9 @@
     "loaded",
     "ui"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "eventie": "https://github.com/wbinnssmith/eventie/archive/commonjs.tar.gz",
+    "wolfy87-eventemitter": "4.x"
+  }
 }
