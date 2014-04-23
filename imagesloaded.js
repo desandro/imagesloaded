@@ -138,7 +138,7 @@ function makeArray( obj ) {
       }
       // find children
       // no non-element nodes, #143
-      if ( !elem.nodeType || !( elem.nodeType === 1 || elem.nodeType === 9 ) ) {
+      if ( !elem.nodeType || !( elem.nodeType === 1 || elem.nodeType === 9 || elem.nodeType === 11 ) ) {
         continue;
       }
       var childElems = elem.querySelectorAll('img');
