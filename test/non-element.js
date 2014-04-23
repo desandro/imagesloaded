@@ -8,6 +8,18 @@ test( 'dismiss non-element nodes', function() {
     .imagesLoaded(function() {
       ok( true, 'elements from jQuery string ok' );
       start();
+      testFrag();
     });
+
+  function testFrag() {
+    stop();
+    var frag = document.createDocumentFragment();
+    var img = new Image();
+    img.src = 'http://lorempixel.com/403/303/';
+    frag.appendChild( img );
+    imagesLoaded( frag, function() {
+      ok( true, 'document fragment ok' );
+    });
+  }
 
 });
