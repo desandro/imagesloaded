@@ -17,8 +17,10 @@ test( 'dismiss non-element nodes', function() {
     var img = new Image();
     img.src = 'http://lorempixel.com/403/303/';
     frag.appendChild( img );
-    imagesLoaded( frag, function() {
+    var imgLoad = imagesLoaded( frag, function() {
       ok( true, 'document fragment ok' );
+      equal( imgLoad.images.length, 1, '1 image found' );
+      start();
     });
   }
 
