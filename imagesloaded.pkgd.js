@@ -794,13 +794,6 @@ function makeArray( obj ) {
   LoadingImage.prototype = new EventEmitter();
 
   LoadingImage.prototype.check = function() {
-    // first check cached any previous images that have same src
-    var resource = cache[ this.img.src ] || new Resource( this.img.src );
-    if ( resource.isConfirmed ) {
-      this.confirm( resource.isLoaded, 'cached was confirmed' );
-      return;
-    }
-
     // If complete is true and browser supports natural sizes,
     // try to check for image status manually.
     if ( this.img.complete && this.img.naturalWidth !== undefined ) {
@@ -810,6 +803,7 @@ function makeArray( obj ) {
     }
 
     // If none of the checks above matched, simulate loading on detached element.
+    var resource = new Resource( this.img.src );
     var _this = this;
     resource.on( 'confirm', function( resrc, message ) {
       _this.confirm( resrc.isLoaded, message );
@@ -829,28 +823,18 @@ function makeArray( obj ) {
   // Resource checks each src, only once
   // separate class from LoadingImage to prevent memory leaks. See #115
 
-  var cache = {};
-
   function Resource( src ) {
     this.src = src;
-    // add to cache
-    cache[ src ] = this;
   }
 
   Resource.prototype = new EventEmitter();
 
   Resource.prototype.check = function() {
-    // only trigger checking once
-    if ( this.isChecked ) {
-      return;
-    }
     // simulate loading on detached element
     var proxyImage = new Image();
     eventie.bind( proxyImage, 'load', this );
     eventie.bind( proxyImage, 'error', this );
     proxyImage.src = this.src;
-    // set flag
-    this.isChecked = true;
   };
 
   // ----- events ----- //
