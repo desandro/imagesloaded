@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v3.1.6
+ * imagesLoaded PACKAGED v3.1.7
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -557,7 +557,7 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.1.6
+ * imagesLoaded v3.1.7
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -591,7 +591,7 @@ if ( typeof define === 'function' && define.amd ) {
     );
   }
 
-})( this,
+})( window,
 
 // --------------------------  factory -------------------------- //
 

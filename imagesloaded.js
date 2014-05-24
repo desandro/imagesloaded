@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v3.1.6
+ * imagesLoaded v3.1.7
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -33,7 +33,7 @@
     );
   }
 
-})( this,
+})( window,
 
 // --------------------------  factory -------------------------- //
 
