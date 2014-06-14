@@ -5,7 +5,7 @@
   "main": "imagesloaded.js",
   "dependencies": {
     "eventEmitter": "4.x",
-    "eventie": "eventie#>=1.0.4 <2"
+    "eventie": ">=1.0.4 <2"
   },
   "devDependencies": {
     "jquery": ">=1.9 <2.0",
