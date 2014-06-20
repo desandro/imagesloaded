@@ -13,8 +13,9 @@
     "grunt-requirejs": "~0.4.0"
   },
   "dependencies": {
-    "wolfy87-eventemitter": "4.x",
-    "eventie": ">=1.0.4 <2"
+    "eventie": ">=1.0.4 <2",
+    "require-component": "^0.1.1",
+    "wolfy87-eventemitter": "4.x"
   },
   "repository": {
     "type": "git",
