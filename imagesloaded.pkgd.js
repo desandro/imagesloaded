@@ -465,17 +465,23 @@
 	};
 
 	// Expose the class either via AMD, CommonJS or the global object
-	if (typeof define === 'function' && define.amd) {
-		define('eventEmitter/EventEmitter',[],function () {
-			return EventEmitter;
-		});
-	}
-	else if (typeof module === 'object' && module.exports){
-		module.exports = EventEmitter;
-	}
-	else {
-		this.EventEmitter = EventEmitter;
-	}
+	(function (root, factory) {
+		if (typeof define === 'function' && define.amd) {
+			// AMD.
+			define('eventEmitter/EventEmitter', [], factory);
+		} else if (typeof exports === 'object') {
+			// Node. Does not work with strict CommonJS, but
+			// only CommonJS-like environments that support module.exports,
+			// like Node.
+			module.exports = factory();
+		} else {
+			// Browser globals (root is window)
+			root.returnExports = factory();
+		}
+	}(this, function () {
+		// Just return a value to define the module export.
+		return EventEmitter;
+	}));
 }.call(this));
 
 /*!
@@ -546,13 +552,24 @@ var eventie = {
 };
 
 // transport
-if ( typeof define === 'function' && define.amd ) {
-  // AMD
-  define( 'eventie/eventie',eventie );
-} else {
-  // browser global
-  window.eventie = eventie;
-}
+// transport
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD.
+        define('eventie/eventie', [], factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory();
+  }
+}(this, function () {
+    // Just return a value to define the module export.
+    return eventie;
+}));
 
 })( this );
 
