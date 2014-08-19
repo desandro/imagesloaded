@@ -216,6 +216,11 @@ function makeArray( obj ) {
       }
     });
   };
+  
+  
+  ImagesLoaded.prototype.clearCache = function() {
+    cache = {};
+  };
 
   // -------------------------- jquery -------------------------- //
 
