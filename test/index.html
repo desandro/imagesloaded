@@ -19,6 +19,7 @@
   <script src="selector-string.js"></script>
   <script src="single-element.js"></script>
   <script src="local-files.js"></script>
+  <script src="picture-element.js"></script>
   <script src="data-uri.js"></script>
   <script src="append.js"></script>
   <script src="no-images.js"></script>
@@ -61,11 +62,9 @@
 
   <div id="picure-element">
     <picture>
-      <!--[if IE 9]><video style="display: none;"><![endif]-->
-      <source srcset="http://scottjehl.github.io/picturefill/examples/images/extralarge.jpg" media="(min-width: 1000px)">
-      <source srcset="http://scottjehl.github.io/picturefill/examples/images/large.jpg" media="(min-width: 800px)">
-      <!--[if IE 9]></video><![endif]-->
-      <img srcset="http://scottjehl.github.io/picturefill/examples/images/medium.jpg" alt="A giant stone face at The Bayon temple in Angkor Thom, Cambodia">
+      <source srcset="http://fillmurray.com/g/480/480, http://fillmurray.com/g/960/960 2x" media="(min-width: 1000px)" />
+      <source srcset="http://fillmurray.com/g/360/360, http://fillmurray.com/g/720/720 2x" media="(min-width: 800px)" />
+      <img srcset="http://fillmurray.com/g/240/240, http://fillmurray.com/g/480/480 2x" />
     </picture>
   </div>
 
