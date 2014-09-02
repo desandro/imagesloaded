@@ -240,6 +240,11 @@ function makeArray( obj ) {
     var src, resource;
     src = this.img.currentSrc || this.img.src;
 
+    // TODO:
+    // This is likely temporary. Firefox Aurora can pass in a trailing comma on the currentSrc property
+    // So we'll strip  out any cruft that may be passed in just to be safe
+    src = src.replace(/^\s+|\s+$/g, '').replace(/\^,|,$/g, '');
+
     if ( ! src ) {
       // This settimeout is hacky and noisy but necessary because Chrome doesn't report a currentSrc immediately.
       window.setTimeout(function(loadingImage){
