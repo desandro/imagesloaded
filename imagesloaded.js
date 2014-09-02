@@ -237,7 +237,18 @@ function makeArray( obj ) {
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
-    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    var src, resource;
+    src = this.img.currentSrc || this.img.src;
+
+    if ( ! src ) {
+      // This settimeout is hacky and noisy but necessary because Chrome doesn't report a currentSrc immediately.
+      window.setTimeout(function(loadingImage){
+        loadingImage.check();
+      }, 10, this);
+      return;
+    }
+
+    resource = cache[ src ] || new Resource( src );
     if ( resource.isConfirmed ) {
       this.confirm( resource.isLoaded, 'cached was confirmed' );
       return;
