@@ -1,6 +1,6 @@
 {
-  "name": "imagesloaded",
-  "version": "3.1.8",
+  "name": "imagesloaded-kimili",
+  "version": "3.1.9",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
   "devDependencies": {
