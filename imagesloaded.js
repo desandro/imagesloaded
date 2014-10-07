@@ -110,7 +110,7 @@ function makeArray( obj ) {
 
     this.getImages();
 
-    if ( $ ) {
+    if ( $ && $.Deferred instanceof Function) {
       // add jQuery Deferred object
       this.jqDeferred = new $.Deferred();
     }
