@@ -23,7 +23,9 @@
   "keywords": [
     "images",
     "loaded",
-    "ui"
+    "ui",
+    "dom",
+    "jquery-plugin"
   ],
   "license": "MIT"
 }
