@@ -196,6 +196,20 @@ requirejs( [
 });
 ```
 
+## Browserify
+
+imagesLoaded works with [Browserify](http://browserify.org/).
+
+``` bash
+npm install imagesloaded --save
+```
+
+```
+var imagesLoaded = require('imagesloaded');
+
+imagesLoaded( elem, function() {...} );
+```
+
 ## Contributors
 
 This project has a [storied legacy](https://github.com/desandro/imagesloaded/graphs/contributors). Its current incarnation was developed by [Tomas Sardyha @Darsain](http://darsa.in/) and [David DeSandro @desandro](http://desandro.com).
