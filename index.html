@@ -163,6 +163,12 @@ requirejs( [
 ], <span class="keyword">function</span>( imagesLoaded, myComp ) {
   imagesLoaded( <span class="string">'#container'</span>, <span class="keyword">function</span>() { ... });
 });</code></pre>
+<h2 id="browserify">Browserify</h2>
+<p>imagesLoaded works with <a href="http://browserify.org/">Browserify</a>.</p>
+<pre><code class="lang-bash">npm install imagesloaded --save</code></pre>
+<pre><code>var imagesLoaded = require(&#39;imagesloaded&#39;);
+
+imagesLoaded( elem, function() {...} );</code></pre>
 <h2 id="contributors">Contributors</h2>
 <p>This project has a <a href="https://github.com/desandro/imagesloaded/graphs/contributors">storied legacy</a>. Its current incarnation was developed by <a href="http://darsa.in/">Tomas Sardyha @Darsain</a> and <a href="http://desandro.com">David DeSandro @desandro</a>.</p>
 <h2 id="mit-license">MIT License</h2>
