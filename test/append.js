@@ -15,6 +15,6 @@ test( 'append', function() {
   var imgLoad = imagesLoaded( elem, { debug: true } ).on( 'done', function() {
     ok( 'appended images loaded' );
     start();
-  }); 
+  });
 
 });

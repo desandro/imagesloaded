@@ -2,3 +2,10 @@ img {
   display: inline-block;
   max-width: 240px;
 }
+
+.bg-image {
+  display: inline-block;
+  width: 240px;
+  height: 240px;
+  background-position: center center;
+}

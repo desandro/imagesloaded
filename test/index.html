@@ -11,7 +11,7 @@
   <script src="../bower_components/eventEmitter/EventEmitter.js"></script>
   <script src="../bower_components/eventie/eventie.js"></script>
   <script src="../bower_components/qunit/qunit/qunit.js"></script>
-  <script src="../bower_components/jquery/jquery.js"></script>
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
 
   <script src="../imagesloaded.js"></script>
 
@@ -22,6 +22,10 @@
   <script src="data-uri.js"></script>
   <script src="append.js"></script>
   <script src="no-images.js"></script>
+  <script src="background-image.js"></script>
+  <script src="background-image-basics.js"></script>
+  <script src="multiple-background-images.js"></script>
+  <script src="local-background-images.js"></script>
   <script src="jquery-success.js"></script>
   <script src="jquery-fail.js"></script>
   <script src="non-element.js"></script>
@@ -58,6 +62,22 @@
   <div id="append"></div>
 
   <div id="no-images"></div>
+
+  <div id="background-image" class="bg-image" style="background-image:url(http://i.imgur.com/Iv7jq1y.jpg);"></div>
+
+  <div id="background-image-basics">
+    <div class="bg-image" style="background-image:url(http://i.imgur.com/LJIEh4v.jpg);"></div>
+    <div class="bg-image" style="background:url(http://i.imgur.com/f6v1NVA.jpg);"></div>
+  </div>
+
+  <div id="multiple-background-images">
+    <div class="bg-image" style="background:url(http://i.imgur.com/212I8BO.jpg),url(http://i.imgur.com/w2hapwJ.jpg);"></div>
+  </div>
+
+  <div id="local-background-images">
+    <div class="bg-image" style="background-image:url(img/red-shell.jpg);"></div>
+    <div class="bg-image" style="background-image:url(data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMtaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNEQjY3ODhEOEQ3QjExRTRCM0FBRThBQjlFODlCNjU1IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNEQjY3ODhDOEQ3QjExRTRCM0FBRThBQjlFODlCNjU1IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzYgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3NjY2RDQ3RDhENzgxMUU0QjNBQUU4QUI5RTg5QjY1NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3NjY2RDQ3RThENzgxMUU0QjNBQUU4QUI5RTg5QjY1NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAYEBAQFBAYFBQYJBgUGCQsI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);"></div>
+  </div>
 
   <div id="jquery-success">
     <img src="http://i.imgur.com/YbYCPFF.png" />
