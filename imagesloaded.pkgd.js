@@ -716,12 +716,6 @@ function makeArray( obj ) {
         if ( !!elem.style.background ) {
           this.addBackgroundImage( elem );
         }
-        for ( var k=0, kLen = elem.children.length; k < kLen; k++ ) {
-          var child = elem.children[k];
-          if ( !!child.style.background ) {
-            this.addBackgroundImage( child );
-          }
-        }
       }
     }
   };
