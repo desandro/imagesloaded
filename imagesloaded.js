@@ -245,14 +245,10 @@ function makeArray( obj ) {
     }
 
     // If none of the checks above matched, simulate loading on detached element.
-    var resource = new Resource( this.img.src );
-    var _this = this;
-    resource.on( 'confirm', function( resrc, message ) {
-      _this.confirm( resrc.isLoaded, message );
-      return true;
-    });
-
-    resource.check();
+    var proxyImage = new Image();
+    eventie.bind( proxyImage, 'load', this );
+    eventie.bind( proxyImage, 'error', this );
+    proxyImage.src = this.img.src;
   };
 
   LoadingImage.prototype.confirm = function( isLoaded, message ) {
@@ -260,54 +256,28 @@ function makeArray( obj ) {
     this.emit( 'confirm', this, message );
   };
 
-  // -------------------------- Resource -------------------------- //
-
-  // Resource checks each src, only once
-  // separate class from LoadingImage to prevent memory leaks. See #115
-
-  function Resource( src ) {
-    this.src = src;
-  }
-
-  Resource.prototype = new EventEmitter();
-
-  Resource.prototype.check = function() {
-    // simulate loading on detached element
-    var proxyImage = new Image();
-    eventie.bind( proxyImage, 'load', this );
-    eventie.bind( proxyImage, 'error', this );
-    proxyImage.src = this.src;
-  };
-
   // ----- events ----- //
 
   // trigger specified handler for event type
-  Resource.prototype.handleEvent = function( event ) {
+  LoadingImage.prototype.handleEvent = function( event ) {
     var method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
   };
 
-  Resource.prototype.onload = function( event ) {
+  LoadingImage.prototype.onload = function( event ) {
     this.confirm( true, 'onload' );
     this.unbindProxyEvents( event );
   };
 
-  Resource.prototype.onerror = function( event ) {
+  LoadingImage.prototype.onerror = function( event ) {
+    debugger;
     this.confirm( false, 'onerror' );
     this.unbindProxyEvents( event );
   };
 
-  // ----- confirm ----- //
-
-  Resource.prototype.confirm = function( isLoaded, message ) {
-    this.isConfirmed = true;
-    this.isLoaded = isLoaded;
-    this.emit( 'confirm', this, message );
-  };
-
-  Resource.prototype.unbindProxyEvents = function( event ) {
+  LoadingImage.prototype.unbindProxyEvents = function( event ) {
     eventie.unbind( event.target, 'load', this );
     eventie.unbind( event.target, 'error', this );
   };

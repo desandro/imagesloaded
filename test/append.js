@@ -1,10 +1,18 @@
 test( 'append', function() {
+  var imgUrls = [
+    'http://i.imgur.com/bwy74ok.jpg',
+    'http://i.imgur.com/bAZWoqx.jpg',
+    'http://i.imgur.com/PgmEBSB.jpg',
+    'http://i.imgur.com/aboaFoB.jpg',
+    'http://i.imgur.com/LkmcILl.jpg',
+    'http://i.imgur.com/q9zO6tw.jpg'
+  ];
+
   // create images
   var fragment = document.createDocumentFragment();
-  for ( var i=0; i < 4; i++ ) {
+  for ( var i=0, len = imgUrls.length; i < len; i++ ) {
     var img = document.createElement('img');
-    var size = ( i + 1 ) * 50;
-    img.src = 'http://placekitten.com/' + size;
+    img.src = imgUrls[i];
     fragment.appendChild( img );
   }
 
@@ -12,7 +20,7 @@ test( 'append', function() {
   elem.appendChild( fragment );
 
   stop();
-  var imgLoad = imagesLoaded( elem, { debug: true } ).on( 'done', function() {
+  imagesLoaded( elem, { debug: true } ).on( 'always', function() {
     ok( 'appended images loaded' );
     start();
   }); 
