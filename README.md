@@ -204,6 +204,13 @@ requirejs( [
 });
 ```
 
+## Browser support
+
++ IE8+
++ Android 2.3+
++ iOS Safari 4+
++ All other modern browsers
+
 ## Contributors
 
 This project has a [storied legacy](https://github.com/desandro/imagesloaded/graphs/contributors). Its current incarnation was developed by [Tomas Sardyha @Darsain](http://darsa.in/) and [David DeSandro @desandro](http://desandro.com).
