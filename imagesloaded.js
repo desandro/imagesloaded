@@ -148,6 +148,27 @@ function makeArray( obj ) {
         var img = childElems[j];
         this.addImage( img );
       }
+
+      // allow background images
+      if ( this.options.background ) {
+        if ( !!elem.style.background ) {
+          this.addBackgroundImage( elem );
+        }
+      }
+    }
+  };
+
+  ImagesLoaded.prototype.addBackgroundImage = function( elem ) {
+
+    var find = /\burl\s*\(\s*["']?([^"'\r\n\)\(]+)["']?\s*\)/gi;
+    var replace = /url\((['"])?(.*?)\1\)/;
+    var images = elem.style.background.match( find );
+
+    for ( var i=0, len = images.length; i < len; i++ ) {
+      var img = new Image();
+      img.originalElement = elem;
+      img.src = images[i].match( replace ).pop();
+      this.addImage( img );
     }
   };
 
