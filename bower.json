@@ -14,8 +14,22 @@
   "ignore": [
     "**/.*",
     "test",
-    "component.json",
-    "imagesloaded.jquery.json",
-    "package.json"
-  ]
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "homepage": "http://imagesloaded.desandro.com",
+  "authors": [
+    "David DeSandro"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "images"
+  ],
+  "license": "MIT"
 }
