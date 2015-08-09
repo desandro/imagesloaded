@@ -217,6 +217,10 @@ function makeArray( obj ) {
     });
   };
 
+  ImagesLoaded.prototype.abort = function() {
+    this.progress = this.complete = function() {};
+  };
+
   // -------------------------- jquery -------------------------- //
 
   if ( $ ) {
