@@ -19,9 +19,12 @@
     });
   } else if ( typeof exports === 'object' ) {
     // CommonJS
+    // hacky :( ... but the line below helps address naming
+    // conflicts between browserify and component
+    require = require('require-component')(require);
     module.exports = factory(
       window,
-      require('wolfy87-eventemitter'),
+      require('eventEmitter', 'wolfy87-eventemitter'),
       require('eventie')
     );
   } else {
