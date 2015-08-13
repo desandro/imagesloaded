@@ -237,7 +237,35 @@ function makeArray( obj ) {
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
-    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    var src, resource;
+    src = this.img.currentSrc || this.img.src;
+
+    // TODO:
+    // This is likely temporary. Firefox Aurora can return a trailing comma on the currentSrc property
+    // So we'll strip  out any cruft that may be passed in just to be safe
+    src = src.replace(/^\s+|\s+$/g, '').replace(/\^,|,$/g, '');
+
+    if ( ! src ) {
+      if ( typeof this.checkCounter === 'undefined' ) {
+        this.checkCounter = 0;
+      }
+      // This settimeout is hacky and noisy but necessary because Chrome doesn't report a currentSrc immediately.
+      // We'll limit it to 10 repeats
+      if ( this.checkCounter > 10 ) {
+        window.setTimeout(function(loadingImage){
+          loadingImage.checkCounter++;
+          loadingImage.check();
+        }, 10, this);
+        return;
+      } else if ( this.img.srcset ) {
+        // This is super ghetto. If we're here, we're trying to load up a picture element with
+        // an img that has a srcset but no src attribute in a browser that doesn't support picture yet.
+        // Let's take the first url in the srcset and use it as the resource url, because that's what the browser will display.
+        src = this.img.srcset.split(',')[0].replace(/\s+\d+x/, '').replace(/^\s+|\s+$/g, '');
+      }
+    }
+
+    resource = cache[ src ] || new Resource( src );
     if ( resource.isConfirmed ) {
       this.confirm( resource.isLoaded, 'cached was confirmed' );
       return;

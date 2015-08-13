@@ -19,6 +19,7 @@
   <script src="selector-string.js"></script>
   <script src="single-element.js"></script>
   <script src="local-files.js"></script>
+  <script src="picture-element.js"></script>
   <script src="data-uri.js"></script>
   <script src="append.js"></script>
   <script src="no-images.js"></script>
@@ -58,6 +59,20 @@
   <div id="append"></div>
 
   <div id="no-images"></div>
+
+  <div id="picure-element">
+    <picture>
+      <source srcset="http://fillmurray.com/g/480/480 , http://fillmurray.com/g/960/960 2x" media="(min-width: 1000px)" />
+      <source srcset="http://fillmurray.com/g/360/360 , http://fillmurray.com/g/720/720 2x" media="(min-width: 800px)" />
+      <img srcset="http://fillmurray.com/g/240/240 , http://fillmurray.com/g/480/480 2x" />
+    </picture>
+
+    <picture>
+      <source srcset="http://fillmurray.com/g/500/500 , http://fillmurray.com/g/1000/1000 2x" media="(min-width: 1000px)" />
+      <source srcset="http://fillmurray.com/g/400/400 , http://fillmurray.com/g/800/800 2x" media="(min-width: 800px)" />
+      <img src="http://fillmurray.com/g/260/260" />
+    </picture>
+  </div>
 
   <div id="jquery-success">
     <img src="http://i.imgur.com/YbYCPFF.png" />
