@@ -110,11 +110,6 @@ function makeArray( obj ) {
 
     this.getImages();
 
-    if ( $ ) {
-      // add jQuery Deferred object
-      this.jqDeferred = new $.Deferred();
-    }
-
     // HACK check async to allow time to bind listeners
     var _this = this;
     setTimeout( function() {
