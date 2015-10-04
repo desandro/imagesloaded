@@ -237,7 +237,7 @@ function makeArray( obj ) {
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
-    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    var resource = cache[ this.img.src ] || new Resource( this.img.src, this.img.crossOrigin );
     if ( resource.isConfirmed ) {
       this.confirm( resource.isLoaded, 'cached was confirmed' );
       return;
@@ -273,8 +273,9 @@ function makeArray( obj ) {
 
   var cache = {};
 
-  function Resource( src ) {
+  function Resource( src, crossOrigin ) {
     this.src = src;
+    this.crossOrigin = crossOrigin;
     // add to cache
     cache[ src ] = this;
   }
@@ -288,6 +289,7 @@ function makeArray( obj ) {
     }
     // simulate loading on detached element
     var proxyImage = new Image();
+    proxyImage.crossOrigin = this.crossOrigin;
     eventie.bind( proxyImage, 'load', this );
     eventie.bind( proxyImage, 'error', this );
     proxyImage.src = this.src;
