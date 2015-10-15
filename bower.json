@@ -8,7 +8,7 @@
     "eventie": ">=1.0.4 <2"
   },
   "devDependencies": {
-    "jquery": ">=1.9 <2.0",
+    "jquery": ">=1.9 <1.11",
     "qunit": ">=1.10"
   },
   "ignore": [
