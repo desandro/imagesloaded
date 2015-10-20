@@ -573,6 +573,7 @@ a:hover { color: #04F; }
   background: hsla( 0, 0%, 0%, 0.8);
   padding: 20px;
   border-radius: 10px;
+  pointer-events: none;
   z-index: 2; /* over other stuff */
 }
 
