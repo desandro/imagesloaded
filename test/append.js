@@ -4,7 +4,7 @@ test( 'append', function() {
   for ( var i=0; i < 4; i++ ) {
     var img = document.createElement('img');
     var size = ( i + 1 ) * 50;
-    img.src = 'http://placekitten.com/' + size;
+    img.src = 'http://lorempixel.com/' + size + '/' + size + '/nature';
     fragment.appendChild( img );
   }
 
