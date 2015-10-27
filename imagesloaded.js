@@ -9,7 +9,7 @@
 
   /*global define: false, module: false, require: false */
 
-  if ( typeof define === 'function' && define.amd ) {
+  if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
       'eventEmitter/EventEmitter',
@@ -17,7 +17,7 @@
     ], function( EventEmitter, eventie ) {
       return factory( window, EventEmitter, eventie );
     });
-  } else if ( typeof exports === 'object' ) {
+  } else if ( typeof exports == 'object' ) {
     // CommonJS
     module.exports = factory(
       window,
@@ -43,7 +43,6 @@ function factory( window, EventEmitter, eventie ) {
 
 var $ = window.jQuery;
 var console = window.console;
-var hasConsole = typeof console !== 'undefined';
 
 // -------------------------- helpers -------------------------- //
 
@@ -57,7 +56,7 @@ function extend( a, b ) {
 
 var objToString = Object.prototype.toString;
 function isArray( obj ) {
-  return objToString.call( obj ) === '[object Array]';
+  return objToString.call( obj ) == '[object Array]';
 }
 
 // turn element or nodeList into an array
@@ -66,7 +65,7 @@ function makeArray( obj ) {
   if ( isArray( obj ) ) {
     // use object if already an array
     ary = obj;
-  } else if ( typeof obj.length === 'number' ) {
+  } else if ( typeof obj.length == 'number' ) {
     // convert nodeList to array
     for ( var i=0, len = obj.length; i < len; i++ ) {
       ary.push( obj[i] );
@@ -91,14 +90,14 @@ function makeArray( obj ) {
       return new ImagesLoaded( elem, options );
     }
     // use elem as selector string
-    if ( typeof elem === 'string' ) {
+    if ( typeof elem == 'string' ) {
       elem = document.querySelectorAll( elem );
     }
 
     this.elements = makeArray( elem );
     this.options = extend( {}, this.options );
 
-    if ( typeof options === 'function' ) {
+    if ( typeof options == 'function' ) {
       onAlways = options;
     } else {
       extend( this.options, options );
@@ -133,13 +132,13 @@ function makeArray( obj ) {
     for ( var i=0, len = this.elements.length; i < len; i++ ) {
       var elem = this.elements[i];
       // filter siblings
-      if ( elem.nodeName === 'IMG' ) {
+      if ( elem.nodeName == 'IMG' ) {
         this.addImage( elem );
       }
       // find children
       // no non-element nodes, #143
       var nodeType = elem.nodeType;
-      if ( !nodeType || !( nodeType === 1 || nodeType === 9 || nodeType === 11 ) ) {
+      if ( !nodeType || !( nodeType == 1 || nodeType == 9 || nodeType == 11 ) ) {
         continue;
       }
       var childElems = elem.querySelectorAll('img');
@@ -171,13 +170,13 @@ function makeArray( obj ) {
     }
 
     function onConfirm( image, message ) {
-      if ( _this.options.debug && hasConsole ) {
+      if ( _this.options.debug && console ) {
         console.log( 'confirm', image, message );
       }
 
       _this.progress( image );
       checkedCount++;
-      if ( checkedCount === length ) {
+      if ( checkedCount == length ) {
         _this.complete();
       }
       return true; // bind once
@@ -269,12 +268,12 @@ function makeArray( obj ) {
     }
   };
 
-  LoadingImage.prototype.onload = function( event ) {
+  LoadingImage.prototype.onload = function() {
     this.confirm( true, 'onload' );
     this.unbindEvents();
   };
 
-  LoadingImage.prototype.onerror = function( event ) {
+  LoadingImage.prototype.onerror = function() {
     this.confirm( false, 'onerror' );
     this.unbindEvents();
   };
