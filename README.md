@@ -15,17 +15,9 @@ Get a packaged source file:
 + [imagesloaded.pkgd.min.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js)
 + [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js)
 
-Or install via [Bower](http://bower.io):
+Or install via [Bower](http://bower.io): `bower install imagesloaded`
 
-``` bash
-bower install imagesloaded
-```
-
-Or install via [Component](https://github.com/component/component):
-
-``` js
-component install desandro/imagesloaded
-```
+Or install via npm: `npm install imagesloaded`
 
 ## Usage
 
@@ -210,6 +202,20 @@ requirejs( [
 + Android 2.3+
 + iOS Safari 4+
 + All other modern browsers
+
+## Browserify
+
+imagesLoaded works with [Browserify](http://browserify.org/).
+
+``` bash
+npm install imagesloaded --save
+```
+
+```
+var imagesLoaded = require('imagesloaded');
+
+imagesLoaded( elem, function() {...} );
+```
 
 ## Contributors
 

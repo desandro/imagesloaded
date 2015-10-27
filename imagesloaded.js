@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v3.1.6
+ * imagesLoaded v3.1.8
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -21,7 +21,7 @@
     // CommonJS
     module.exports = factory(
       window,
-      require('eventEmitter'),
+      require('wolfy87-eventemitter'),
       require('eventie')
     );
   } else {
@@ -33,7 +33,7 @@
     );
   }
 
-})( this,
+})( window,
 
 // --------------------------  factory -------------------------- //
 
