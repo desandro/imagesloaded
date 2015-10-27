@@ -178,7 +178,21 @@ requirejs( [
 });
 ```
 
-Or, you can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
+Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
+
+``` js
+requirejs( [
+  'jquery',
+  'path/to/imagesloaded.pkgd.js',
+], function( $, imagesLoaded ) {
+  // provide jQuery argument
+  imagesLoaded.makeJQueryPlugin( $ );
+  // now use .imagesLoaded() jQuery plugin
+  $('#container').imagesLoaded( function() {...});
+});
+```
+
+You can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
 
 ``` js
 requirejs.config({
@@ -196,12 +210,7 @@ requirejs( [
 });
 ```
 
-## Browser support
 
-+ IE8+
-+ Android 2.3+
-+ iOS Safari 4+
-+ All other modern browsers
 
 ## Browserify
 
@@ -216,6 +225,25 @@ var imagesLoaded = require('imagesloaded');
 
 imagesLoaded( elem, function() {...} );
 ```
+
+Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
+
+```
+var $ = require('jquery');
+var imagesLoaded = require('imagesloaded');
+
+// provide jQuery argument
+imagesLoaded.makeJQueryPlugin( $ );
+// now use .imagesLoaded() jQuery plugin
+$('#container').imagesLoaded( function() {...});
+```
+
+## Browser support
+
++ IE8+
++ Android 2.3+
++ iOS Safari 4+
++ All other modern browsers
 
 ## Contributors
 

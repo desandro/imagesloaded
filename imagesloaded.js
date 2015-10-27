@@ -216,16 +216,6 @@ function makeArray( obj ) {
     });
   };
 
-  // -------------------------- jquery -------------------------- //
-
-  if ( $ ) {
-    $.fn.imagesLoaded = function( options, callback ) {
-      var instance = new ImagesLoaded( this, options, callback );
-      return instance.jqDeferred.promise( $(this) );
-    };
-  }
-
-
   // --------------------------  -------------------------- //
 
   function LoadingImage( img ) {
@@ -285,7 +275,25 @@ function makeArray( obj ) {
     eventie.unbind( this.img, 'error', this );
   };
 
-  // -----  ----- //
+  // -------------------------- jQuery -------------------------- //
+
+  ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
+    jQuery = jQuery || window.jQuery;
+    if ( !jQuery ) {
+      return;
+    }
+    // set local variable
+    $ = jQuery;
+    // $().imagesLoaded()
+    $.fn.imagesLoaded = function( options, callback ) {
+      var instance = new ImagesLoaded( this, options, callback );
+      return instance.jqDeferred.promise( $(this) );
+    };
+  };
+  // try making plugin
+  ImagesLoaded.makeJQueryPlugin();
+
+  // --------------------------  -------------------------- //
 
   return ImagesLoaded;
 
