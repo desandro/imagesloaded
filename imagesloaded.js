@@ -67,7 +67,7 @@ function makeArray( obj ) {
     ary = obj;
   } else if ( typeof obj.length == 'number' ) {
     // convert nodeList to array
-    for ( var i=0, len = obj.length; i < len; i++ ) {
+    for ( var i=0; i < obj.length; i++ ) {
       ary.push( obj[i] );
     }
   } else {
@@ -129,7 +129,7 @@ function makeArray( obj ) {
     this.images = [];
 
     // filter & find items if we have an item selector
-    for ( var i=0, len = this.elements.length; i < len; i++ ) {
+    for ( var i=0; i < this.elements.length; i++ ) {
       var elem = this.elements[i];
       // filter siblings
       if ( elem.nodeName == 'IMG' ) {
@@ -143,7 +143,7 @@ function makeArray( obj ) {
       }
       var childElems = elem.querySelectorAll('img');
       // concat childElems to filterFound array
-      for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {
+      for ( var j=0; j < childElems.length; j++ ) {
         var img = childElems[j];
         this.addImage( img );
       }
