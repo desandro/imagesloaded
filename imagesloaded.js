@@ -131,23 +131,36 @@ function makeArray( obj ) {
     // filter & find items if we have an item selector
     for ( var i=0; i < this.elements.length; i++ ) {
       var elem = this.elements[i];
-      // filter siblings
-      if ( elem.nodeName == 'IMG' ) {
-        this.addImage( elem );
-      }
-      // find children
-      // no non-element nodes, #143
-      var nodeType = elem.nodeType;
-      if ( !nodeType || !( nodeType == 1 || nodeType == 9 || nodeType == 11 ) ) {
-        continue;
-      }
-      var childElems = elem.querySelectorAll('img');
-      // concat childElems to filterFound array
-      for ( var j=0; j < childElems.length; j++ ) {
-        var img = childElems[j];
-        this.addImage( img );
-      }
+      this.addElementImages( elem );
     }
+  };
+
+  /**
+   * @param {Node} element
+   */
+  ImagesLoaded.prototype.addElementImages = function( elem ) {
+    // filter siblings
+    if ( elem.nodeName == 'IMG' ) {
+      this.addImage( elem );
+    }
+    // find children
+    // no non-element nodes, #143
+    var nodeType = elem.nodeType;
+    if ( !nodeType || !elementNodeTypes[ nodeType ] ) {
+      return;
+    }
+    var childImgs = elem.querySelectorAll('img');
+    // concat childElems to filterFound array
+    for ( var i=0; i < childImgs.length; i++ ) {
+      var img = childImgs[i];
+      this.addImage( img );
+    }
+  };
+
+  var elementNodeTypes = {
+    1: true,
+    9: true,
+    11: true
   };
 
   /**
