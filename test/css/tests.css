@@ -1,0 +1,41 @@
+img {
+  display: inline-block;
+  max-width: 240px;
+}
+
+/* ---- backgrounds ---- */
+
+.bg-box {
+  width: 240px;
+  height: 240px;
+  margin: 0 20px 20px 0;
+  border: 1px solid;
+  display: inline-block;
+}
+
+.bg-box.tulip {
+  background: url('http://i.imgur.com/9xYjgCk.jpg');
+  background-size: cover;
+}
+
+.bg-box.thunder-cloud {
+  background: url('../img/thunder-cloud.jpg');
+  background-size: contain;
+}
+
+.bg-box.multi {
+  background:
+    url("http://i.imgur.com/ZAVN3.png"),
+    url('http://i.imgur.com/6UdOxeB.png') bottom right,
+    url(http://lorempixel.com/601/401/nature);
+  background-size: cover;
+}
+
+.bg-box.blue {
+  background: #09F;
+}
+
+.bg-box.gulls {
+  background-image: url('http://i.imgur.com/qKhkOKC.jpg');
+  background-size: cover;
+}

@@ -10,24 +10,76 @@ Detect when images have been loaded.
 
 ## Install
 
-Get a packaged source file:
+### Download
 
-+ [imagesloaded.pkgd.min.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js)
-+ [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js)
++ [imagesloaded.pkgd.min.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js) minified
++ [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js) un-minified
 
-Or install via [Bower](http://bower.io): `bower install imagesloaded`
+### CDN
 
-Or install via npm: `npm install imagesloaded`
+``` html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.js"></script>
+```
 
-## Usage
+### Package managers
+
+Install via npm: `npm install imagesloaded`
+
+Install via [Bower](http://bower.io): `bower install imagesloaded --save`
+
+## jQuery
+
+You can use imagesLoaded as a jQuery Plugin.
+
+``` js
+$('#container').imagesLoaded( function() {
+  // images have loaded
+});
+
+// options
+$('#container').imagesLoaded( {
+  // options...
+  },
+  function() {
+    // images have loaded
+  }
+);
+```
+
+`.imagesLoaded()` returns a [jQuery Deferred object](http://api.jquery.com/category/deferred-object/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`.
+
+``` js
+$('#container').imagesLoaded()
+  .always( function( instance ) {
+    console.log('all images loaded');
+  })
+  .done( function( instance ) {
+    console.log('all images successfully loaded');
+  })
+  .fail( function() {
+    console.log('all images loaded, at least one is broken');
+  })
+  .progress( function( instance, image ) {
+    var result = image.isLoaded ? 'loaded' : 'broken';
+    console.log( 'image is ' + result + ' for ' + image.img.src );
+  });
+```
+
+## Vanilla JavaScript
+
+You can use imagesLoaded with vanilla JS.
 
 ``` js
 imagesLoaded( elem, callback )
+// options
+imagesLoaded( elem, options, callback )
 // you can use `new` if you like
 new imagesLoaded( elem, callback )
 ```
 
 + `elem` _Element, NodeList, Array, or Selector String_
++ `options` _Object_
 + `callback` _Function_ - function triggered after all images have been loaded
 
 Using a callback function is the same as binding it to the `always` event (see below).
@@ -44,10 +96,7 @@ var posts = document.querySelectorAll('.post');
 imagesLoaded( posts, function() {...});
 ```
 
-
-## Events
-
-imagesLoaded is an Event Emitter. You can bind event listeners to events.
+Bind events with vanilla JS with .on(), .off(), and .once() methods.
 
 ``` js
 var imgLoad = imagesLoaded( elem );
@@ -60,9 +109,51 @@ imgLoad.on( 'always', onAlways );
 imgLoad.off( 'always', onAlways );
 ```
 
+## Background
+
+Detect when background images have loaded, in addition to `<img>`s.
+
+Set `{ background: true }` to detect when the element's background image has loaded.
+
+``` js
+// jQuery
+$('#container').imagesLoaded( { background: true }, function() {
+  console.log('#container background image loaded');
+});
+
+// vanilla JS
+imagesLoaded( '#container', { background: true }, function() {
+  console.log('#container background image loaded');
+});
+```
+
+Set to a selector string like `{ background: '.item' }` to detect when the background images of child elements have loaded.
+
+``` js
+// jQuery
+$('#container').imagesLoaded( { background: '.item' }, function() {
+  console.log('all .item background images loaded');
+});
+
+// vanilla JS
+imagesLoaded( '#container', { background: '.item' }, function() {
+  console.log('all .item background images loaded');
+});
+```
+
+<!-- sponsored -->
+
+## Events
+
 ### always
 
 ``` js
+// jQuery
+$('#container').imagesLoaded().always( function( instance ) {
+  console.log('ALWAYS - all images have been loaded');
+});
+
+// vanilla JS
 imgLoad.on( 'always', function( instance ) {
   console.log('ALWAYS - all images have been loaded');
 });
@@ -75,6 +166,12 @@ Triggered after all images have been either loaded or confirmed broken.
 ### done
 
 ``` js
+// jQuery
+$('#container').imagesLoaded().done( function( instance ) {
+  console.log('DONE  - all images have been successfully loaded');
+});
+
+// vanilla JS
 imgLoad.on( 'done', function( instance ) {
   console.log('DONE  - all images have been successfully loaded');
 });
@@ -85,6 +182,11 @@ Triggered after all images have successfully loaded without any broken images.
 ### fail
 
 ``` js
+$('#container').imagesLoaded().fail( function( instance ) {
+  console.log('FAIL - all images loaded, at least one is broken');
+});
+
+// vanilla JS
 imgLoad.on( 'fail', function( instance ) {
   console.log('FAIL - all images loaded, at least one is broken');
 });
@@ -133,35 +235,86 @@ imgLoad.on( 'always', function() {
 });
 ```
 
-## jQuery
+## Browserify
 
-If you include jQuery, imagesLoaded can be used as a jQuery Plugin.
+imagesLoaded works with [Browserify](http://browserify.org/).
+
+``` bash
+npm install imagesloaded --save
+```
+
+```
+var imagesLoaded = require('imagesloaded');
+
+imagesLoaded( elem, function() {...} );
+```
+
+Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
+
+```
+var $ = require('jquery');
+var imagesLoaded = require('imagesloaded');
+
+// provide jQuery argument
+imagesLoaded.makeJQueryPlugin( $ );
+// now use .imagesLoaded() jQuery plugin
+$('#container').imagesLoaded( function() {...});
+```
+
+## Webpack
+
+Install imagesLoaded and [imports-loader](https://github.com/webpack/imports-loader) with npm.
+
+``` bash
+npm install imagesLoaded
+npm install imports-loader
+```
+
+In your config file, `webpack.config.js`, use the imports loader to disable `define` and set window for `imagesloaded`.
 
 ``` js
-$('#container').imagesLoaded( function() {
+module.exports = {
+  module: {
+    loaders: [
+      {
+        test: /imagesloaded/,
+        loader: 'imports?define=>false&this=>window'
+      }
+    ]
+  }
+};
+```
+
+(This is hack is required because of an issue with how Webpack loads dependencies. [+1 this issue on GitHub](https://github.com/webpack/webpack/issues/883) to help get this issue addressed.)
+
+You can then `require('imagesloaded')`.
+
+``` js
+// main.js
+var imagesLoaded = require('imagesLoaded');
+
+imagesLoaded( '#container', function() {
   // images have loaded
 });
 ```
 
-### jQuery Deferred
-
-The jQuery plugin returns a [jQuery Deferred object](http://api.jquery.com/category/deferred-object/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`, similarly to the emitted events.
+Use `.makeJQueryPlugin` to make `.imagesLoaded()` jQuery plugin.
 
 ``` js
-$('#container').imagesLoaded()
-  .always( function( instance ) {
-    console.log('all images loaded');
-  })
-  .done( function( instance ) {
-    console.log('all images successfully loaded');
-  })
-  .fail( function() {
-    console.log('all images loaded, at least one is broken');
-  })
-  .progress( function( instance, image ) {
-    var result = image.isLoaded ? 'loaded' : 'broken';
-    console.log( 'image is ' + result + ' for ' + image.img.src );
-  });
+// main.js
+var imagesLoaded = require('imagesLoaded');
+var jQuery = require('jquery');
+
+// provide jQuery argument
+imagesLoaded.makeJQueryPlugin( $ );
+// now use .imagesLoaded() jQuery plugin
+$('#container').imagesLoaded( function() {...});
+```
+
+Run webpack.
+
+``` bash
+webpack main.js bundle.js
 ```
 
 ## RequireJS
@@ -178,7 +331,21 @@ requirejs( [
 });
 ```
 
-Or, you can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
+Use `.makeJQueryPlugin` to make `.imagesLoaded()` jQuery plugin.
+
+``` js
+requirejs( [
+  'jquery',
+  'path/to/imagesloaded.pkgd.js',
+], function( $, imagesLoaded ) {
+  // provide jQuery argument
+  imagesLoaded.makeJQueryPlugin( $ );
+  // now use .imagesLoaded() jQuery plugin
+  $('#container').imagesLoaded( function() {...});
+});
+```
+
+You can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
 
 ``` js
 requirejs.config({
@@ -196,19 +363,12 @@ requirejs( [
 });
 ```
 
-## Browserify
+## Browser support
 
-imagesLoaded works with [Browserify](http://browserify.org/).
-
-``` bash
-npm install imagesloaded --save
-```
-
-```
-var imagesLoaded = require('imagesloaded');
-
-imagesLoaded( elem, function() {...} );
-```
++ IE8+
++ Android 2.3+
++ iOS Safari 4+
++ All other modern browsers
 
 ## Contributors
 

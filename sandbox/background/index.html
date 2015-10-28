@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>background</title>
+
+  <!-- put in separate folder so JS path is different from CSS path -->
+  <link rel="stylesheet" href="css/background.css" >
+
+</head>
+<body>
+
+  <h1>background</h1>
+
+<div class="box orange-tree"></div>
+
+<div class="box thunder-cloud"></div>
+
+<div class="box multi1"></div>
+
+<div class="box blue"></div>
+
+<script src="../../bower_components/eventEmitter/EventEmitter.js"></script>
+<script src="../../bower_components/eventie/eventie.js"></script>
+<script src="../../imagesloaded.js"></script>
+<script>
+
+var imgLoad0 = imagesLoaded( '.orange-tree', { background: true }, function() {
+  console.log('orange tree bg images loaded', imgLoad0.images.length );
+});
+
+var imgLoad1 = imagesLoaded( '.thunder-cloud', { background: true }, function() {
+  console.log('thunder cloud bg images loaded', imgLoad1.images.length);
+});
+
+var imgLoad2 = imagesLoaded( '.multi1', { background: true }, function() {
+  console.log('multi1 bg images loaded', imgLoad2.images.length);
+});
+
+var imgLoad3 = imagesLoaded( '.box', { background: true }, function() {
+  console.log('.box bg images loaded', imgLoad3.images.length);
+});
+imgLoad3.on('progress', function( instance, image, element ) {
+  console.log( 'progress on .box', image.img.src, element.className );
+});
+
+</script>
+
+</body>
+</html>

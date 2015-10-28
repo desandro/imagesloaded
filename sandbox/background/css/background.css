@@ -1,0 +1,29 @@
+.box {
+  width: 300px;
+  height: 300px;
+  margin: 0 20px 20px 0;
+  border: 1px solid;
+  display: inline-block;
+}
+
+.orange-tree {
+  background: url('http://i.imgur.com/bwy74ok.jpg');
+  background-size: cover;
+}
+
+.thunder-cloud {
+  background: url('../../../test/img/thunder-cloud.jpg');
+  background-size: contain;
+}
+
+.multi1 {
+  background:
+    url("http://i.imgur.com/ZAVN3.png"),
+    url('http://i.imgur.com/6UdOxeB.png') bottom right,
+    url(http://i.imgur.com/LkmcILl.jpg);
+  background-size: cover;
+}
+
+.blue {
+  background: #09F;
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>progress</title>
+
+  <style>
+  #image-container img {
+    max-height: 140px;
+  }
+
+  li {
+    height: 140px;
+    min-width: 100px;
+    display: block;
+    float: left;
+    list-style: none;
+    margin: 0 5px 5px 0;
+    background-color: black;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  li img,
+  #status {
+    -webkit-transition: opacity 0.4s;
+       -moz-transition: opacity 0.4s;
+        -ms-transition: opacity 0.4s;
+            transition: opacity 0.4s;
+  }
+
+  li.is-loading {
+    background-color: black;
+    background-image: url('http://desandro.github.io/imagesloaded/assets/loading.gif');
+  }
+
+  li.is-broken {
+    background-image: url('http://desandro.github.io/imagesloaded/assets/broken.png');
+    background-color: #be3730;
+    width: 120px;
+  }
+
+  li.is-loading img,
+  li.is-broken img {
+    opacity: 0;
+  }
+
+  .buttons { margin-bottom: 1.0em; }
+
+  button {
+    font-size: 18px;
+    padding: 0.4em 0.8em;
+    font-family: sans-serif;
+  }
+
+  #status {
+    opacity: 0;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    background: hsla( 0, 0%, 0%, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 2; /* over other stuff */
+  }
+  </style>
+  
+</head>
+<body>
+
+  <h1>progress</h1>
+
+  <div class="buttons">
+    <button id="add">Add images</button>
+    <button id="reset">Reset</button>
+  </div>
+  <div id="status">
+    <progress max="7" value="0"></progress>
+  </div>
+  <div id="image-container"></div>
+
+<script src="../../bower_components/eventEmitter/EventEmitter.js"></script>
+<script src="../../bower_components/eventie/eventie.js"></script>
+<script src="../../imagesloaded.js"></script>
+<script src="progress.js"></script>
+
+</body>
+</html>
