@@ -163,11 +163,34 @@ gulp.task( 'version', function() {
     .pipe( gulp.dest('.') );
 });
 
+// -------------------------- page -------------------------- //
+
+var marked = require('marked');
+var highlight = require('highlight.js');
+
+marked.setOptions({
+  highlight: function( code ) {
+    return highlight.highlightAuto( code ).value;
+  }
+});
+
+gulp.task( 'page', function() {
+  var demoHTML = fs.readFileSync( 'assets/demo.html', 'utf8' );
+  var readmeHTML = marked( fs.readFileSync( 'README.md', 'utf8' ) );
+  return gulp.src('assets/page.html')
+    .pipe( replace( '{{{ content }}}', readmeHTML ) )
+    .pipe( replace( '<!-- demo -->', demoHTML ) )
+    .pipe( rename('index.html') )
+    .pipe( gulp.dest('.') );
+});
+
 // ----- default ----- //
 
 gulp.task( 'default', [
   'hint',
   'jsonlint',
   'uglify',
-  'css'
+  'css',
+  'page'
 ]);
+
