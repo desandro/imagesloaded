@@ -1,6 +1,6 @@
 {
   "name": "imagesloaded",
-  "version": "3.1.8",
+  "version": "3.2.0",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
   "dependencies": {
@@ -8,13 +8,19 @@
     "eventie": "~1.0.4"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-uglify": "~0.1.2",
-    "grunt-contrib-watch": "~0.3.1",
+    "chalk": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-json-lint": "^0.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
     "highlight.js": "~7.3.0",
     "marked": "~0.2.8",
-    "grunt-requirejs": "~0.4.0"
+    "minimist": "^1.2.0",
+    "requirejs": "^2.1.20",
+    "through2": "^2.0.0"
   },
   "repository": {
     "type": "git",
