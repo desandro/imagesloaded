@@ -27,10 +27,15 @@ img {
   background:
     url("http://i.imgur.com/ZAVN3.png"),
     url('http://i.imgur.com/6UdOxeB.png') bottom right,
-    url(http://i.imgur.com/LkmcILl.jpg);
+    url(http://lorempixel.com/601/401/nature);
   background-size: cover;
 }
 
 .bg-box.blue {
   background: #09F;
+}
+
+.bg-box.gulls {
+  background-image: url('http://i.imgur.com/qKhkOKC.jpg');
+  background-size: cover;
 }
