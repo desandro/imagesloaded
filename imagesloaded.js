@@ -179,20 +179,15 @@ function makeArray( obj ) {
 
   ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
     var style = getStyle( elem );
-    // get `url("http://example.com/foo.jpg")`, possible multiples
-    var multiMatches = style.backgroundImage.match( /url\(['"]*[^'"\)]+['"]*\)/gi );
-    if ( !multiMatches || !multiMatches.length ) {
-      return;
-    }
-    // add background urls
-    for ( var i=0; i < multiMatches.length; i++ ) {
-      var multiMatch = multiMatches[i];
-      // get `http://example.com/foo.jpg`
-      var urlMatches = multiMatch.match( /url\(['"]*([^'"\)]+)['"]*\)/i );
-      var url = urlMatches && urlMatches[1];
+    // get url inside url("...")
+    var reURL = /url\(['"]*([^'"\)]+)['"]*\)/gi;
+    var matches = reURL.exec( style.backgroundImage );
+    while ( matches !== null ) {
+      var url = matches && matches[1];
       if ( url ) {
         this.addBackground( url, elem );
       }
+      matches = reURL.exec( style.backgroundImage );
     }
   };
 
