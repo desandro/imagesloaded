@@ -3,6 +3,10 @@
   "version": "3.1.8",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
+  "dependencies": {
+    "wolfy87-eventemitter": ">=4.2 <5.0",
+    "eventie": "~1.0.4"
+  },
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.1",
@@ -11,10 +15,6 @@
     "highlight.js": "~7.3.0",
     "marked": "~0.2.8",
     "grunt-requirejs": "~0.4.0"
-  },
-  "dependencies": {
-    "wolfy87-eventemitter": "4.x",
-    "eventie": ">=1.0.4 <2"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,16 @@
     "dom",
     "jquery-plugin"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/desandro/imagesloaded/issues"
+  },
+  "homepage": "https://github.com/desandro/imagesloaded",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David DeSandro"
 }

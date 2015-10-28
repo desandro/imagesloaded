@@ -4,12 +4,12 @@
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "eventEmitter": "4.x",
-    "eventie": ">=1.0.4 <2"
+    "eventEmitter": ">=4.2 <5.0",
+    "eventie": "~1.0.4"
   },
   "devDependencies": {
     "jquery": ">=1.9 <2.0",
-    "qunit": ">=1.10"
+    "qunit": "~1.20.0"
   },
   "ignore": [
     "**/.*",
