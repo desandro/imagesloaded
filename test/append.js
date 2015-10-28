@@ -22,7 +22,7 @@ QUnit.test( 'append', function( assert ) {
   elem.appendChild( fragment );
   var done = assert.async();
 
-  imagesLoaded( elem, { debug: true } ).on( 'always', function() {
+  imagesLoaded( elem, { debug: false } ).on( 'always', function() {
     assert.ok( 'appended images loaded' );
     done();
   }); 
