@@ -143,7 +143,7 @@ function makeArray( obj ) {
     if ( elem.nodeName == 'IMG' ) {
       this.addImage( elem );
     }
-    //
+    // get background image on element
     if ( this.options.background === true ) {
       this.addElementBackgroundImages( elem );
     }
@@ -184,7 +184,7 @@ function makeArray( obj ) {
     if ( !multiMatches || !multiMatches.length ) {
       return;
     }
-    var urls = [];
+    // add background urls
     for ( var i=0; i < multiMatches.length; i++ ) {
       var multiMatch = multiMatches[i];
       // get `http://example.com/foo.jpg`
@@ -260,13 +260,11 @@ function makeArray( obj ) {
   ImagesLoaded.prototype.complete = function() {
     var eventName = this.hasAnyBroken ? 'fail' : 'done';
     this.isComplete = true;
-    var _this = this;
-    // HACK - another setTimeout so that confirm happens after progress
-    _this.emit( eventName, _this );
-    _this.emit( 'always', _this );
-    if ( _this.jqDeferred ) {
-      var jqMethod = _this.hasAnyBroken ? 'reject' : 'resolve';
-      _this.jqDeferred[ jqMethod ]( _this );
+    this.emit( eventName, this );
+    this.emit( 'always', this );
+    if ( this.jqDeferred ) {
+      var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
+      this.jqDeferred[ jqMethod ]( this );
     }
   };
 
