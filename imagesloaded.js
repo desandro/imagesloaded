@@ -160,6 +160,15 @@ function makeArray( obj ) {
       var img = childImgs[i];
       this.addImage( img );
     }
+
+    // get child background images
+    if ( typeof this.options.background == 'string' ) {
+      var children = elem.querySelectorAll( this.options.background );
+      for ( i=0; i < children.length; i++ ) {
+        var child = children[i];
+        this.addElementBackgroundImages( child );
+      }
+    }
   };
 
   var elementNodeTypes = {
