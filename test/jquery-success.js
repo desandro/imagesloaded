@@ -1,44 +1,28 @@
-test( 'jquery success', function() {
+QUnit.test( 'jquery success', function( assert ) {
 
   'use strict';
 
   var $ = window.jQuery;
-  var isCallbacked, isDone, isAlways, isAllProgressed;
-  var progressCount = 0;
-  stop();
+  var done = assert.async( 6 );
 
   $('#jquery-success').imagesLoaded( function( instance ) {
-      ok( true, 'callback triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isCallbacked = true;
-      checkReady();
+      assert.ok( true, 'callback triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
     .done( function( instance ) {
-      ok( true, 'done triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isDone = true;
-      checkReady();
+      assert.ok( true, 'done triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
     .always( function( instance ) {
-      ok( true, 'always triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isAlways = true;
-      checkReady();
+      assert.ok( true, 'always triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
     .progress( function( instance, image ) {
-      ok( image.isLoaded, 'image is loaded');
-      progressCount++;
-      if ( progressCount >= 3 ) {
-        equal( progressCount, 3, 'progressed 3 times' );
-        isAllProgressed = true;
-        checkReady();
-      }
+      assert.ok( image.isLoaded, 'progress trigged, image is loaded');
+      done();
     });
-
-  function checkReady() {
-    if ( isCallbacked && isDone && isAlways && isAllProgressed ) {
-      start();
-    }
-  }
 
 });

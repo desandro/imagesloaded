@@ -1,10 +1,11 @@
-test( 'single element', function() {
+QUnit.test( 'single element', function( assert ) {
+  'use strict';
   var elem = document.querySelector('#mario-with-shell');
-  stop();
+  var done = assert.async();
   imagesLoaded( elem ).on( 'done', function( obj ) {
-    ok( true, 'single element worked' );
-    ok( obj.images, 'argument has images' );
-    equal( obj.images.length, 1, 'images.length = 1' );
-    start();
+    assert.ok( true, 'single element worked' );
+    assert.ok( obj.images, 'argument has images' );
+    assert.equal( obj.images.length, 1, 'images.length = 1' );
+    done();
   });
 });

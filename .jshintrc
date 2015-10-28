@@ -5,12 +5,8 @@
   "strict": true,
   "undef": true,
   "unused": true,
-  "predef": {
+  "globals": {
     "imagesLoaded": false,
-    "test": false,
-    "ok": false,
-    "equal": false,
-    "start": false,
-    "stop": false
+    "QUnit": false
   }
 }

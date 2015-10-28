@@ -1,10 +1,10 @@
-test( 'data-uri', function() {
+QUnit.test( 'data-uri', function( assert ) {
   'use strict';
 
-  stop();
+  var done = assert.async();
   imagesLoaded('#data-uri', { debug: true }).on( 'done', function( obj ) {
-    ok( true, 'data-uri images loaded' );
-    equal( obj.images.length, 2, 'instance has 2 images' );
-    start();
+    assert.ok( true, 'data-uri images loaded' );
+    assert.equal( obj.images.length, 2, 'instance has 2 images' );
+    done();
   });
 });

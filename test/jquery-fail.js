@@ -1,44 +1,29 @@
-test( 'jquery fail', function() {
+QUnit.test( 'jquery fail', function( assert ) {
 
   'use strict';
 
   var $ = window.jQuery;
-  var isCallbacked, isFailed, isAlways, isAllProgressed;
-  var progressCount = 0;
   var $images = $('#jquery-fail img');
-  stop();
+  var done = assert.async( 3 + $images.length );
 
   $('#jquery-fail').imagesLoaded( function( instance ) {
-      ok( true, 'callback triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isCallbacked = true;
-      checkReady();
+      assert.ok( true, 'callback triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
     .fail( function( instance ) {
-      ok( true, 'done triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isFailed = true;
-      checkReady();
+      assert.ok( true, 'fail triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
     .always( function( instance ) {
-      ok( true, 'always triggered' );
-      ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
-      isAlways = true;
-      checkReady();
+      assert.ok( true, 'always triggered' );
+      assert.ok( instance instanceof imagesLoaded, 'instance instanceof imagesLoaded' );
+      done();
     })
-    .progress( function() {
-      progressCount++;
-      if ( progressCount >= $images.length ) {
-        equal( progressCount, $images.length, 'progressed iterations matches images length' );
-        isAllProgressed = true;
-        checkReady();
-      }
+  .progress( function(/* instance, image */) {
+      assert.ok( true, 'progress trigged');
+      done();
     });
 
-  function checkReady() {
-    if ( isCallbacked && isFailed && isAlways && isAllProgressed ) {
-      start();
-    }
-  }
-
-});
+  });

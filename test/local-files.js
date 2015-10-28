@@ -1,49 +1,31 @@
-test( 'local files', function() {
-
+QUnit.test( 'local files', function( assert ) {
   'use strict';
 
   var elem = document.querySelector('#locals');
-  var isCallbacked, isFailed, isAlways, isAllProgressed;
-  // stop();
+  var done = assert.async( 6 );
+
   var imgLoader = new imagesLoaded( elem, function( obj ) {
-    ok( true, 'callback function triggered' );
-    equal( imgLoader, obj, 'callback argument and instance match' );
-    isCallbacked = true;
-    checkReady();
+    assert.ok( true, 'callback function triggered' );
+    assert.equal( imgLoader, obj, 'callback argument and instance match' );
+    done();
   });
   imgLoader.on( 'fail', function() {
-    ok( true, 'fail event triggered' );
-    isFailed = true;
-    checkReady();
+    assert.ok( true, 'fail event triggered' );
+    done();
   });
   imgLoader.on( 'always', function() {
-    ok( true, 'always event triggered' );
-    isAlways = true;
-    checkReady();
+    assert.ok( true, 'always event triggered' );
+    done();
   });
 
-  var progressCount = 0;
   imgLoader.on( 'progress', function( loader, image ) {
-    ok( true, 'image progressed');
+    assert.ok( true, 'image progressed');
     if ( image.img.src.indexOf('img/not-there.jpg') !== -1 ) {
-      ok( !image.isLoaded, 'thunder cloud is not loaded' );
+      assert.ok( !image.isLoaded, 'thunder cloud is not loaded' );
     } else {
-      ok( image.isLoaded, 'image is loaded' );
+      assert.ok( image.isLoaded, 'image is loaded' );
     }
-    progressCount++;
-    if ( progressCount >= 3 ) {
-      equal( progressCount, 3, 'progressed 3 times' );
-      isAllProgressed = true;
-      checkReady();
-    }
+    done();
   });
-
-  stop();
-
-  function checkReady() {
-    if ( isCallbacked && isFailed && isAlways && isAllProgressed ) {
-      start();
-    }
-  }
 
 });

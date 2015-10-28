@@ -1,4 +1,6 @@
-test( 'append', function() {
+QUnit.test( 'append', function( assert ) {
+  'use strict';
+
   var imgUrls = [
     'http://i.imgur.com/bwy74ok.jpg',
     'http://i.imgur.com/bAZWoqx.jpg',
@@ -18,11 +20,11 @@ test( 'append', function() {
 
   var elem = document.querySelector('#append');
   elem.appendChild( fragment );
+  var done = assert.async();
 
-  stop();
   imagesLoaded( elem, { debug: true } ).on( 'always', function() {
-    ok( 'appended images loaded' );
-    start();
+    assert.ok( 'appended images loaded' );
+    done();
   }); 
 
 });

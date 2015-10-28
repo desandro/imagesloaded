@@ -1,12 +1,11 @@
-test( 'no images', function() {
-
+QUnit.test( 'no images', function( assert ) {
   'use strict';
 
   var elem = document.querySelector('#no-images');
-  stop();
+  var done = assert.async();
   imagesLoaded( elem, function() {
-    ok( true, 'triggered with no images' );
-    start();
+    assert.ok( true, 'triggered with no images' );
+    done();
   });
 
 });

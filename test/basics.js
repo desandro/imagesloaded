@@ -1,46 +1,28 @@
-test( 'basics', function() {
+QUnit.test( 'basics', function( assert ) {
 
   'use strict';
 
   var elem = document.querySelector('#basics');
   var images = elem.querySelectorAll('img');
-  var isCallbacked, isDone, isAlways, isAllProgressed;
-  // stop();
+  var done = assert.async( 3 + images.length );
+
   var imgLoader = new imagesLoaded( elem, function( obj ) {
-    ok( true, 'callback function triggered' );
-    equal( imgLoader, obj, 'callback argument and instance match' );
-    isCallbacked = true;
-    checkReady();
+    assert.ok( true, 'callback function triggered' );
+    assert.equal( imgLoader, obj, 'callback argument and instance match' );
+    done();
   });
   imgLoader.on( 'done', function() {
-    ok( true, 'done event triggered' );
-    isDone = true;
-    checkReady();
+    assert.ok( true, 'done event triggered' );
+    done();
   });
   imgLoader.on( 'always', function() {
-    ok( true, 'always event triggered' );
-    isAlways = true;
-    checkReady();
+    assert.ok( true, 'always event triggered' );
+    done();
   });
 
-  var progressCount = 0;
   imgLoader.on( 'progress', function( loader, image ) {
-    ok( image.isLoaded, 'image is loaded');
-    progressCount++;
-    if ( progressCount >= images.length ) {
-      equal( progressCount, images.length, 'progressed right amount of times' );
-      isAllProgressed = true;
-      checkReady();
-    }
+    assert.ok( image.isLoaded, 'image is loaded');
+    done();
   });
-
-  stop();
-
-  function checkReady() {
-    if ( isCallbacked && isDone && isAlways && isAllProgressed ) {
-      start();
-    }
-  }
-
 
 });
