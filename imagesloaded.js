@@ -225,7 +225,10 @@ function makeArray( obj ) {
     }
 
     function onProgress( image, elem, message ) {
-      _this.progress( image, elem, message );
+      // HACK - Chrome triggers event before object properties have changed. #83
+      setTimeout( function() {
+        _this.progress( image, elem, message );
+      });
     }
 
     for ( var i=0; i < this.images.length; i++ ) {
@@ -237,20 +240,16 @@ function makeArray( obj ) {
 
   ImagesLoaded.prototype.progress = function( image, elem, message ) {
     this.progressedCount++;
-
     this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
-    // HACK - Chrome triggers event before object properties have changed. #83
-    var _this = this;
-    setTimeout( function() {
-      _this.emit( 'progress', _this, image, elem );
-      if ( _this.jqDeferred && _this.jqDeferred.notify ) {
-        _this.jqDeferred.notify( _this, image );
-      }
-      // check if completed
-      if ( _this.progressedCount == _this.images.length ) {
-        _this.complete();
-      }
-    });
+    // progress event
+    this.emit( 'progress', this, image, elem );
+    if ( this.jqDeferred && this.jqDeferred.notify ) {
+      this.jqDeferred.notify( this, image );
+    }
+    // check if completed
+    if ( this.progressedCount == this.images.length ) {
+      this.complete();
+    }
 
     if ( this.options.debug && console ) {
       console.log( 'progress: ' + message, image, elem );
