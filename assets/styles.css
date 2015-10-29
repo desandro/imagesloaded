@@ -416,7 +416,8 @@ h1, h2, h3, h4, h5,
 .tagline,
 #fork-me,
 #demo button,
-#status {
+#status,
+.sponsored-tagline {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
 }
 
@@ -585,6 +586,60 @@ a:hover { color: #04F; }
 
 #status progress { font-size: 28px; }
 
+/* other-products
+------------------------- */
+
+.other-products:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.other-product {
+  margin-bottom: 10px;
+}
+
+.other-product__link {
+  position: relative; /* gonna abs */
+  display: block;
+  padding: 0px;
+  background: white;
+  border-radius: 5px;
+}
+
+.other-product__link:hover {
+  background: #B60;
+  color: white;
+}
+
+.other-product__link:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.other-product__image {
+  float: left;
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.other-product__title {
+  margin: 10px 0;
+  padding-top: 10px;
+  line-height: 1.2;
+  font-weight: bold;
+  font-size: 2.0em;
+}
+
+.other-product__description {
+  line-height: 1.2;
+  margin: 0;
+}
+
 /* syntax highlighting
 ------------------------- */
 
@@ -688,6 +743,8 @@ code .imgload_var { color: #F3F; }
             transform: translateX(100px) rotate(45deg);
   }
 
+  /* ---- page-nav ---- */
+
   .page-nav {
     position: fixed;
     width: 200px;
@@ -699,5 +756,16 @@ code .imgload_var { color: #F3F; }
   }
 
   .page-nav__item a { display: block; }
+
+  /* ---- other products ---- */
+
+  .other-product {
+    width: 49%;
+    float: left;
+  }
+
+  .other-product:nth-child(2n+1) {
+    margin-right: 2%;
+  }
 
 }

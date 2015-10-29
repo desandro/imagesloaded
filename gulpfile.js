@@ -184,12 +184,27 @@ marked.setOptions({
   }
 });
 
-gulp.task( 'page', function() {
-  var demoHTML = fs.readFileSync( 'assets/demo.html', 'utf8' );
-  var readmeHTML = marked( fs.readFileSync( 'README.md', 'utf8' ) );
+// hash of partials
+var partials = {};
+
+var path = require('path');
+
+// crawl files and get their sources
+gulp.task( 'partials', function() {
+  return gulp.src( [ 'README.md', 'assets/demo.html', 'assets/sponsored.html' ] )
+    .pipe( through.obj( function( file, enc, callback ) {
+      var basename = path.basename( file.path );
+      partials[ basename ] = file.contents.toString();
+      return callback( null, file );
+    }));
+});
+
+gulp.task( 'page', [ 'partials' ], function() {
+  var readmeHTML = marked( partials['README.md'] );
   return gulp.src('assets/page.html')
     .pipe( replace( '{{{ content }}}', readmeHTML ) )
-    .pipe( replace( '<!-- demo -->', demoHTML ) )
+    .pipe( replace( '<!-- demo -->', partials['demo.html'] ) )
+    .pipe( replace( '<!-- sponsored -->', partials['sponsored.html'] ) )
     .pipe( pageNav() )
     .pipe( rename('index.html') )
     .pipe( gulp.dest('.') );
