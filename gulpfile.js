@@ -126,12 +126,12 @@ var uglify = require('gulp-uglify');
 
 gulp.task( 'uglify', [ 'requirejs' ], function() {
   var banner = getBanner();
-  gulp.src('dist/imagesloaded.pkgd.js')
+  gulp.src('imagesloaded.pkgd.js')
     .pipe( uglify() )
     // add banner
     .pipe( addBanner( banner ) )
     .pipe( rename('imagesloaded.pkgd.min.js') )
-    .pipe( gulp.dest('dist') );
+    .pipe( gulp.dest('.') );
 });
 
 // ----- version ----- //
@@ -167,7 +167,5 @@ gulp.task( 'version', function() {
 
 gulp.task( 'default', [
   'hint',
-  'jsonlint',
-  'uglify',
-  'css'
+  'uglify'
 ]);
