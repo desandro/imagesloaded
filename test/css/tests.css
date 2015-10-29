@@ -39,3 +39,8 @@ img {
   background-image: url('http://i.imgur.com/qKhkOKC.jpg');
   background-size: cover;
 }
+
+.bg-box.quoted {
+  background-image: url('../img/quot\'d.png');
+  background-size: cover;
+}

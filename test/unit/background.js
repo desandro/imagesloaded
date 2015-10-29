@@ -9,7 +9,7 @@ QUnit.test( 'background', function( assert ) {
   })();
 
   var multiBGCount = supportsMultiBGs ? 3 : 0;
-  var done = assert.async( 14 + multiBGCount );
+  var done = assert.async( 16 + multiBGCount );
 
   var imgLoad0 = imagesLoaded( '#background .tulip', { background: true }, function() {
     assert.ok( true, 'callback triggered on .orange-tree');
@@ -39,7 +39,7 @@ QUnit.test( 'background', function( assert ) {
   // multiple elements
   var imgLoad3 = imagesLoaded( '#background .bg-box', { background: true }, function() {
     assert.ok( true, 'callback triggered on .bg-box');
-    var count = 5 + multiBGCount;
+    var count = 6 + multiBGCount;
     assert.equal( imgLoad3.images.length, count, count + ' images on .bg-box' );
     done();
   });
@@ -61,9 +61,15 @@ QUnit.test( 'background', function( assert ) {
 
   // child background selector
   var imgLoad5 = imagesLoaded( '#background', { background: '.bg-box' }, function() {
-    var count = 5 + multiBGCount;
+    var count = 6 + multiBGCount;
     assert.equal( imgLoad5.images.length, count,
       count + ' images on .bg-box, with {background: .bg-box}' );
+    done();
+  });
+
+  // quoted background selector
+  var imgLoad6 = imagesLoaded( '#background .quoted', { background: true }, function() {
+    assert.equal( imgLoad6.images.length, 1, '1 background on .quoted');
     done();
   });
 
