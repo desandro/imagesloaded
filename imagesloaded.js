@@ -261,6 +261,11 @@ function makeArray( obj ) {
       this.jqDeferred[ jqMethod ]( this );
     }
   };
+  
+  
+  ImagesLoaded.prototype.clearCache = function() {
+    cache = {};
+  };
 
   // --------------------------  -------------------------- //
 
