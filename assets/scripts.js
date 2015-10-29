@@ -1,4 +1,4 @@
-( function( window ) {
+( function() {
 
 'use strict';
 
@@ -6,36 +6,33 @@ var progressElem, statusElem;
 var supportsProgress;
 var loadedImageCount, imageCount;
 
-window.onload = function() {
-  var demo = document.querySelector('#demo');
-  var container = demo.querySelector('#image-container');
-  statusElem = demo.querySelector('#status');
-  progressElem = demo.querySelector('progress');
+var demo = document.querySelector('#progress-demo');
+var container = demo.querySelector('#image-container');
+statusElem = demo.querySelector('#status');
+progressElem = demo.querySelector('progress');
 
-  supportsProgress = progressElem &&
-    // IE does not support progress
-    progressElem.toString().indexOf('Unknown') === -1;
+supportsProgress = progressElem &&
+  // IE does not support progress
+  progressElem.toString().indexOf('Unknown') === -1;
 
-  demo.querySelector('#add').onclick = function() {
-    // add new images
-    var fragment = getItemsFragment();
-    container.insertBefore( fragment, container.firstChild );
-    // use ImagesLoaded
-    var imgLoad = imagesLoaded( container );
-    imgLoad.on( 'progress', onProgress );
-    imgLoad.on( 'always', onAlways );
-    // reset progress counter
-    imageCount = imgLoad.images.length;
-    resetProgress();
-    updateProgress( 0 );
-  };
-
-  // reset container
-  document.querySelector('#reset').onclick = function() {
-    empty( container );
-  };
+demo.querySelector('#add').onclick = function() {
+  // add new images
+  var fragment = getItemsFragment();
+  container.insertBefore( fragment, container.firstChild );
+  // use ImagesLoaded
+  var imgLoad = imagesLoaded( container );
+  imgLoad.on( 'progress', onProgress );
+  imgLoad.on( 'always', onAlways );
+  // reset progress counter
+  imageCount = imgLoad.images.length;
+  resetProgress();
+  updateProgress( 0 );
 };
 
+// reset container
+document.querySelector('#reset').onclick = function() {
+  empty( container );
+};
 // ----- set text helper ----- //
 
 var docElem = document.documentElement;
@@ -115,5 +112,26 @@ function onAlways() {
   statusElem.style.opacity = 0;
 }
 
-})( window );
+// -------------------------- github button -------------------------- //
 
+var user = 'desandro';
+var repo = 'imagesloaded';
+
+// get data
+var callbackName = 'ghButtonCallback' + Math.floor( Math.random() * 10000 );
+var button = document.querySelector('.gh-button');
+
+window[ callbackName ] = function( response ) {
+  var starText = addCommas( response.data.stargazers_count );
+  button.querySelector('.gh-button__stat__text').textContent = starText;
+};
+
+function addCommas( num ) {
+  return num.toString().replace( /(\d)(?=(\d{3})+$)/g, '$1,' );
+}
+
+var script = document.createElement('script');
+script.src = 'https://api.github.com/repos/' + user + '/' + repo + '?callback=' + callbackName;
+document.head.appendChild( script );
+
+})();

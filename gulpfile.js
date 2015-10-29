@@ -191,7 +191,12 @@ var path = require('path');
 
 // crawl files and get their sources
 gulp.task( 'partials', function() {
-  return gulp.src( [ 'README.md', 'assets/demo.html', 'assets/sponsored.html' ] )
+  return gulp.src([
+      'README.md',
+      'assets/github-button.html',
+      'assets/demo.html',
+      'assets/sponsored.html'
+    ])
     .pipe( through.obj( function( file, enc, callback ) {
       var basename = path.basename( file.path );
       partials[ basename ] = file.contents.toString();
@@ -203,6 +208,8 @@ gulp.task( 'page', [ 'partials' ], function() {
   var readmeHTML = marked( partials['README.md'] );
   return gulp.src('assets/page.html')
     .pipe( replace( '{{{ content }}}', readmeHTML ) )
+    .pipe( replace( '<!-- github-button -->', partials['github-button.html'] ) )
+    .pipe( replace( '<!-- page-nav -->', '<div class="page-nav"></div>' ) )
     .pipe( replace( '<!-- demo -->', partials['demo.html'] ) )
     .pipe( replace( '<!-- sponsored -->', partials['sponsored.html'] ) )
     .pipe( pageNav() )

@@ -414,8 +414,7 @@ body {
 /* Montserrat */
 h1, h2, h3, h4, h5,
 .tagline,
-#fork-me,
-#demo button,
+#progress-demo button,
 #status,
 .sponsored-tagline {
   font-family: 'Montserrat', Gotham, 'Proxima Nova', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
@@ -472,22 +471,6 @@ a:hover { color: #04F; }
 
 .page-nav {
   list-style: none;
-}
-
-#fork-me {
-  position: absolute;
-  right: 0px;
-  top: 0;
-}
-
-#fork-me a {
-  padding: 5px 20px;
-  background: white;
-}
-
-#fork-me a:hover {
-  color: #FC3;
-  background: #320;
 }
 
 /* demo
@@ -549,7 +532,7 @@ a:hover { color: #04F; }
   opacity: 0;
 }
 
-#demo button {
+#progress-demo button {
   font-size: 18px;
   padding: 10px 20px;;
   border-radius: 8px;
@@ -560,13 +543,13 @@ a:hover { color: #04F; }
   background-image:         linear-gradient( hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.3) );
 }
 
-#demo #add { background-color: #88F; }
-#demo #add:hover { background-color: #AAF; }
+#progress-demo #add { background-color: #88F; }
+#progress-demo #add:hover { background-color: #AAF; }
 
-#demo #reset { background-color: #333; }
-#demo #reset:hover { background-color: #555; }
+#progress-demo #reset { background-color: #333; }
+#progress-demo #reset:hover { background-color: #555; }
 
-#demo button:active {
+#progress-demo button:active {
   box-shadow: inset 0 2px 14px hsla(0, 0%, 0%, 0.8);
 }
 
@@ -585,6 +568,64 @@ a:hover { color: #04F; }
 }
 
 #status progress { font-size: 28px; }
+
+/* ---- github button ---- */
+
+.gh-button {
+  display: inline-block;
+  background: none;
+  border: none;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.gh-button__title,
+.gh-button__stat {
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 5px 10px;
+  border: 1px solid #d5d5d5;
+}
+
+.gh-button__icon {
+  height: 20px;
+  fill: #333;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.gh-button__title {
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border-radius: 4px 0 0 4px;
+}
+
+.gh-button__icon--github-logo {
+  margin-right: 0.2em;
+}
+
+.gh-button__stat {
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  background: white;
+}
+
+.gh-button:hover { color: #333; }
+
+.gh-button:hover .gh-button__title {
+  background-color: #ddd;
+  background-image: linear-gradient(#eee, #ddd);
+}
+
+.gh-button:hover .gh-button__stat {
+  color: #4078c0;
+}
+
+.gh-button:hover .gh-button__icon--star {
+  fill: #4078c0;
+}
 
 /* other-products
 ------------------------- */
@@ -716,31 +757,9 @@ code .imgload_var { color: #F3F; }
     padding-left: 126px;
   }
 
-  #content > #demo {
+  #content > #progress-demo {
     padding-right: 1.0em;
     max-width: none;
-  }
-
-   #fork-me {
-     overflow: hidden;
-     width: 270px;
-     height: 200px;
-   }
-
-  #fork-me a {
-    display: block;
-    padding: 5px;
-    text-align: center;
-    -webkit-transform-origin: 50px top;
-       -moz-transform-origin: 50px top;
-        -ms-transform-origin: 50px top;
-         -o-transform-origin: 50px top;
-            transform-origin: 50px top;
-    -webkit-transform: translateX(100px) rotate(45deg);
-       -moz-transform: translateX(100px) rotate(45deg);
-        -ms-transform: translateX(100px) rotate(45deg);
-         -o-transform: translateX(100px) rotate(45deg);
-            transform: translateX(100px) rotate(45deg);
   }
 
   /* ---- page-nav ---- */
@@ -749,6 +768,11 @@ code .imgload_var { color: #F3F; }
     position: fixed;
     width: 200px;
     right: 20px;
+    top: 60px;
+  }
+  /* hacky overwrite styles */
+  #content > .page-nav {
+    margin-right: 0;
   }
 
   .page-nav__item {

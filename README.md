@@ -6,6 +6,10 @@
 
 Detect when images have been loaded.
 
+<!-- github-button -->
+
+<!-- page-nav -->
+
 <!-- demo -->
 
 ## Install
