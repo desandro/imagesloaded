@@ -18,8 +18,9 @@ Detect when images have been loaded.
 ### CDN
 
 ``` html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+<!-- or -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
@@ -141,8 +142,6 @@ imagesLoaded( '#container', { background: '.item' }, function() {
 });
 ```
 
-<!-- sponsored -->
-
 ## Events
 
 ### always
@@ -207,6 +206,8 @@ Triggered after each image has been loaded.
 
 + `instance` _imagesLoaded_ - the imagesLoaded instance
 + `image` _LoadingImage_ - the LoadingImage instance of the loaded image
+
+<!-- sponsored -->
 
 ## Properties
 
