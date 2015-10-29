@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "chalk": "^1.1.1",
+    "cheerio": "^0.19.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
     "gulp-json-lint": "^0.1.0",
@@ -16,8 +17,8 @@
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
-    "highlight.js": "~7.3.0",
-    "marked": "~0.2.8",
+    "highlight.js": "^8.9.1",
+    "marked": "^0.3.5",
     "minimist": "^1.2.0",
     "requirejs": "^2.1.20",
     "through2": "^2.0.0"
