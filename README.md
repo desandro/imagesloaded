@@ -243,7 +243,7 @@ imagesLoaded works with [Browserify](http://browserify.org/).
 npm install imagesloaded --save
 ```
 
-```
+``` js
 var imagesLoaded = require('imagesloaded');
 
 imagesLoaded( elem, function() {...} );
@@ -251,7 +251,7 @@ imagesLoaded( elem, function() {...} );
 
 Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
 
-```
+``` js
 var $ = require('jquery');
 var imagesLoaded = require('imagesloaded');
 
