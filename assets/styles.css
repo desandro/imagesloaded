@@ -433,6 +433,7 @@ pre, code {
 pre {
   padding: 1.0em;
   border-radius: 8px;
+  overflow-x: auto;
 }
 
 code {
@@ -444,6 +445,7 @@ code {
 pre code {
   background: transparent;
   padding: 0;
+  white-space: pre-wrap;
 }
 
 h2 {
@@ -466,6 +468,10 @@ a {
 }
 
 a:hover { color: #04F; }
+
+.page-nav {
+  list-style: none;
+}
 
 #fork-me {
   position: absolute;
@@ -588,8 +594,11 @@ code .number, /* integer */
 code .cp, /* doctype */
 code .literal { color: #78F; } /*boolean*/
 code .keyword { color: #F84; } /* keyword */
+code .params { color: #88F; }
+code .regexp { color: #FC4; }
+code .built_in { color: #C9E; }
 code .kd, /* storage */
-code .attribute { color: #A61; } /* markup attribute */
+code .attribute { color: #C83; } /* markup attribute */
 code .p  { color: #EDB; } /* punctuation */
 code .o  { color: #F63; }   /* operator */
 code .nb { color: #AA97AC;} /* support */
@@ -597,7 +606,7 @@ code .nb { color: #AA97AC;} /* support */
 /* comment */
 code .comment { color: #876; font-style: italic; }
 
-code .tag { color: #37B; } /* Markup open tag */
+code .tag { color: #59D; } /* Markup open tag */
 
 code .id { color: #567; } /* css id */
 code .class { color: #A63; }  /* CSS class */
@@ -607,6 +616,8 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 code .hexcolor { color: #F63; }
 code .at_rule { color: #088; }
 
+code .imagesloaded_keyword { color: #0FF; }
+code .imgload_var { color: #F3F; }
 
 
 /* tablet and desktop */
@@ -631,8 +642,9 @@ code .at_rule { color: #088; }
   }
 
   #content > * {
-    padding-left: 100px;
+    padding-left: 60px;
     max-width: 820px;
+    margin-right: 240px
   }
 
   #content > h2 {
@@ -641,8 +653,8 @@ code .at_rule { color: #088; }
 
   #content > pre {
     padding-left: 1.0em;
-    margin-left: 100px;
-    max-width: 720px;
+    margin-left: 60px;
+    max-width: 820px;
   }
 
   #content > ul {
@@ -675,5 +687,17 @@ code .at_rule { color: #088; }
          -o-transform: translateX(100px) rotate(45deg);
             transform: translateX(100px) rotate(45deg);
   }
+
+  .page-nav {
+    position: fixed;
+    width: 200px;
+    right: 20px;
+  }
+
+  .page-nav__item {
+    margin-bottom: 2px;
+  }
+
+  .page-nav__item a { display: block; }
 
 }

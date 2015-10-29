@@ -168,9 +168,19 @@ gulp.task( 'version', function() {
 var marked = require('marked');
 var highlight = require('highlight.js');
 
+highlight.configure({
+  classPrefix: ''
+});
+
+var hljsJavascript = highlight.getLanguage('javascript');
+// highlight Masonry
+hljsJavascript.keywords.imagesloaded_keyword = 'imagesLoaded';
+// highlight imgLoad variables
+hljsJavascript.keywords.imgload_var = 'imgLoad';
+
 marked.setOptions({
-  highlight: function( code ) {
-    return highlight.highlightAuto( code ).value;
+  highlight: function( code, lang ) {
+    return lang ? highlight.highlight( lang, code ).value : code;
   }
 });
 
@@ -180,9 +190,44 @@ gulp.task( 'page', function() {
   return gulp.src('assets/page.html')
     .pipe( replace( '{{{ content }}}', readmeHTML ) )
     .pipe( replace( '<!-- demo -->', demoHTML ) )
+    .pipe( pageNav() )
     .pipe( rename('index.html') )
     .pipe( gulp.dest('.') );
 });
+
+var cheerio = require('cheerio');
+
+function pageNav() {
+  return through.obj( function( file, enc, callback ) {
+    var $ = cheerio.load( file.contents.toString(), {
+      decodeEntities: false
+    });
+    var pageNavHtml = '\n';
+    // query each h2, h3, h4
+    $('#content h2').each( function( i, header ) {
+      var $header = $( header );
+      var title = $header.text();
+      // remove HTML entities
+      var slug = title.replace( /&[\w\d]+;/gi, '' )
+        // replace non alphanumeric to hyphens
+        .replace( /[^\w\d]+/gi, '-' )
+        // trim trailing hyphens
+        .replace( /^\-+/, '' ).replace( /\-+$/, '' ).toLowerCase();
+      // set id slug
+      $header.attr( 'id', slug );
+      // add item to pageNav
+      pageNavHtml += '<li class="page-nav__item page-nav__item--' + header.name + '">' +
+        '<a href="#' + slug + '">' + title + '</a></li>\n';
+    });
+    // add pageNavHtml to page
+    $('.page-nav').html( pageNavHtml );
+
+    var html = $.html();
+    file.contents = new Buffer( html );
+    callback( null, file );
+  });
+}
+
 
 // ----- default ----- //
 
