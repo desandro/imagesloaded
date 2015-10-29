@@ -12,5 +12,9 @@ Create a test case by forking a [CodePen demos](http://codepen.io/desandro/pens/
 
 + [progress with jQuery](http://codepen.io/desandro/pen/bIFyl)
 + [progress with vanilla JS](http://codepen.io/desandro/pen/hlzaw)
++ [`{ background: true }` with jQuery](http://codepen.io/desandro/pen/pjVMPB)
++ [`{ background: true }` with vanilla JS](http://codepen.io/desandro/pen/avKooW)
++ [`{ background: '.selector' }` with jQuery](http://codepen.io/desandro/pen/avKoZL)
++ [`{ background: '.selector' }` with vanilla JS](http://codepen.io/desandro/pen/vNrBGz)
 
 Providing a reduced test case is the best way to get your issue addressed. They help you point out the problem. They help me verify and debug the problem. They help others understand the problem. Without a reduced test case, your issue may be closed.

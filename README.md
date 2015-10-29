@@ -128,6 +128,8 @@ imagesLoaded( '#container', { background: true }, function() {
 });
 ```
 
+[See jQuery demo](http://codepen.io/desandro/pen/pjVMPB) or [vanilla JS demo](http://codepen.io/desandro/pen/avKooW) on CodePen.
+
 Set to a selector string like `{ background: '.item' }` to detect when the background images of child elements have loaded.
 
 ``` js
@@ -141,6 +143,8 @@ imagesLoaded( '#container', { background: '.item' }, function() {
   console.log('all .item background images loaded');
 });
 ```
+
+[See jQuery demo](http://codepen.io/desandro/pen/avKoZL) or [vanilla JS demo](http://codepen.io/desandro/pen/vNrBGz) on CodePen.
 
 ## Events
 

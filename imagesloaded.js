@@ -180,10 +180,10 @@ function makeArray( obj ) {
   ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
     var style = getStyle( elem );
     // get url inside url("...")
-    var reURL = /url\(['"]*([^'"\)]+)['"]*\)/gi;
+    var reURL = /url\((['"])?(.*?)\1\)/gi;
     var matches = reURL.exec( style.backgroundImage );
     while ( matches !== null ) {
-      var url = matches && matches[1];
+      var url = matches && matches[2];
       if ( url ) {
         this.addBackground( url, elem );
       }
