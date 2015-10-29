@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "chalk": "^1.1.1",
+    "cheerio": "^0.19.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
     "gulp-json-lint": "^0.1.0",
