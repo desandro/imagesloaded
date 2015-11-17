@@ -294,7 +294,7 @@ module.exports = {
 };
 ```
 
-(This is hack is required because of an issue with how Webpack loads dependencies. [+1 this issue on GitHub](https://github.com/webpack/webpack/issues/883) to help get this issue addressed.)
+(This hack is required because of an issue with how Webpack loads dependencies. [+1 this issue on GitHub](https://github.com/webpack/webpack/issues/883) to help get this issue addressed.)
 
 You can then `require('imagesloaded')`.
 
