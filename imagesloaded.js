@@ -179,6 +179,10 @@ function makeArray( obj ) {
 
   ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
     var style = getStyle( elem );
+    if(!style) {
+      // Firefox returns null if in a hidden iframe https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+      return;
+    }
     // get url inside url("...")
     var reURL = /url\((['"])?(.*?)\1\)/gi;
     var matches = reURL.exec( style.backgroundImage );
