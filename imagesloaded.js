@@ -51,15 +51,10 @@ function extend( a, b ) {
   return a;
 }
 
-var objToString = Object.prototype.toString;
-function isArray( obj ) {
-  return objToString.call( obj ) == '[object Array]';
-}
-
 // turn element or nodeList into an array
 function makeArray( obj ) {
   var ary = [];
-  if ( isArray( obj ) ) {
+  if ( Array.isArray( obj ) ) {
     // use object if already an array
     ary = obj;
   } else if ( typeof obj.length == 'number' ) {
@@ -112,13 +107,12 @@ function ImagesLoaded( elem, options, onAlways ) {
   }
 
   // HACK check async to allow time to bind listeners
-  var _this = this;
   setTimeout( function() {
-    _this.check();
-  });
+    this.check();
+  }.bind( this ));
 }
 
-ImagesLoaded.prototype = new EventEmitter();
+ImagesLoaded.prototype = Object.create( EventEmitter.prototype );
 
 ImagesLoaded.prototype.options = {};
 
@@ -175,7 +169,7 @@ var elementNodeTypes = {
 };
 
 ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
-  var style = getStyle( elem );
+  var style = getComputedStyle( elem );
   if ( !style ) {
     // Firefox returns null if in a hidden iframe https://bugzil.la/548397
     return;
@@ -190,11 +184,6 @@ ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
     }
     matches = reURL.exec( style.backgroundImage );
   }
-};
-
-// IE8
-var getStyle = window.getComputedStyle || function( elem ) {
-  return elem.currentStyle;
 };
 
 /**
@@ -269,7 +258,7 @@ function LoadingImage( img ) {
   this.img = img;
 }
 
-LoadingImage.prototype = new EventEmitter();
+LoadingImage.prototype = Object.create( EventEmitter.prototype );
 
 LoadingImage.prototype.check = function() {
   // If complete is true and browser supports natural sizes,
@@ -336,7 +325,7 @@ function Background( url, element ) {
 }
 
 // inherit LoadingImage prototype
-Background.prototype = new LoadingImage();
+Background.prototype = Object.create( LoadingImage.prototype );
 
 Background.prototype.check = function() {
   this.img.addEventListener( 'load', this );
