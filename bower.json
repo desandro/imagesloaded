@@ -4,8 +4,7 @@
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "eventEmitter": ">=4.2 <5.0",
-    "eventie": "~1.0.4"
+    "eventEmitter": ">=4.2 <5.0"
   },
   "devDependencies": {
     "jquery": ">=1.9 <2.0",

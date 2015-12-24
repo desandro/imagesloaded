@@ -12,24 +12,21 @@
   if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
-      'eventEmitter/EventEmitter',
-      'eventie/eventie'
-    ], function( EventEmitter, eventie ) {
-      return factory( window, EventEmitter, eventie );
+      'eventEmitter/EventEmitter'
+    ], function( EventEmitter ) {
+      return factory( window, EventEmitter );
     });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory(
       window,
-      require('wolfy87-eventemitter'),
-      require('eventie')
+      require('wolfy87-eventemitter')
     );
   } else {
     // browser global
     window.imagesLoaded = factory(
       window,
-      window.EventEmitter,
-      window.eventie
+      window.EventEmitter
     );
   }
 
@@ -37,7 +34,7 @@
 
 // --------------------------  factory -------------------------- //
 
-function factory( window, EventEmitter, eventie ) {
+function factory( window, EventEmitter ) {
 
 'use strict';
 
@@ -286,11 +283,11 @@ function makeArray( obj ) {
 
     // If none of the checks above matched, simulate loading on detached element.
     this.proxyImage = new Image();
-    eventie.bind( this.proxyImage, 'load', this );
-    eventie.bind( this.proxyImage, 'error', this );
+    this.proxyImage.addEventListener( 'load', this );
+    this.proxyImage.addEventListener( 'error', this );
     // bind to image as well for Firefox. #191
-    eventie.bind( this.img, 'load', this );
-    eventie.bind( this.img, 'error', this );
+    this.img.addEventListener( 'load', this );
+    this.img.addEventListener( 'error', this );
     this.proxyImage.src = this.img.src;
   };
 
@@ -324,10 +321,10 @@ function makeArray( obj ) {
   };
 
   LoadingImage.prototype.unbindEvents = function() {
-    eventie.unbind( this.proxyImage, 'load', this );
-    eventie.unbind( this.proxyImage, 'error', this );
-    eventie.unbind( this.img, 'load', this );
-    eventie.unbind( this.img, 'error', this );
+    this.proxyImage.removeEventListener( 'load', this );
+    this.proxyImage.removeEventListener( 'error', this );
+    this.img.removeEventListener( 'load', this );
+    this.img.removeEventListener( 'error', this );
   };
 
   // -------------------------- Background -------------------------- //
@@ -342,8 +339,8 @@ function makeArray( obj ) {
   Background.prototype = new LoadingImage();
 
   Background.prototype.check = function() {
-    eventie.bind( this.img, 'load', this );
-    eventie.bind( this.img, 'error', this );
+    this.img.addEventListener( 'load', this );
+    this.img.addEventListener( 'error', this );
     this.img.src = this.url;
     // check if image is already complete
     var isComplete = this.getIsImageComplete();
@@ -354,8 +351,8 @@ function makeArray( obj ) {
   };
 
   Background.prototype.unbindEvents = function() {
-    eventie.unbind( this.img, 'load', this );
-    eventie.unbind( this.img, 'error', this );
+    this.img.addEventListener( 'load', this );
+    this.img.addEventListener( 'error', this );
   };
 
   Background.prototype.confirm = function( isLoaded, message ) {
