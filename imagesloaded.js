@@ -120,10 +120,7 @@ ImagesLoaded.prototype.getImages = function() {
   this.images = [];
 
   // filter & find items if we have an item selector
-  for ( var i=0; i < this.elements.length; i++ ) {
-    var elem = this.elements[i];
-    this.addElementImages( elem );
-  }
+  this.elements.forEach( this.addElementImages, this );
 };
 
 /**
@@ -216,11 +213,10 @@ ImagesLoaded.prototype.check = function() {
     });
   }
 
-  for ( var i=0; i < this.images.length; i++ ) {
-    var loadingImage = this.images[i];
+  this.images.forEach( function( loadingImage ) {
     loadingImage.once( 'progress', onProgress );
     loadingImage.check();
-  }
+  });
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
