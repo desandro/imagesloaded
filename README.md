@@ -22,9 +22,9 @@ Detect when images have been loaded.
 ### CDN
 
 ``` html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.min.js"></script>
 <!-- or -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
@@ -374,14 +374,12 @@ requirejs( [
 
 ## Browser support
 
-+ IE8+
++ IE9+
 + Android 2.3+
 + iOS Safari 4+
 + All other modern browsers
 
-## Contributors
-
-This project has a [storied legacy](https://github.com/desandro/imagesloaded/graphs/contributors). Its current incarnation was developed by [Tomas Sardyha @Darsain](http://darsa.in/) and [David DeSandro @desandro](http://desandro.com).
+Use [imagesLoaded v3](http://imagesloaded.desandro.com/v3/) for IE8 support.
 
 ## MIT License
 
