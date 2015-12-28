@@ -1,6 +1,6 @@
 {
   "name": "imagesloaded",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
@@ -16,7 +16,9 @@
     "package.json",
     "node_modules",
     "bower_components",
-    "tests"
+    "tests",
+    "sandbox/",
+    "contributing.md"
   ],
   "homepage": "http://imagesloaded.desandro.com",
   "authors": [
