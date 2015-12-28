@@ -214,7 +214,7 @@ gulp.task( 'page', [ 'partials' ], function() {
     .pipe( replace( '<!-- sponsored -->', partials['sponsored.html'] ) )
     .pipe( pageNav() )
     .pipe( rename('index.html') )
-    .pipe( gulp.dest('.') );
+    .pipe( gulp.dest('build') );
 });
 
 var cheerio = require('cheerio');
@@ -250,12 +250,26 @@ function pageNav() {
   });
 }
 
+// ----- copy ----- //
+
+gulp.task( 'copy', function() {
+  return gulp.src([
+      'assets/broken.png',
+      'assets/loading.gif',
+      'assets/scripts.js',
+      'assets/styles.css',
+      'assets/2D333F*.*',
+      'imagesloaded*.js'
+    ])
+    .pipe( gulp.dest('build') );
+});
 
 // ----- default ----- //
 
 gulp.task( 'default', [
   'hint',
   'uglify',
-  'page'
+  'page',
+  'copy'
 ]);
 

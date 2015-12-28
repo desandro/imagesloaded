@@ -33,14 +33,6 @@ demo.querySelector('#add').onclick = function() {
 document.querySelector('#reset').onclick = function() {
   empty( container );
 };
-// ----- set text helper ----- //
-
-var docElem = document.documentElement;
-var textSetter = docElem.textContent !== undefined ? 'textContent' : 'innerText';
-
-function setText( elem, value ) {
-  elem[ textSetter ] = value;
-}
 
 function empty( elem ) {
   while ( elem.firstChild ) {
@@ -94,7 +86,7 @@ function updateProgress( value ) {
     progressElem.setAttribute( 'value', value );
   } else {
     // if you don't support progress elem
-    setText( statusElem, value + ' / ' + imageCount );
+    statusElem.textContent = value + ' / ' + imageCount;
   }
 }
 
