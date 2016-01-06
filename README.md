@@ -282,7 +282,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /imagesloaded/,
+        test: /imagesloaded|wolfy87-eventemitter/,
         loader: 'imports?define=>false&this=>window'
       }
     ]
