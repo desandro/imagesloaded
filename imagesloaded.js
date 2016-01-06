@@ -9,19 +9,19 @@
 
   /*global define: false, module: false, require: false */
 
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof exports == 'object' ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('wolfy87-eventemitter')
+    );
+  } else if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
       'eventEmitter/EventEmitter'
     ], function( EventEmitter ) {
       return factory( window, EventEmitter );
     });
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('wolfy87-eventemitter')
-    );
   } else {
     // browser global
     window.imagesLoaded = factory(
