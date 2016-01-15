@@ -6,8 +6,6 @@
 
 Detect when images have been loaded.
 
-<!-- demo -->
-
 ## Install
 
 ### Download
@@ -18,14 +16,14 @@ Detect when images have been loaded.
 ### CDN
 
 ``` html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.min.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <!-- or -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
 
-Install via npm: `npm install imagesloaded`
+Install via [npm](https://www.npmjs.com/package/imagesloaded): `npm install imagesloaded`
 
 Install via [Bower](http://bower.io): `bower install imagesloaded --save`
 
@@ -271,8 +269,7 @@ $('#container').imagesLoaded( function() {...});
 Install imagesLoaded and [imports-loader](https://github.com/webpack/imports-loader) with npm.
 
 ``` bash
-npm install imagesLoaded
-npm install imports-loader
+npm install imagesloaded imports-loader
 ```
 
 In your config file, `webpack.config.js`, use the imports loader to disable `define` and set window for `imagesloaded`.
@@ -282,7 +279,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /imagesloaded|wolfy87-eventemitter/,
+        test: /imagesloaded|ev\-emitter/,
         loader: 'imports?define=>false&this=>window'
       }
     ]

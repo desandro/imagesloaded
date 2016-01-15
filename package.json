@@ -1,10 +1,10 @@
 {
   "name": "imagesloaded",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "You images done yet or what?",
   "main": "imagesloaded.js",
   "dependencies": {
-    "wolfy87-eventemitter": ">=4.2 <5.0"
+    "ev-emitter": "~1.0.0"
   },
   "devDependencies": {
     "chalk": "^1.1.1",

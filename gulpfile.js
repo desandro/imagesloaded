@@ -144,22 +144,23 @@ var minimist = require('minimist');
 gulp.task( 'version', function() {
   var args = minimist( process.argv.slice(3) );
   var version = args.t;
-  if ( !version || !/\d\.\d\.\d/.test( version ) ) {
+  if ( !version || !/\d+\.\d+\.\d+/.test( version ) ) {
     gutil.log( 'invalid version: ' + chalk.red( version ) );
     return;
   }
   gutil.log( 'ticking version to ' + chalk.green( version ) );
 
   gulp.src('imagesloaded.js')
-    .pipe( replace( /imagesLoaded v\d\.\d\.\d/, 'imagesLoaded v' + version ) )
+    .pipe( replace( /imagesLoaded v\d+\.\d+\.\d+/, 'imagesLoaded v' + version ) )
     .pipe( gulp.dest('.') );
 
   gulp.src( [ 'bower.json', 'package.json' ] )
-    .pipe( replace( /"version": "\d\.\d\.\d"/, '"version": "' + version + '"' ) )
+    .pipe( replace( /"version": "\d+\.\d+\.\d+"/, '"version": "' + version + '"' ) )
     .pipe( gulp.dest('.') );
   // replace CDN links in README
+  var minorVersion = version.match( /^\d+\.\d+/ )[0];
   gulp.src('README.md')
-    .pipe( replace( /ajax\/libs\/jquery.imagesloaded\/\d\.\d\.\d/g, 'ajax/libs/jquery.imagesloaded/' + version ))
+    .pipe( replace( /imagesloaded@\d+\.\d+/g, 'imagesloaded@' + minorVersion ))
     .pipe( gulp.dest('.') );
 });
 
