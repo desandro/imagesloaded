@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v4.0.0
+ * imagesLoaded v4.1.0
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -12,21 +12,21 @@
   if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
-      'eventEmitter/EventEmitter'
-    ], function( EventEmitter ) {
-      return factory( window, EventEmitter );
+      'ev-emitter/ev-emitter'
+    ], function( EvEmitter ) {
+      return factory( window, EvEmitter );
     });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory(
       window,
-      require('wolfy87-eventemitter')
+      require('ev-emitter')
     );
   } else {
     // browser global
     window.imagesLoaded = factory(
       window,
-      window.EventEmitter
+      window.EvEmitter
     );
   }
 
@@ -34,7 +34,7 @@
 
 // --------------------------  factory -------------------------- //
 
-function factory( window, EventEmitter ) {
+function factory( window, EvEmitter ) {
 
 'use strict';
 
@@ -112,7 +112,7 @@ function ImagesLoaded( elem, options, onAlways ) {
   }.bind( this ));
 }
 
-ImagesLoaded.prototype = Object.create( EventEmitter.prototype );
+ImagesLoaded.prototype = Object.create( EvEmitter.prototype );
 
 ImagesLoaded.prototype.options = {};
 
@@ -223,7 +223,7 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
   this.progressedCount++;
   this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
   // progress event
-  this.emit( 'progress', this, image, elem );
+  this.emitEvent( 'progress', [ this, image, elem ] );
   if ( this.jqDeferred && this.jqDeferred.notify ) {
     this.jqDeferred.notify( this, image );
   }
@@ -240,8 +240,8 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 ImagesLoaded.prototype.complete = function() {
   var eventName = this.hasAnyBroken ? 'fail' : 'done';
   this.isComplete = true;
-  this.emit( eventName, this );
-  this.emit( 'always', this );
+  this.emitEvent( eventName, [ this ] );
+  this.emitEvent( 'always', [ this ] );
   if ( this.jqDeferred ) {
     var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
     this.jqDeferred[ jqMethod ]( this );
@@ -254,7 +254,7 @@ function LoadingImage( img ) {
   this.img = img;
 }
 
-LoadingImage.prototype = Object.create( EventEmitter.prototype );
+LoadingImage.prototype = Object.create( EvEmitter.prototype );
 
 LoadingImage.prototype.check = function() {
   // If complete is true and browser supports natural sizes,
@@ -282,7 +282,7 @@ LoadingImage.prototype.getIsImageComplete = function() {
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
-  this.emit( 'progress', this, this.img, message );
+  this.emitEvent( 'progress', [ this, this.img, message ] );
 };
 
 // ----- events ----- //
@@ -336,13 +336,13 @@ Background.prototype.check = function() {
 };
 
 Background.prototype.unbindEvents = function() {
-  this.img.addEventListener( 'load', this );
-  this.img.addEventListener( 'error', this );
+  this.img.removeEventListener( 'load', this );
+  this.img.removeEventListener( 'error', this );
 };
 
 Background.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
-  this.emit( 'progress', this, this.element, message );
+  this.emitEvent( 'progress', [ this, this.element, message ] );
 };
 
 // -------------------------- jQuery -------------------------- //
