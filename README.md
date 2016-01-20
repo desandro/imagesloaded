@@ -266,28 +266,11 @@ $('#container').imagesLoaded( function() {...});
 
 ## Webpack
 
-Install imagesLoaded and [imports-loader](https://github.com/webpack/imports-loader) with npm.
+Install imagesLoaded with npm.
 
 ``` bash
-npm install imagesloaded imports-loader
+npm install imagesloaded
 ```
-
-In your config file, `webpack.config.js`, use the imports loader to disable `define` and set window for `imagesloaded`.
-
-``` js
-module.exports = {
-  module: {
-    loaders: [
-      {
-        test: /imagesloaded|ev\-emitter/,
-        loader: 'imports?define=>false&this=>window'
-      }
-    ]
-  }
-};
-```
-
-(This hack is required because of an issue with how Webpack loads dependencies. [+1 this issue on GitHub](https://github.com/webpack/webpack/issues/883) to help get this issue addressed.)
 
 You can then `require('imagesloaded')`.
 
