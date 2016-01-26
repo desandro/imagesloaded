@@ -4,41 +4,41 @@
  * MIT License
  */
 
-( function( window, factory ) { 'use strict';
+( function( window, $, factory) { 'use strict';
   // universal module definition
 
   /*global define: false, module: false, require: false */
-
   if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
       'ev-emitter/ev-emitter'
     ], function( EvEmitter ) {
-      return factory( window, EvEmitter );
+      return factory( window, EvEmitter, $);
     });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory(
       window,
-      require('ev-emitter')
+      require('ev-emitter'),
+      $
     );
   } else {
     // browser global
     window.imagesLoaded = factory(
       window,
-      window.EvEmitter
+      window.EvEmitter.
+      $
     );
   }
 
-})( window,
+})( window, typeof jQuery == 'function' ? jQuery : window.jQuery,
 
 // --------------------------  factory -------------------------- //
 
-function factory( window, EvEmitter ) {
+function factory( window, EvEmitter, $) {
 
 'use strict';
 
-var $ = window.jQuery;
 var console = window.console;
 
 // -------------------------- helpers -------------------------- //
@@ -347,13 +347,10 @@ Background.prototype.confirm = function( isLoaded, message ) {
 
 // -------------------------- jQuery -------------------------- //
 
-ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
-  jQuery = jQuery || window.jQuery;
-  if ( !jQuery ) {
+ImagesLoaded.makeJQueryPlugin = function() {
+  if ( !$ ) {
     return;
   }
-  // set local variable
-  $ = jQuery;
   // $().imagesLoaded()
   $.fn.imagesLoaded = function( options, callback ) {
     var instance = new ImagesLoaded( this, options, callback );
