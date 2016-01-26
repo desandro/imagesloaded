@@ -17,6 +17,7 @@
     });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
+    try { $ = require("jquery"); } catch (e) {};
     module.exports = factory(
       window,
       require('ev-emitter'),
