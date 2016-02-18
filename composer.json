@@ -1,7 +1,7 @@
 {
   "name": "desandro/imagesloaded",
   "description": "JavaScript is all like _You images done yet or what?_",
-  "type": "library",
+  "type": "component",
   "keywords": ["javascript", "library", "images", "loaded", "dom", "ui", "jquery-plugin"],
   "homepage": "http://imagesloaded.desandro.com",
   "license": "MIT",
