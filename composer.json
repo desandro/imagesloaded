@@ -1,9 +1,9 @@
 {
   "name": "desandro/imagesloaded",
-  "description": ":camera: JavaScript is all like \"You images done yet or what?\" http://imagesloaded.desandro.com",
+  "description": "JavaScript is all like _You images done yet or what?_",
   "type": "library",
   "keywords": ["javascript", "library", "images", "loaded", "dom", "ui", "jquery-plugin"],
-  "homepage": "https://github.com/desandro/imagesloaded",
+  "homepage": "http://imagesloaded.desandro.com",
   "license": "MIT",
   "authors": [
     {
