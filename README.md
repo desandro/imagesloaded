@@ -288,7 +288,7 @@ Use `.makeJQueryPlugin` to make `.imagesLoaded()` jQuery plugin.
 ``` js
 // main.js
 var imagesLoaded = require('imagesLoaded');
-var jQuery = require('jquery');
+var $ = require('jquery');
 
 // provide jQuery argument
 imagesLoaded.makeJQueryPlugin( $ );
