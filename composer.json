@@ -1,7 +1,7 @@
 {
   "name": "desandro/imagesloaded",
   "description": ":camera: JavaScript is all like \"You images done yet or what?\" http://imagesloaded.desandro.com",
-  "type": "library",
+  "type": "component",
   "keywords": ["javascript", "library", "images", "loaded", "dom", "ui", "jquery-plugin"],
   "homepage": "https://github.com/desandro/imagesloaded",
   "license": "MIT",
