@@ -193,6 +193,11 @@ function makeArray( obj ) {
  * @param {Function} onAlways - callback function
  */
 function ImagesLoaded( elem, options, onAlways ) {
+  // prevent bug with null element!
+  if(elem == null) {
+    return false;
+  }
+  
   // coerce ImagesLoaded() without new, to be new ImagesLoaded()
   if ( !( this instanceof ImagesLoaded ) ) {
     return new ImagesLoaded( elem, options, onAlways );
