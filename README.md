@@ -10,8 +10,8 @@ Detect when images have been loaded.
 
 ### Download
 
-+ [imagesloaded.pkgd.min.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js) minified
-+ [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js) un-minified
++ [imagesloaded.pkgd.min.js](https://npmcdn.com/imagesloaded@4/imagesloaded.pkgd.min.js) minified
++ [imagesloaded.pkgd.js](https://npmcdn.com/imagesloaded@4/imagesloaded.pkgd.js) un-minified
 
 ### CDN
 
