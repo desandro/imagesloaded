@@ -1,7 +1,7 @@
 {
   "name": "imagesloaded",
   "version": "4.1.0",
-  "description": "You images done yet or what?",
+  "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
     "ev-emitter": "~1.0.0"
