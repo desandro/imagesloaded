@@ -282,7 +282,7 @@ You can then `require('imagesloaded')`.
 
 ``` js
 // main.js
-var imagesLoaded = require('imagesLoaded');
+var imagesLoaded = require('imagesloaded');
 
 imagesLoaded( '#container', function() {
   // images have loaded
@@ -293,7 +293,7 @@ Use `.makeJQueryPlugin` to make `.imagesLoaded()` jQuery plugin.
 
 ``` js
 // main.js
-var imagesLoaded = require('imagesLoaded');
+var imagesLoaded = require('imagesloaded');
 var $ = require('jquery');
 
 // provide jQuery argument
