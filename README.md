@@ -10,15 +10,15 @@ Detect when images have been loaded.
 
 ### Download
 
-+ [imagesloaded.pkgd.min.js](https://npmcdn.com/imagesloaded@4/imagesloaded.pkgd.min.js) minified
-+ [imagesloaded.pkgd.js](https://npmcdn.com/imagesloaded@4/imagesloaded.pkgd.js) un-minified
++ [imagesloaded.pkgd.min.js](https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js) minified
++ [imagesloaded.pkgd.js](https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js) un-minified
 
 ### CDN
 
 ``` html
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <!-- or -->
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
