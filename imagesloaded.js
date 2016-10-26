@@ -108,7 +108,9 @@ function ImagesLoaded( elem, options, onAlways ) {
 
   // HACK check async to allow time to bind listeners
   setTimeout( function() {
-    this.check();
+    if (this.images.length) {
+      this.check();
+    }
   }.bind( this ));
 }
 
