@@ -277,7 +277,7 @@ LoadingImage.prototype.check = function() {
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
-  return this.img.complete && this.img.naturalWidth !== undefined;
+  return this.img.complete && this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
 };
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
