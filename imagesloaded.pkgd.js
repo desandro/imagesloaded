@@ -224,7 +224,9 @@ function ImagesLoaded( elem, options, onAlways ) {
 
   // HACK check async to allow time to bind listeners
   setTimeout( function() {
-    this.check();
+    if (this.images.length) {
+      this.check();
+    }
   }.bind( this ));
 }
 
@@ -314,29 +316,40 @@ ImagesLoaded.prototype.addBackground = function( url, elem ) {
 
 ImagesLoaded.prototype.check = function() {
   var _this = this;
-  this.progressedCount = 0;
+  this.completedCount = 0;
   this.hasAnyBroken = false;
+  this.intervalCheck = null;
+
   // complete if no images
   if ( !this.images.length ) {
     this.complete();
     return;
   }
 
-  function onProgress( image, elem, message ) {
-    // HACK - Chrome triggers event before object properties have changed. #83
-    setTimeout( function() {
-      _this.progress( image, elem, message );
-    });
-  }
+  this.runCheck = function() {
 
-  this.images.forEach( function( loadingImage ) {
-    loadingImage.once( 'progress', onProgress );
-    loadingImage.check();
-  });
+    function onProgress(image, elem, message) {
+      // HACK - Chrome triggers event before object properties have changed. #83
+      setTimeout(function() {
+        _this.progress(image, elem, message);
+      });
+    }
+
+    _this.images.forEach(function(loadingImage) {
+      if (typeof(loadingImage.isLoaded) == 'undefined') {
+        loadingImage.once('progress', onProgress);
+        loadingImage.check();
+      }
+    });
+  };
+
+  this.intervalCheck = setInterval(this.runCheck, 500);
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
-  this.progressedCount++;
+  if (typeof(image.isLoaded) !== 'undefined') {
+    this.completedCount++;
+  }
   this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
   // progress event
   this.emitEvent( 'progress', [ this, image, elem ] );
@@ -344,7 +357,7 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
     this.jqDeferred.notify( this, image );
   }
   // check if completed
-  if ( this.progressedCount == this.images.length ) {
+  if ( this.completedCount == this.images.length ) {
     this.complete();
   }
 
@@ -355,6 +368,7 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 
 ImagesLoaded.prototype.complete = function() {
   var eventName = this.hasAnyBroken ? 'fail' : 'done';
+  clearInterval(this.intervalCheck);
   this.isComplete = true;
   this.emitEvent( eventName, [ this ] );
   this.emitEvent( 'always', [ this ] );
@@ -393,7 +407,7 @@ LoadingImage.prototype.check = function() {
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
-  return this.img.complete && this.img.naturalWidth !== undefined;
+  return this.img.complete && this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
 };
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
