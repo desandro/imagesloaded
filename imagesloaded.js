@@ -220,7 +220,7 @@ ImagesLoaded.prototype.check = function() {
     }
 
     _this.images.forEach(function(loadingImage) {
-      if (!loadingImage.isLoaded) {
+      if (typeof(loadingImage.isLoaded) == 'undefined') {
         loadingImage.once('progress', onProgress);
         loadingImage.check();
       }
@@ -231,7 +231,7 @@ ImagesLoaded.prototype.check = function() {
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
-  if (image.isLoaded) {
+  if (typeof(image.isLoaded) !== 'undefined') {
     this.completedCount++;
   }
   this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
