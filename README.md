@@ -219,7 +219,7 @@ _Image_ - The `img` element
 
 ### LoadingImage.isLoaded
 
-_Boolean_ - `true` when the image has succesfully loaded
+_Boolean_ - `true` when the image has successfully loaded
 
 ### imagesLoaded.images
 
