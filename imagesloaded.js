@@ -101,7 +101,7 @@ function ImagesLoaded( elem, options, onAlways ) {
 
   this.getImages();
 
-  if ( $ ) {
+  if ( $ && $.Deferred ) {
     // add jQuery Deferred object
     this.jqDeferred = new $.Deferred();
   }
