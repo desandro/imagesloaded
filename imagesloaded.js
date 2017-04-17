@@ -270,7 +270,7 @@ LoadingImage.prototype.check = function() {
   // If complete is true and browser supports natural sizes,
   // try to check for image status manually.
   var isComplete = this.getIsImageComplete();
-  if ( isComplete ) {
+  if ( this.imageSuccessfullyLoaded() ) {
     // report based on naturalWidth
     this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
     return;
