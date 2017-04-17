@@ -209,22 +209,19 @@ ImagesLoaded.prototype.check = function() {
     return;
   }
 
-  this.runCheck = function() {
-
-    function onProgress(image, elem, message) {
-      // HACK - Chrome triggers event before object properties have changed. #83
-      setTimeout(function() {
-        _this.progress(image, elem, message);
-      });
-    }
-
-    _this.images.forEach(function(loadingImage) {
-      if (typeof(loadingImage.isLoaded) == 'undefined') {
-        loadingImage.once('progress', onProgress);
-        loadingImage.check();
-      }
+  function onProgress(image, elem, message) {
+    // HACK - Chrome triggers event before object properties have changed. #83
+    setTimeout(function() {
+      _this.progress(image, elem, message);
     });
-  };
+  }
+
+  _this.images.forEach(function(loadingImage) {
+    if (typeof(loadingImage.isLoaded) == 'undefined') {
+      loadingImage.once('progress', onProgress);
+      loadingImage.check();
+    }
+  });
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
