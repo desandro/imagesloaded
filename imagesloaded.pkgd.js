@@ -318,7 +318,6 @@ ImagesLoaded.prototype.check = function() {
   var _this = this;
   this.completedCount = 0;
   this.hasAnyBroken = false;
-  this.intervalCheck = null;
 
   // complete if no images
   if ( !this.images.length ) {
@@ -326,24 +325,19 @@ ImagesLoaded.prototype.check = function() {
     return;
   }
 
-  this.runCheck = function() {
-
-    function onProgress(image, elem, message) {
-      // HACK - Chrome triggers event before object properties have changed. #83
-      setTimeout(function() {
-        _this.progress(image, elem, message);
-      });
-    }
-
-    _this.images.forEach(function(loadingImage) {
-      if (typeof(loadingImage.isLoaded) == 'undefined') {
-        loadingImage.once('progress', onProgress);
-        loadingImage.check();
-      }
+  function onProgress(image, elem, message) {
+    // HACK - Chrome triggers event before object properties have changed. #83
+    setTimeout(function() {
+      _this.progress(image, elem, message);
     });
-  };
+  }
 
-  this.intervalCheck = setInterval(this.runCheck, 500);
+  _this.images.forEach(function(loadingImage) {
+    if (typeof(loadingImage.isLoaded) == 'undefined') {
+      loadingImage.once('progress', onProgress);
+      loadingImage.check();
+    }
+  });
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
@@ -368,7 +362,6 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 
 ImagesLoaded.prototype.complete = function() {
   var eventName = this.hasAnyBroken ? 'fail' : 'done';
-  clearInterval(this.intervalCheck);
   this.isComplete = true;
   this.emitEvent( eventName, [ this ] );
   this.emitEvent( 'always', [ this ] );
@@ -390,7 +383,7 @@ LoadingImage.prototype.check = function() {
   // If complete is true and browser supports natural sizes,
   // try to check for image status manually.
   var isComplete = this.getIsImageComplete();
-  if ( isComplete ) {
+  if ( this.imageSuccessfullyLoaded() ) {
     // report based on naturalWidth
     this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
     return;
@@ -407,8 +400,12 @@ LoadingImage.prototype.check = function() {
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
-  return this.img.complete && this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
+  return this.img.complete;
 };
+
+LoadingImage.prototype.imageSuccessfullyLoaded = function() {
+  return this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
+}
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
