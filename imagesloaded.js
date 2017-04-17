@@ -287,8 +287,12 @@ LoadingImage.prototype.check = function() {
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
-  return this.img.complete && this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
+  return this.img.complete;
 };
+
+LoadingImage.prototype.imageSuccessfullyLoaded = function() {
+  return this.img.naturalWidth !== undefined && this.img.naturalWidth > 0;
+}
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
