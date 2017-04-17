@@ -202,7 +202,6 @@ ImagesLoaded.prototype.check = function() {
   var _this = this;
   this.completedCount = 0;
   this.hasAnyBroken = false;
-  this.intervalCheck = null;
 
   // complete if no images
   if ( !this.images.length ) {
@@ -226,8 +225,6 @@ ImagesLoaded.prototype.check = function() {
       }
     });
   };
-
-  this.intervalCheck = setInterval(this.runCheck, 500);
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
@@ -252,7 +249,6 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 
 ImagesLoaded.prototype.complete = function() {
   var eventName = this.hasAnyBroken ? 'fail' : 'done';
-  clearInterval(this.intervalCheck);
   this.isComplete = true;
   this.emitEvent( eventName, [ this ] );
   this.emitEvent( 'always', [ this ] );
