@@ -22,9 +22,9 @@ Detect when images have been loaded.
 ### CDN
 
 ``` html
-<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <!-- or -->
-<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
