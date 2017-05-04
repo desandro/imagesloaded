@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v4.1.1
+ * imagesLoaded PACKAGED v4.1.2
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -115,7 +115,7 @@ return EvEmitter;
 }));
 
 /*!
- * imagesLoaded v4.1.1
+ * imagesLoaded v4.1.2
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -146,7 +146,7 @@ return EvEmitter;
     );
   }
 
-})( window,
+})( typeof window !== 'undefined' ? window : this,
 
 // --------------------------  factory -------------------------- //
 

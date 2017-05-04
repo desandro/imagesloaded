@@ -157,11 +157,6 @@ gulp.task( 'version', function() {
   gulp.src( [ 'bower.json', 'package.json' ] )
     .pipe( replace( /"version": "\d+\.\d+\.\d+"/, '"version": "' + version + '"' ) )
     .pipe( gulp.dest('.') );
-  // replace CDN links in README
-  var minorVersion = version.match( /^\d+\.\d+/ )[0];
-  gulp.src('README.md')
-    .pipe( replace( /imagesloaded@\d+\.\d+/g, 'imagesloaded@' + minorVersion ))
-    .pipe( gulp.dest('.') );
 });
 
 // ----- default ----- //
