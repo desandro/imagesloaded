@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded v4.1.2
+ * imagesLoaded v4.1.3
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
