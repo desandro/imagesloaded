@@ -6,27 +6,31 @@
 
 ( function( window, factory ) { 'use strict';
   // universal module definition
+    var $ = jQuery || window.jQuery;
 
   /*global define: false, module: false, require: false */
-
-  if ( typeof define == 'function' && define.amd ) {
+  
+  if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    try { $ = require("jquery"); } catch (e) {};
+    module.exports = factory(
+      window,
+      require('ev-emitter'),
+      $,
+    );
+  } else if ( typeof define == 'function' && define.amd ) {
     // AMD
     define( [
       'ev-emitter/ev-emitter'
     ], function( EvEmitter ) {
-      return factory( window, EvEmitter );
+      return factory( window, EvEmitter, $ );
     });
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('ev-emitter')
-    );
   } else {
     // browser global
     window.imagesLoaded = factory(
       window,
-      window.EvEmitter
+      window.EvEmitter,
+      $,
     );
   }
 
@@ -34,11 +38,11 @@
 
 // --------------------------  factory -------------------------- //
 
-function factory( window, EvEmitter ) {
+function factory( window, EvEmitter, jQuery ) {
 
 'use strict';
 
-var $ = window.jQuery;
+var $ = jQuery;
 var console = window.console;
 
 // -------------------------- helpers -------------------------- //
@@ -348,12 +352,11 @@ Background.prototype.confirm = function( isLoaded, message ) {
 // -------------------------- jQuery -------------------------- //
 
 ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
-  jQuery = jQuery || window.jQuery;
   if ( !jQuery ) {
     return;
   }
   // set local variable
-  $ = jQuery;
+  var $ = jQuery;
   // $().imagesLoaded()
   $.fn.imagesLoaded = function( options, callback ) {
     var instance = new ImagesLoaded( this, options, callback );
@@ -361,7 +364,7 @@ ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
   };
 };
 // try making plugin
-ImagesLoaded.makeJQueryPlugin();
+ImagesLoaded.makeJQueryPlugin(jQuery);
 
 // --------------------------  -------------------------- //
 
