@@ -3,7 +3,7 @@
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "ev-emitter": "~1.0.0"
+    "ev-emitter": "^1.0.0"
   },
   "devDependencies": {
     "jquery": ">=1.9 <4.0",
