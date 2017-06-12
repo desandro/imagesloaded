@@ -19,7 +19,8 @@
     "gulp-util": "^3.0.7",
     "highlight.js": "^8.9.1",
     "marked": "^0.3.5",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "transfob": "^1.0.0"
   },
   "repository": {
     "type": "git",
