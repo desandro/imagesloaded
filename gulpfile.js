@@ -4,6 +4,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
+var transfob = require('transfob');
 
 // ----- hint ----- //
 
@@ -154,7 +155,7 @@ gulp.task( 'partials', function() {
       'assets/demo.html',
       'assets/sponsored.html'
     ])
-    .pipe( through.obj( function( file, enc, callback ) {
+    .pipe( transfob( function( file, enc, callback ) {
       var basename = path.basename( file.path );
       partials[ basename ] = file.contents.toString();
       return callback( null, file );
@@ -177,7 +178,7 @@ gulp.task( 'page', [ 'partials' ], function() {
 var cheerio = require('cheerio');
 
 function pageNav() {
-  return through.obj( function( file, enc, callback ) {
+  return transfob( function( file, enc, callback ) {
     var $ = cheerio.load( file.contents.toString(), {
       decodeEntities: false
     });
