@@ -223,7 +223,7 @@ function ImagesLoaded( elem, options, onAlways ) {
 
   this.getImages();
 
-  if ( $ ) {
+  if ( $ && $.Deferred ) {
     // add jQuery Deferred object
     this.jqDeferred = new $.Deferred();
   }
@@ -471,7 +471,7 @@ Background.prototype.confirm = function( isLoaded, message ) {
 
 ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
   jQuery = jQuery || window.jQuery;
-  if ( !jQuery ) {
+  if ( !jQuery || !jQuery.fn ) {
     return;
   }
   // set local variable
