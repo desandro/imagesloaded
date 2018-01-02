@@ -27,7 +27,7 @@ img {
   background:
     url("http://i.imgur.com/ZAVN3.png"),
     url('http://i.imgur.com/6UdOxeB.png') bottom right,
-    url(http://lorempixel.com/601/401/nature);
+    url(https://picsum.photos/601/401/?random);
   background-size: cover;
 }
 

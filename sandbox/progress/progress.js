@@ -71,8 +71,8 @@ function getImageItem() {
   // 10% chance of broken image src
   // random parameter to prevent cached images
   img.src = rando < 100 ? '//foo/broken-' + rando + '.jpg' :
-    // use lorempixel for great random images
-    '//lorempixel.com/' + width + '/' + height + '/' + '?' + rando;
+    // use picsum for great random images
+    'https://picsum.photos/' + width + '/' + height + '/' + '?random';
   item.appendChild( img );
   return item;
 }

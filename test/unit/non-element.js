@@ -4,7 +4,7 @@ QUnit.test( 'dismiss non-element nodes', function( assert ) {
   var $ = window.jQuery;
   var done = assert.async( 2 );
 
-  $(' <img src="http://lorempixel.com/401/301/" /> <img src="http://lorempixel.com/402/302/" /> ')
+  $(' <img src="https://picsum.photos/401/301/?random" /> <img src="https://picsum.photos/402/302/?random" /> ')
     .imagesLoaded(function() {
       assert.ok( true, 'elements from jQuery string ok' );
       done();
@@ -13,7 +13,7 @@ QUnit.test( 'dismiss non-element nodes', function( assert ) {
   // test fragment
   var frag = document.createDocumentFragment();
   var img = new Image();
-  img.src = 'http://lorempixel.com/403/303/';
+  img.src = 'https://picsum.photos/403/303/?random';
   frag.appendChild( img );
   var imgLoad = imagesLoaded( frag, function() {
     assert.ok( true, 'document fragment ok' );
