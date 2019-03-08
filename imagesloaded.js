@@ -133,7 +133,7 @@ ImagesLoaded.prototype.getImages = function() {
  */
 ImagesLoaded.prototype.addElementImages = function( elem ) {
   // filter siblings
-  if ( elem.nodeName == 'IMG' ) {
+  if ( elem && elem.nodeName == 'IMG' ) {
     this.addImage( elem );
   }
   // get background image on element
