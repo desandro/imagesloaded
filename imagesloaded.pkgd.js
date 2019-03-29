@@ -260,8 +260,7 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
     this.addElementBackgroundImages( elem );
   }
   
-  if ( elem.nodeName == 'OBJECT' ) {
-    console.log("element is OBJECT");
+  if ( elem.nodeName == 'OBJECT' && elem.hasAttribute("type") && elem.getAttribute("type").startsWith("image") ) {
     this.addObjectImage( elem );
   }
 
