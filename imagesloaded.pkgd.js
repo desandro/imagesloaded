@@ -259,6 +259,11 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
   if ( this.options.background === true ) {
     this.addElementBackgroundImages( elem );
   }
+  
+  if ( elem.nodeName == 'OBJECT' ) {
+    console.log("element is OBJECT");
+    this.addObjectImage( elem );
+  }
 
   // find children
   // no non-element nodes, #143
@@ -279,6 +284,15 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
     for ( i=0; i < children.length; i++ ) {
       var child = children[i];
       this.addElementBackgroundImages( child );
+    }
+  }
+  
+  // get child object images
+  if ( this.options.objects === true ) {
+    var children_objects = elem.querySelectorAll('object[type^="image"]');
+    for ( i=0; i < children_objects.length; i++ ) {
+      var child_object = children_objects[i];
+      this.addObjectImage( child_object );
     }
   }
 };
@@ -318,6 +332,11 @@ ImagesLoaded.prototype.addImage = function( img ) {
 ImagesLoaded.prototype.addBackground = function( url, elem ) {
   var background = new Background( url, elem );
   this.images.push( background );
+};
+  
+ImagesLoaded.prototype.addObjectImage = function( elem ) {
+  var objectImage = new ObjectImage( elem );
+  this.images.push( objectImage );
 };
 
 ImagesLoaded.prototype.check = function() {
@@ -467,6 +486,39 @@ Background.prototype.unbindEvents = function() {
 };
 
 Background.prototype.confirm = function( isLoaded, message ) {
+  this.isLoaded = isLoaded;
+  this.emitEvent( 'progress', [ this, this.element, message ] );
+};
+  
+// -------------------------- OjectImage -------------------------- //
+
+function ObjectImage( object_element ) {
+  this.url = object_element.data;
+  this.element = object_element;
+  this.img = new Image();
+}
+
+// inherit LoadingImage prototype
+ObjectImage.prototype = Object.create( LoadingImage.prototype );
+
+ObjectImage.prototype.check = function() {
+  this.img.addEventListener( 'load', this );
+  this.img.addEventListener( 'error', this );
+  this.img.src = this.url;
+  // check if image is already complete
+  var isComplete = this.getIsImageComplete();
+  if ( isComplete ) {
+    this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
+    this.unbindEvents();
+  }
+};
+
+ObjectImage.prototype.unbindEvents = function() {
+  this.img.removeEventListener( 'load', this );
+  this.img.removeEventListener( 'error', this );
+};
+
+ObjectImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
   this.emitEvent( 'progress', [ this, this.element, message ] );
 };
