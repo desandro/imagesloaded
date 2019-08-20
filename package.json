@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/desandro/imagesloaded.git"
+    "url": "git+https://github.com/julian-1503/imagesloaded.git"
   },
   "keywords": [
     "images",
@@ -35,9 +35,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/desandro/imagesloaded/issues"
+    "url": "https://github.com/julian-1503/imagesloaded/issues"
   },
-  "homepage": "https://github.com/desandro/imagesloaded",
+  "homepage": "https://github.com/julian-1503/imagesloaded",
   "directories": {
     "test": "test"
   },
