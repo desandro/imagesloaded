@@ -154,7 +154,7 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
     this.addImage( elem );
   }
   // get background image on element
-  if ( this.options.background === true ) {
+  if ( this.options.background === true && !this.options.ignoreRootElement ) {
     this.addElementBackgroundImages( elem );
   }
 
