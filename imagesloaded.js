@@ -172,7 +172,7 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
   }
 
   // get child background images
-  if ( this.options.background && !this.options.ignoreRootElement ) {
+  if ( this.options.background === true && !this.options.ignoreRootElement ) {
     var children = elem.querySelectorAll( '[background], [style*=background]' );
     for ( i=0; i < children.length; i++ ) {
       var child = children[i];
