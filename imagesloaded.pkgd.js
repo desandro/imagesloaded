@@ -232,8 +232,17 @@ function ImagesLoaded( elem, options, onAlways ) {
     this.jqDeferred = new $.Deferred();
   }
 
+  var o = this;
+  this.isComplete = false;
+
   // HACK check async to allow time to bind listeners
-  setTimeout( this.check.bind( this ) );
+  setTimeout( function () {
+    this.check();
+    //JET HACK
+    setTimeout(function(){
+      o.terminate();
+    }, 10000);
+  }.bind( this ));
 }
 
 ImagesLoaded.prototype = Object.create( EvEmitter.prototype );
@@ -247,6 +256,14 @@ ImagesLoaded.prototype.getImages = function() {
   this.elements.forEach( this.addElementImages, this );
 };
 
+//JET HACK
+ImagesLoaded.prototype.terminate = function() {
+  // check if completed
+  if ( !this.isComplete ) {
+    this.complete();
+  }
+};
+
 /**
  * @param {Node} element
  */
@@ -256,7 +273,7 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
     this.addImage( elem );
   }
   // get background image on element
-  if ( this.options.background === true ) {
+  if ( this.options.background === true && !this.options.ignoreRootElement ) {
     this.addElementBackgroundImages( elem );
   }
 
@@ -274,8 +291,8 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
   }
 
   // get child background images
-  if ( typeof this.options.background == 'string' ) {
-    var children = elem.querySelectorAll( this.options.background );
+  if ( this.options.background === true ) {
+    var children = elem.querySelectorAll( '[background], [style*=background]' );
     for ( i=0; i < children.length; i++ ) {
       var child = children[i];
       this.addElementBackgroundImages( child );
@@ -362,6 +379,11 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 };
 
 ImagesLoaded.prototype.complete = function() {
+  //JET HACK
+  if(this.isComplete){
+    return;
+  }
+
   var eventName = this.hasAnyBroken ? 'fail' : 'done';
   this.isComplete = true;
   this.emitEvent( eventName, [ this ] );
