@@ -357,6 +357,14 @@ requirejs( [
 
 Use [imagesLoaded v3](http://imagesloaded.desandro.com/v3/) for IE8 support.
 
+## Development
+
+Development uses Node.js v16 with npm v8
+
+``` bash
+npm use
+```
+
 ## MIT License
 
 imagesLoaded is released under the [MIT License](http://desandro.mit-license.org/). Have at it.

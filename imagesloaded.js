@@ -4,54 +4,33 @@
  * MIT License
  */
 
-( function( window, factory ) { 'use strict';
+( function( window, factory ) {
   // universal module definition
-
-  /*global define: false, module: false, require: false */
-
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( [
-      'ev-emitter/ev-emitter'
-    ], function( EvEmitter ) {
-      return factory( window, EvEmitter );
-    });
-  } else if ( typeof module == 'object' && module.exports ) {
+  if ( typeof module == 'object' && module.exports ) {
     // CommonJS
-    module.exports = factory(
-      window,
-      require('ev-emitter')
-    );
+    module.exports = factory( window, require('ev-emitter') );
   } else {
     // browser global
-    window.imagesLoaded = factory(
-      window,
-      window.EvEmitter
-    );
+    window.imagesLoaded = factory( window, window.EvEmitter );
   }
 
-})( typeof window !== 'undefined' ? window : this,
+} )( typeof window !== 'undefined' ? window : this,
+    function factory( window, EvEmitter ) {
 
-// --------------------------  factory -------------------------- //
-
-function factory( window, EvEmitter ) {
-
-'use strict';
-
-var $ = window.jQuery;
-var console = window.console;
+let $ = window.jQuery;
+let console = window.console;
 
 // -------------------------- helpers -------------------------- //
 
 // extend objects
 function extend( a, b ) {
-  for ( var prop in b ) {
+  for ( let prop in b ) {
     a[ prop ] = b[ prop ];
   }
   return a;
 }
 
-var arraySlice = Array.prototype.slice;
+let arraySlice = Array.prototype.slice;
 
 // turn element or nodeList into an array
 function makeArray( obj ) {
@@ -60,7 +39,7 @@ function makeArray( obj ) {
     return obj;
   }
 
-  var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+  let isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
   if ( isArrayLike ) {
     // convert nodeList to array
     return arraySlice.call( obj );
@@ -73,9 +52,10 @@ function makeArray( obj ) {
 // -------------------------- imagesLoaded -------------------------- //
 
 /**
- * @param {Array, Element, NodeList, String} elem
- * @param {Object or Function} options - if function, use as callback
+ * @param {[Array, Element, NodeList, String]} elem
+ * @param {[Object, Function]} options - if function, use as callback
  * @param {Function} onAlways - callback function
+ * @returns {ImagesLoaded}
  */
 function ImagesLoaded( elem, options, onAlways ) {
   // coerce ImagesLoaded() without new, to be new ImagesLoaded()
@@ -83,7 +63,7 @@ function ImagesLoaded( elem, options, onAlways ) {
     return new ImagesLoaded( elem, options, onAlways );
   }
   // use elem as selector string
-  var queryElem = elem;
+  let queryElem = elem;
   if ( typeof elem == 'string' ) {
     queryElem = document.querySelectorAll( elem );
   }
@@ -128,8 +108,14 @@ ImagesLoaded.prototype.getImages = function() {
   this.elements.forEach( this.addElementImages, this );
 };
 
+const elementNodeTypes = {
+  1: true,
+  9: true,
+  11: true,
+};
+
 /**
- * @param {Node} element
+ * @param {Node} elem
  */
 ImagesLoaded.prototype.addElementImages = function( elem ) {
   // filter siblings
@@ -143,44 +129,38 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
 
   // find children
   // no non-element nodes, #143
-  var nodeType = elem.nodeType;
+  let nodeType = elem.nodeType;
   if ( !nodeType || !elementNodeTypes[ nodeType ] ) {
     return;
   }
-  var childImgs = elem.querySelectorAll('img');
+  let childImgs = elem.querySelectorAll('img');
   // concat childElems to filterFound array
-  for ( var i=0; i < childImgs.length; i++ ) {
-    var img = childImgs[i];
+  for ( let i = 0; i < childImgs.length; i++ ) {
+    let img = childImgs[i];
     this.addImage( img );
   }
 
   // get child background images
   if ( typeof this.options.background == 'string' ) {
-    var children = elem.querySelectorAll( this.options.background );
-    for ( i=0; i < children.length; i++ ) {
-      var child = children[i];
+    let children = elem.querySelectorAll( this.options.background );
+    for ( let j = 0; j < children.length; j++ ) {
+      let child = children[j];
       this.addElementBackgroundImages( child );
     }
   }
 };
 
-var elementNodeTypes = {
-  1: true,
-  9: true,
-  11: true
-};
-
 ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
-  var style = getComputedStyle( elem );
+  let style = getComputedStyle( elem );
   if ( !style ) {
     // Firefox returns null if in a hidden iframe https://bugzil.la/548397
     return;
   }
   // get url inside url("...")
-  var reURL = /url\((['"])?(.*?)\1\)/gi;
-  var matches = reURL.exec( style.backgroundImage );
+  let reURL = /url\((['"])?(.*?)\1\)/gi;
+  let matches = reURL.exec( style.backgroundImage );
   while ( matches !== null ) {
-    var url = matches && matches[2];
+    let url = matches && matches[2];
     if ( url ) {
       this.addBackground( url, elem );
     }
@@ -192,17 +172,17 @@ ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
  * @param {Image} img
  */
 ImagesLoaded.prototype.addImage = function( img ) {
-  var loadingImage = new LoadingImage( img );
+  let loadingImage = new LoadingImage( img );
   this.images.push( loadingImage );
 };
 
 ImagesLoaded.prototype.addBackground = function( url, elem ) {
-  var background = new Background( url, elem );
+  let background = new Background( url, elem );
   this.images.push( background );
 };
 
 ImagesLoaded.prototype.check = function() {
-  var _this = this;
+  let _this = this;
   this.progressedCount = 0;
   this.hasAnyBroken = false;
   // complete if no images
@@ -215,13 +195,13 @@ ImagesLoaded.prototype.check = function() {
     // HACK - Chrome triggers event before object properties have changed. #83
     setTimeout( function() {
       _this.progress( image, elem, message );
-    });
+    } );
   }
 
   this.images.forEach( function( loadingImage ) {
     loadingImage.once( 'progress', onProgress );
     loadingImage.check();
-  });
+  } );
 };
 
 ImagesLoaded.prototype.progress = function( image, elem, message ) {
@@ -243,12 +223,12 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
 };
 
 ImagesLoaded.prototype.complete = function() {
-  var eventName = this.hasAnyBroken ? 'fail' : 'done';
+  let eventName = this.hasAnyBroken ? 'fail' : 'done';
   this.isComplete = true;
   this.emitEvent( eventName, [ this ] );
   this.emitEvent( 'always', [ this ] );
   if ( this.jqDeferred ) {
-    var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
+    let jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
     this.jqDeferred[ jqMethod ]( this );
   }
 };
@@ -264,7 +244,7 @@ LoadingImage.prototype = Object.create( EvEmitter.prototype );
 LoadingImage.prototype.check = function() {
   // If complete is true and browser supports natural sizes,
   // try to check for image status manually.
-  var isComplete = this.getIsImageComplete();
+  let isComplete = this.getIsImageComplete();
   if ( isComplete ) {
     // report based on naturalWidth
     this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
@@ -296,7 +276,7 @@ LoadingImage.prototype.confirm = function( isLoaded, message ) {
 
 // trigger specified handler for event type
 LoadingImage.prototype.handleEvent = function( event ) {
-  var method = 'on' + event.type;
+  let method = 'on' + event.type;
   if ( this[ method ] ) {
     this[ method ]( event );
   }
@@ -335,7 +315,7 @@ Background.prototype.check = function() {
   this.img.addEventListener( 'error', this );
   this.img.src = this.url;
   // check if image is already complete
-  var isComplete = this.getIsImageComplete();
+  let isComplete = this.getIsImageComplete();
   if ( isComplete ) {
     this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
     this.unbindEvents();
@@ -362,9 +342,9 @@ ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
   // set local variable
   $ = jQuery;
   // $().imagesLoaded()
-  $.fn.imagesLoaded = function( options, callback ) {
-    var instance = new ImagesLoaded( this, options, callback );
-    return instance.jqDeferred.promise( $(this) );
+  $.fn.imagesLoaded = function( options, onAlways ) {
+    let instance = new ImagesLoaded( this, options, onAlways );
+    return instance.jqDeferred.promise( $( this ) );
   };
 };
 // try making plugin
@@ -374,4 +354,4 @@ ImagesLoaded.makeJQueryPlugin();
 
 return ImagesLoaded;
 
-});
+} );

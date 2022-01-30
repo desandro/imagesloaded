@@ -1,10 +1,8 @@
-/* jshint strict: false */
+let progressElem, statusElem,
+        supportsProgress,
+        loadedImageCount, imageCount;
 
-var progressElem, statusElem;
-var supportsProgress;
-var loadedImageCount, imageCount;
-
-var container = document.querySelector('#image-container');
+let container = document.querySelector('#image-container');
 statusElem = document.querySelector('#status');
 progressElem = document.querySelector('progress');
 
@@ -14,10 +12,10 @@ supportsProgress = progressElem &&
 
 document.querySelector('#add').onclick = function() {
   // add new images
-  var fragment = getItemsFragment();
+  let fragment = getItemsFragment();
   container.insertBefore( fragment, container.firstChild );
   // use ImagesLoaded
-  var imgLoad = imagesLoaded( container );
+  let imgLoad = imagesLoaded( container );
   imgLoad.on( 'progress', onProgress );
   imgLoad.on( 'always', onAlways );
   // reset progress counter
@@ -33,8 +31,8 @@ document.querySelector('#reset').onclick = function() {
 
 // ----- set text helper ----- //
 
-var docElem = document.documentElement;
-var textSetter = docElem.textContent !== undefined ? 'textContent' : 'innerText';
+let docElem = document.documentElement;
+let textSetter = docElem.textContent !== undefined ? 'textContent' : 'innerText';
 
 function setText( elem, value ) {
   elem[ textSetter ] = value;
@@ -50,9 +48,9 @@ function empty( elem ) {
 
 // return doc fragment with
 function getItemsFragment() {
-  var fragment = document.createDocumentFragment();
-  for ( var i = 0; i < 7; i++ ) {
-    var item = getImageItem();
+  let fragment = document.createDocumentFragment();
+  for ( let i = 0; i < 7; i++ ) {
+    let item = getImageItem();
     fragment.appendChild( item );
   }
   return fragment;
@@ -60,19 +58,19 @@ function getItemsFragment() {
 
 // return an <li> with a <img> in it
 function getImageItem() {
-  var item = document.createElement('li');
+  let item = document.createElement('li');
   item.className = 'is-loading';
-  var img = document.createElement('img');
-  var size = Math.random() * 3 + 1;
-  var width = Math.random() * 110 + 100;
+  let img = document.createElement('img');
+  let size = Math.random() * 3 + 1;
+  let width = Math.random() * 110 + 100;
   width = Math.round( width * size );
-  var height = Math.round( 140 * size );
-  var rando = Math.ceil( Math.random() * 1000 );
+  let height = Math.round( 140 * size );
+  let rando = Math.ceil( Math.random() * 1000 );
   // 10% chance of broken image src
   // random parameter to prevent cached images
-  img.src = rando < 100 ? '//foo/broken-' + rando + '.jpg' :
+  img.src = rando < 100 ? `//foo/broken-${rando}.jpg` :
     // use picsum for great random images
-    'https://picsum.photos/' + width + '/' + height + '/' + '?random';
+    `https://picsum.photos/${width}/${height}/?random`;
   item.appendChild( img );
   return item;
 }
