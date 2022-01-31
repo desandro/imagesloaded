@@ -302,52 +302,6 @@ Run webpack.
 webpack main.js bundle.js
 ```
 
-## RequireJS
-
-imagesLoaded works with [RequireJS](http://requirejs.org).
-
-You can require [imagesloaded.pkgd.js](http://imagesloaded.desandro.com/imagesloaded.pkgd.js).
-
-``` js
-requirejs( [
-  'path/to/imagesloaded.pkgd.js',
-], function( imagesLoaded ) {
-  imagesLoaded( '#container', function() { ... });
-});
-```
-
-Use `.makeJQueryPlugin` to make `.imagesLoaded()` jQuery plugin.
-
-``` js
-requirejs( [
-  'jquery',
-  'path/to/imagesloaded.pkgd.js',
-], function( $, imagesLoaded ) {
-  // provide jQuery argument
-  imagesLoaded.makeJQueryPlugin( $ );
-  // now use .imagesLoaded() jQuery plugin
-  $('#container').imagesLoaded( function() {...});
-});
-```
-
-You can manage dependencies with [Bower](http://bower.io). Set `baseUrl` to `bower_components` and set a path config for all your application code.
-
-``` js
-requirejs.config({
-  baseUrl: 'bower_components/',
-  paths: { // path to your app
-    app: '../'
-  }
-});
-
-requirejs( [
-  'imagesloaded/imagesloaded',
-  'app/my-component.js'
-], function( imagesLoaded, myComp ) {
-  imagesLoaded( '#container', function() { ... });
-});
-```
-
 ## Browser support
 
 + IE9+
@@ -362,7 +316,7 @@ Use [imagesLoaded v3](http://imagesloaded.desandro.com/v3/) for IE8 support.
 Development uses Node.js v16 with npm v8
 
 ``` bash
-npm use
+nvm use
 ```
 
 ## MIT License
