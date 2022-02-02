@@ -2,9 +2,9 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { minify } = require('terser');
 
-const indexPath = 'js/index.js';
+const indexPath = 'imagesloaded.js';
 const distPath = 'imagesloaded.pkgd.js';
-const distMinPath = 'imagesloaded.min.js';
+const distMinPath = 'imagesloaded.pkgd.min.js';
 
 let indexContent = fs.readFileSync( `./${indexPath}`, 'utf8' );
 

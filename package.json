@@ -13,6 +13,12 @@
     "qunit": "^2.17.2",
     "terser": "^5.10.0"
   },
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "npx eslint .",
+    "dist": "node tasks/dist.js",
+    "version": "node tasks/version.js && npm run dist && git add -A ."
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/desandro/imagesloaded.git"
@@ -31,11 +37,6 @@
   "homepage": "https://github.com/desandro/imagesloaded",
   "directories": {
     "test": "test"
-  },
-  "scripts": {
-    "test": "npm run lint",
-    "lint": "npx eslint .",
-    "version": "node bin/version.js && npm run dist && git add -A css js dist"
   },
   "author": "David DeSandro"
 }
