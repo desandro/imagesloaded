@@ -22,28 +22,14 @@ let console = window.console;
 
 // -------------------------- helpers -------------------------- //
 
-// extend objects
-function extend( a, b ) {
-  for ( let prop in b ) {
-    a[ prop ] = b[ prop ];
-  }
-  return a;
-}
-
-let arraySlice = Array.prototype.slice;
-
 // turn element or nodeList into an array
 function makeArray( obj ) {
-  if ( Array.isArray( obj ) ) {
-    // use object if already an array
-    return obj;
-  }
+  // use object if already an array
+  if ( Array.isArray( obj ) ) return obj;
 
   let isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
-  if ( isArrayLike ) {
-    // convert nodeList to array
-    return arraySlice.call( obj );
-  }
+  // convert nodeList to array
+  if ( isArrayLike ) return [ ...obj ];
 
   // array of single index
   return [ obj ];
@@ -69,37 +55,30 @@ function ImagesLoaded( elem, options, onAlways ) {
   }
   // bail if bad element
   if ( !queryElem ) {
-    console.error( 'Bad element for imagesLoaded ' + ( queryElem || elem ) );
+    console.error(`Bad element for imagesLoaded ${queryElem || elem}`);
     return;
   }
 
   this.elements = makeArray( queryElem );
-  this.options = extend( {}, this.options );
+  this.options = {};
   // shift arguments if no options set
   if ( typeof options == 'function' ) {
     onAlways = options;
   } else {
-    extend( this.options, options );
+    Object.assign( this.options, options );
   }
 
-  if ( onAlways ) {
-    this.on( 'always', onAlways );
-  }
+  if ( onAlways ) this.on( 'always', onAlways );
 
   this.getImages();
-
-  if ( $ ) {
-    // add jQuery Deferred object
-    this.jqDeferred = new $.Deferred();
-  }
+  // add jQuery Deferred object
+  if ( $ ) this.jqDeferred = new $.Deferred();
 
   // HACK check async to allow time to bind listeners
   setTimeout( this.check.bind( this ) );
 }
 
 ImagesLoaded.prototype = Object.create( EvEmitter.prototype );
-
-ImagesLoaded.prototype.options = {};
 
 ImagesLoaded.prototype.getImages = function() {
   this.images = [];
@@ -108,11 +87,7 @@ ImagesLoaded.prototype.getImages = function() {
   this.elements.forEach( this.addElementImages, this );
 };
 
-const elementNodeTypes = {
-  1: true,
-  9: true,
-  11: true,
-};
+const elementNodeTypes = [ 1, 9, 11 ];
 
 /**
  * @param {Node} elem
@@ -129,35 +104,32 @@ ImagesLoaded.prototype.addElementImages = function( elem ) {
 
   // find children
   // no non-element nodes, #143
-  let nodeType = elem.nodeType;
-  if ( !nodeType || !elementNodeTypes[ nodeType ] ) {
-    return;
-  }
+  let { nodeType } = elem;
+  if ( !nodeType || !elementNodeTypes.includes( nodeType ) ) return;
+
   let childImgs = elem.querySelectorAll('img');
   // concat childElems to filterFound array
-  for ( let i = 0; i < childImgs.length; i++ ) {
-    let img = childImgs[i];
+  for ( let img of childImgs ) {
     this.addImage( img );
   }
 
   // get child background images
   if ( typeof this.options.background == 'string' ) {
     let children = elem.querySelectorAll( this.options.background );
-    for ( let j = 0; j < children.length; j++ ) {
-      let child = children[j];
+    for ( let child of children ) {
       this.addElementBackgroundImages( child );
     }
   }
 };
 
+const reURL = /url\((['"])?(.*?)\1\)/gi;
+
 ImagesLoaded.prototype.addElementBackgroundImages = function( elem ) {
   let style = getComputedStyle( elem );
-  if ( !style ) {
-    // Firefox returns null if in a hidden iframe https://bugzil.la/548397
-    return;
-  }
+  // Firefox returns null if in a hidden iframe https://bugzil.la/548397
+  if ( !style ) return;
+
   // get url inside url("...")
-  let reURL = /url\((['"])?(.*?)\1\)/gi;
   let matches = reURL.exec( style.backgroundImage );
   while ( matches !== null ) {
     let url = matches && matches[2];
@@ -182,7 +154,6 @@ ImagesLoaded.prototype.addBackground = function( url, elem ) {
 };
 
 ImagesLoaded.prototype.check = function() {
-  let _this = this;
   this.progressedCount = 0;
   this.hasAnyBroken = false;
   // complete if no images
@@ -191,12 +162,13 @@ ImagesLoaded.prototype.check = function() {
     return;
   }
 
-  function onProgress( image, elem, message ) {
+  /* eslint-disable-next-line func-style */
+  let onProgress = ( image, elem, message ) => {
     // HACK - Chrome triggers event before object properties have changed. #83
-    setTimeout( function() {
-      _this.progress( image, elem, message );
+    setTimeout( () => {
+      this.progress( image, elem, message );
     } );
-  }
+  };
 
   this.images.forEach( function( loadingImage ) {
     loadingImage.once( 'progress', onProgress );
