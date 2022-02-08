@@ -25,6 +25,8 @@
   <script src="unit/jquery-fail.js"></script>
   <script src="unit/non-element.js"></script>
   <script src="unit/background.js"></script>
+  <script src="unit/picture.js"></script>
+  <script src="unit/srcset.js"></script>
 
 </head>
 <body>
@@ -99,6 +101,68 @@
       <img src="https://picsum.photos/800/600/?random" />
     </div>
   </div>
+
+  <h2>picture</h2>
+
+  <div id="picture-list">
+    <picture>
+      <source srcset="https://picsum.photos/id/1036/1200/900" media="(min-width: 1200px)">
+      <source srcset="https://picsum.photos/id/1036/800/600" media="(min-width: 800px)">
+      <img src="https://picsum.photos/id/1036/400/300">
+    </picture>
+    <picture>
+      <source srcset="https://picsum.photos/id/103/1200/900" media="(min-width: 1200px)">
+      <source srcset="https://picsum.photos/id/103/800/600" media="(min-width: 800px)">
+      <img src="https://picsum.photos/id/103/400/300">
+    </picture>
+    <picture>
+      <source srcset="https://picsum.photos/id/1080/900/1200" media="(min-width: 1200px)">
+      <source srcset="https://picsum.photos/id/1080/600/800" media="(min-width: 800px)">
+      <img src="https://picsum.photos/id/1080/300/400">
+    </picture>
+  </div>
+
+  <h2>srcset</h2>
+
+  <div id="srcset">
+    <img
+      srcset="
+        https://picsum.photos/id/1074/1200/900 1200w,
+        https://picsum.photos/id/1074/800/600 800w,
+        https://picsum.photos/id/1074/400/300 400w
+      "
+      sizes="
+        (min-width: 1200px) 240px,
+        (min-width: 800px) 240px,
+        240px,
+      "
+    >
+    <img
+      srcset="
+        https://picsum.photos/id/159/900/1200 900w,
+        https://picsum.photos/id/159/600/800 600w,
+        https://picsum.photos/id/159/300/400 300w
+      "
+      sizes="
+        (min-width: 1200px) 240px,
+        (min-width: 800px) 240px,
+        240px,
+      "
+    >
+    <img
+      srcset="
+        https://picsum.photos/id/133/1200/900 1200w,
+        https://picsum.photos/id/133/800/600 800w,
+        https://picsum.photos/id/133/400/300 400w
+      "
+      sizes="
+        (min-width: 1200px) 240px,
+        (min-width: 800px) 240px,
+        240px,
+      "
+    >
+  </div>
+
 
 </body>
 </html>

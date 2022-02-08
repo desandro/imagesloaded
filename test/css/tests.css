@@ -1,6 +1,16 @@
+body {
+  font-family: sans-serif;
+}
+
 img {
   display: inline-block;
   max-width: 240px;
+}
+
+#qunit {
+  max-width: 600px;
+  right: 0;
+  left: auto;
 }
 
 /* ---- backgrounds ---- */

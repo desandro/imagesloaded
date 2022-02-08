@@ -190,7 +190,7 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
   }
 
   if ( this.options.debug && console ) {
-    console.log( 'progress: ' + message, image, elem );
+    console.log( `progress: ${message}`, image, elem );
   }
 };
 
@@ -230,7 +230,7 @@ LoadingImage.prototype.check = function() {
   // bind to image as well for Firefox. #191
   this.img.addEventListener( 'load', this );
   this.img.addEventListener( 'error', this );
-  this.proxyImage.src = this.img.src;
+  this.proxyImage.src = this.img.currentSrc || this.img.src;
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
@@ -241,7 +241,10 @@ LoadingImage.prototype.getIsImageComplete = function() {
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
-  this.emitEvent( 'progress', [ this, this.img, message ] );
+  let { parentNode } = this.img;
+  // emit progress with parent <picture> or self <img>
+  let elem = parentNode.nodeName == 'PICTURE' ? parentNode : this.img;
+  this.emitEvent( 'progress', [ this, elem, message ] );
 };
 
 // ----- events ----- //
