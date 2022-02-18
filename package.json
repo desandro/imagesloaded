@@ -3,6 +3,9 @@
   "version": "4.1.4",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
+  "files": [
+    "imagesloaded*.js"
+  ],
   "dependencies": {
     "ev-emitter": "^2.1.2"
   },

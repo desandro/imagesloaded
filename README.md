@@ -2,7 +2,7 @@
 
 <p class="tagline">JavaScript is all like "You images done yet or what?"</p>
 
-[imagesloaded.desandro.com](http://imagesloaded.desandro.com)
+[imagesloaded.desandro.com](https://imagesloaded.desandro.com)
 
 Detect when images have been loaded.
 
@@ -10,22 +10,22 @@ Detect when images have been loaded.
 
 ### Download
 
-+ [imagesloaded.pkgd.min.js](https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js) minified
-+ [imagesloaded.pkgd.js](https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js) un-minified
++ [imagesloaded.pkgd.min.js](https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js) minified
++ [imagesloaded.pkgd.js](https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js) un-minified
 
 ### CDN
 
 ``` html
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <!-- or -->
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.js"></script>
 ```
 
 ### Package managers
 
-Install via [npm](https://www.npmjs.com/package/imagesloaded): `npm install imagesloaded`
+Install via npm: `npm install imagesloaded`
 
-Install via [Bower](http://bower.io): `bower install imagesloaded --save`
+Install via Yarn: `yarn add imagesloaded`
 
 ## jQuery
 
@@ -238,32 +238,6 @@ imgLoad.on( 'always', function() {
 });
 ```
 
-## Browserify
-
-imagesLoaded works with [Browserify](http://browserify.org/).
-
-``` bash
-npm install imagesloaded --save
-```
-
-``` js
-var imagesLoaded = require('imagesloaded');
-
-imagesLoaded( elem, function() {...} );
-```
-
-Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
-
-``` js
-var $ = require('jquery');
-var imagesLoaded = require('imagesloaded');
-
-// provide jQuery argument
-imagesLoaded.makeJQueryPlugin( $ );
-// now use .imagesLoaded() jQuery plugin
-$('#container').imagesLoaded( function() {...});
-```
-
 ## Webpack
 
 Install imagesLoaded with npm.
@@ -302,14 +276,41 @@ Run webpack.
 webpack main.js bundle.js
 ```
 
+## Browserify
+
+imagesLoaded works with [Browserify](http://browserify.org/).
+
+``` bash
+npm install imagesloaded --save
+```
+
+``` js
+var imagesLoaded = require('imagesloaded');
+
+imagesLoaded( elem, function() {...} );
+```
+
+Use `.makeJQueryPlugin` to make to use `.imagesLoaded()` jQuery plugin.
+
+``` js
+var $ = require('jquery');
+var imagesLoaded = require('imagesloaded');
+
+// provide jQuery argument
+imagesLoaded.makeJQueryPlugin( $ );
+// now use .imagesLoaded() jQuery plugin
+$('#container').imagesLoaded( function() {...});
+```
+
+
 ## Browser support
 
-+ IE9+
-+ Android 2.3+
-+ iOS Safari 4+
-+ All other modern browsers
++ Chrome 49+
++ Firefox 41+
++ Edge 14+
++ iOS Safari 8+
 
-Use [imagesLoaded v3](http://imagesloaded.desandro.com/v3/) for IE8 support.
+Use [imagesLoaded v4](https://github.com/desandro/imagesloaded/tree/v4.1.4) for Internet Explorer and other older browser support.
 
 ## Development
 
