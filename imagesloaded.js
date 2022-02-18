@@ -315,9 +315,8 @@ Background.prototype.confirm = function( isLoaded, message ) {
 
 ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
   jQuery = jQuery || window.jQuery;
-  if ( !jQuery ) {
-    return;
-  }
+  if ( !jQuery ) return;
+
   // set local variable
   $ = jQuery;
   // $().imagesLoaded()

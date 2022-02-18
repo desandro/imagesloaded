@@ -46,7 +46,7 @@ $('#container').imagesLoaded( {
 );
 ```
 
-`.imagesLoaded()` returns a [jQuery Deferred object](http://api.jquery.com/category/deferred-object/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`.
+`.imagesLoaded()` returns a [jQuery Deferred object](https://api.jquery.com/category/deferred-object/). This allows you to use `.always()`, `.done()`, `.fail()` and `.progress()`.
 
 ``` js
 $('#container').imagesLoaded()
@@ -126,7 +126,7 @@ imagesLoaded( '#container', { background: true }, function() {
 });
 ```
 
-[See jQuery demo](http://codepen.io/desandro/pen/pjVMPB) or [vanilla JS demo](http://codepen.io/desandro/pen/avKooW) on CodePen.
+[See jQuery demo](https://codepen.io/desandro/pen/pjVMPB) or [vanilla JS demo](https://codepen.io/desandro/pen/avKooW) on CodePen.
 
 Set to a selector string like `{ background: '.item' }` to detect when the background images of child elements have loaded.
 
@@ -142,7 +142,7 @@ imagesLoaded( '#container', { background: '.item' }, function() {
 });
 ```
 
-[See jQuery demo](http://codepen.io/desandro/pen/avKoZL) or [vanilla JS demo](http://codepen.io/desandro/pen/vNrBGz) on CodePen.
+[See jQuery demo](https://codepen.io/desandro/pen/avKoZL) or [vanilla JS demo](https://codepen.io/desandro/pen/vNrBGz) on CodePen.
 
 ## Events
 
@@ -278,7 +278,7 @@ webpack main.js bundle.js
 
 ## Browserify
 
-imagesLoaded works with [Browserify](http://browserify.org/).
+imagesLoaded works with [Browserify](https://browserify.org/).
 
 ``` bash
 npm install imagesloaded --save
@@ -322,4 +322,4 @@ nvm use
 
 ## MIT License
 
-imagesLoaded is released under the [MIT License](http://desandro.mit-license.org/). Have at it.
+imagesLoaded is released under the [MIT License](https://desandro.mit-license.org/). Have at it.
