@@ -94,7 +94,7 @@ const elementNodeTypes = [ 1, 9, 11 ];
  */
 ImagesLoaded.prototype.addElementImages = function( elem ) {
   // filter siblings
-  if ( elem.nodeName == 'IMG' ) {
+  if ( elem.nodeName === 'IMG' ) {
     this.addImage( elem );
   }
   // get background image on element
@@ -185,7 +185,7 @@ ImagesLoaded.prototype.progress = function( image, elem, message ) {
     this.jqDeferred.notify( this, image );
   }
   // check if completed
-  if ( this.progressedCount == this.images.length ) {
+  if ( this.progressedCount === this.images.length ) {
     this.complete();
   }
 
@@ -247,7 +247,7 @@ LoadingImage.prototype.confirm = function( isLoaded, message ) {
   this.isLoaded = isLoaded;
   let { parentNode } = this.img;
   // emit progress with parent <picture> or self <img>
-  let elem = parentNode.nodeName == 'PICTURE' ? parentNode : this.img;
+  let elem = parentNode.nodeName === 'PICTURE' ? parentNode : this.img;
   this.emitEvent( 'progress', [ this, elem, message ] );
 };
 

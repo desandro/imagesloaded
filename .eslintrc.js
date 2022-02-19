@@ -15,6 +15,7 @@ module.exports = {
     QUnit: 'readonly',
   },
   rules: {
+    eqeqeq: [ 'error', 'smart' ],
     'id-length': [ 'error', {
       min: 2,
       max: 30,

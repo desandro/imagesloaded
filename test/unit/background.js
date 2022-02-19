@@ -16,7 +16,7 @@ QUnit.test( 'background', function( assert ) {
   assert.equal( imgLoad0.images.length, 1, '1 image on .images' );
 
   imgLoad0.on( 'progress', function( instance, image, element ) {
-    assert.ok( element.nodeName == 'DIV', 'progress; element is div' );
+    assert.ok( element.nodeName === 'DIV', 'progress; element is div' );
     assert.ok( image.isLoaded, 'progress; image.isLoaded' );
     done();
   } );

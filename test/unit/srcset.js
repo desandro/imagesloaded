@@ -9,7 +9,7 @@ QUnit.test( 'srcset', function( assert ) {
   assert.equal( imgLoad0.images.length, 3, '3 images on #srcset' );
 
   imgLoad0.on( 'progress', function( instance, image, element ) {
-    assert.ok( element.nodeName == 'IMG', 'progress; element is img' );
+    assert.ok( element.nodeName === 'IMG', 'progress; element is img' );
     assert.ok( image.isLoaded, 'progress; image.isLoaded' );
     done();
   } );
