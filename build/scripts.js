@@ -1,13 +1,11 @@
 ( function() {
 
-'use strict';
+let progressElem, statusElem,
+        supportsProgress,
+        loadedImageCount, imageCount;
 
-var progressElem, statusElem;
-var supportsProgress;
-var loadedImageCount, imageCount;
-
-var demo = document.querySelector('#progress-demo');
-var container = demo.querySelector('#image-container');
+let demo = document.querySelector('#progress-demo');
+let container = demo.querySelector('#image-container');
 statusElem = demo.querySelector('#status');
 progressElem = demo.querySelector('progress');
 
@@ -17,10 +15,10 @@ supportsProgress = progressElem &&
 
 demo.querySelector('#add').onclick = function() {
   // add new images
-  var fragment = getItemsFragment();
+  let fragment = getItemsFragment();
   container.insertBefore( fragment, container.firstChild );
   // use ImagesLoaded
-  var imgLoad = imagesLoaded( container );
+  let imgLoad = imagesLoaded( container );
   imgLoad.on( 'progress', onProgress );
   imgLoad.on( 'always', onAlways );
   // reset progress counter
@@ -44,9 +42,9 @@ function empty( elem ) {
 
 // return doc fragment with
 function getItemsFragment() {
-  var fragment = document.createDocumentFragment();
-  for ( var i = 0; i < 7; i++ ) {
-    var item = getImageItem();
+  let fragment = document.createDocumentFragment();
+  for ( let i = 0; i < 7; i++ ) {
+    let item = getImageItem();
     fragment.appendChild( item );
   }
   return fragment;
@@ -54,19 +52,19 @@ function getItemsFragment() {
 
 // return an <li> with a <img> in it
 function getImageItem() {
-  var item = document.createElement('li');
+  let item = document.createElement('li');
   item.className = 'is-loading';
-  var img = document.createElement('img');
-  var size = Math.random() * 3 + 1;
-  var width = Math.random() * 110 + 100;
+  let img = document.createElement('img');
+  let size = Math.random() * 3 + 1;
+  let width = Math.random() * 110 + 100;
   width = Math.round( width * size );
-  var height = Math.round( 140 * size );
-  var rando = Math.ceil( Math.random() * 1000 );
+  let height = Math.round( 140 * size );
+  let rando = Math.ceil( Math.random() * 1000 );
   // 10% chance of broken image src
   // random parameter to prevent cached images
-  img.src = rando < 100 ? '//foo/broken-' + rando + '.jpg' :
+  img.src = rando < 100 ? `//foo/broken-${rando}.jpg` :
     // use picsum photos for great random images
-    'https://picsum.photos/' + width + '/' + height + '/' + '?' + rando;
+    `https://picsum.photos/${width}/${height}/?${rando}`;
   item.appendChild( img );
   return item;
 }
@@ -106,15 +104,15 @@ function onAlways() {
 
 // -------------------------- github button -------------------------- //
 
-var user = 'desandro';
-var repo = 'imagesloaded';
+let user = 'desandro';
+let repo = 'imagesloaded';
 
 // get data
-var callbackName = 'ghButtonCallback' + Math.floor( Math.random() * 10000 );
-var button = document.querySelector('.gh-button');
+let callbackName = 'ghButtonCallback' + Math.floor( Math.random() * 10000 );
+let button = document.querySelector('.gh-button');
 
 window[ callbackName ] = function( response ) {
-  var starText = addCommas( response.data.stargazers_count );
+  let starText = addCommas( response.data.stargazers_count );
   button.querySelector('.gh-button__stat__text').textContent = starText;
 };
 
@@ -122,8 +120,8 @@ function addCommas( num ) {
   return num.toString().replace( /(\d)(?=(\d{3})+$)/g, '$1,' );
 }
 
-var script = document.createElement('script');
-script.src = 'https://api.github.com/repos/' + user + '/' + repo + '?callback=' + callbackName;
+let script = document.createElement('script');
+script.src = `https://api.github.com/repos/${user}/${repo}?callback=${callbackName}`;
 document.head.appendChild( script );
 
-})();
+} )();

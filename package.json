@@ -13,6 +13,7 @@
     "cheerio": "^1.0.0-rc.10",
     "eslint": "^7.32.0",
     "eslint-plugin-metafizzy": "^1.2.1",
+    "highlight.js": "^11.4.0",
     "jquery": "^3.6.0",
     "marked": "^4.0.12",
     "qunit": "^2.17.2",
@@ -22,6 +23,7 @@
     "test": "npm run lint",
     "lint": "npx eslint .",
     "dist": "node tasks/dist.js",
+    "site": "node tasks/site.js",
     "version": "node tasks/version.js && npm run dist && git add -A ."
   },
   "repository": {

@@ -657,6 +657,7 @@ code .at_rule { color: #088; }
 code .imagesloaded_keyword { color: #0FF; }
 code .imgload_var { color: #F3F; }
 
+code .title.function_ { color: #FF8; }
 
 /* tablet and desktop */
 @media screen and (min-width: 830px) {

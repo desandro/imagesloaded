@@ -3,7 +3,26 @@
 const cheerio = require('cheerio');
 const { execSync } = require('child_process');
 const fs = require('fs');
+const highlight = require('highlight.js');
 const { marked } = require('marked');
+
+highlight.configure({
+  classPrefix: '',
+});
+
+let hljsJavascript = highlight.getLanguage('javascript');
+// highlight imagesLoaded
+/* eslint-disable camelcase */
+hljsJavascript.keywords.imagesloaded_keyword = 'imagesLoaded';
+// highlight imgLoad variables
+hljsJavascript.keywords.imgload_var = 'imgLoad';
+/* eslint-enable camelcase */
+
+marked.setOptions({
+  highlight: function( code, language ) {
+    return language ? highlight.highlight( code, { language } ).value : code;
+  },
+});
 
 const copyFiles = [
   'imagesloaded.js',
@@ -51,7 +70,7 @@ Promise.all( srcFilesPromises )
     pageNavHtml = `<div class="page-nav">${pageNavHtml}</div>`;
     html = html.replace( '<!-- page-nav -->', pageNavHtml );
 
-    execSync(`mkdir -p build`);
+    execSync('mkdir -p build');
     fs.writeFileSync( 'build/index.html', html );
 
     execSync(`cp ${copyFiles.join(' ')} build/`);

@@ -23,5 +23,5 @@ module.exports = {
     } ],
     'new-cap': 'off',
   },
-  ignorePatterns: [ '*pkgd*.js' ],
+  ignorePatterns: [ '*pkgd*.js', '!build/*' ],
 };
