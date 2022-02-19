@@ -3,11 +3,9 @@
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
   "dependencies": {
-    "ev-emitter": "^1.0.0"
+    "ev-emitter": "^2.1.2"
   },
   "devDependencies": {
-    "jquery": ">=1.9 <4.0",
-    "qunit": "~1.20.0"
   },
   "ignore": [
     "**/.*",
@@ -18,9 +16,10 @@
     "bower_components",
     "tests",
     "sandbox/",
+    "gulpfile.js",
     "contributing.md"
   ],
-  "homepage": "http://imagesloaded.desandro.com",
+  "homepage": "https://imagesloaded.desandro.com",
   "authors": [
     "David DeSandro"
   ],

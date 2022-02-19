@@ -1,5 +1,5 @@
 /*!
- * imagesLoaded PACKAGED v4.1.3
+ * imagesLoaded PACKAGED v4.1.4
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -85,13 +85,14 @@ proto.emitEvent = function( eventName, args ) {
   if ( !listeners || !listeners.length ) {
     return;
   }
-  var i = 0;
-  var listener = listeners[i];
+  // copy over to avoid interference if .off() in listener
+  listeners = listeners.slice(0);
   args = args || [];
   // once stuff
   var onceListeners = this._onceEvents && this._onceEvents[ eventName ];
 
-  while ( listener ) {
+  for ( var i=0; i < listeners.length; i++ ) {
+    var listener = listeners[i]
     var isOnce = onceListeners && onceListeners[ listener ];
     if ( isOnce ) {
       // remove listener
@@ -102,16 +103,12 @@ proto.emitEvent = function( eventName, args ) {
     }
     // trigger listener
     listener.apply( this, args );
-    // get next listener
-    i += isOnce ? 0 : 1;
-    listener = listeners[i];
   }
 
   return this;
 };
 
-proto.allOff =
-proto.removeAllListeners = function() {
+proto.allOff = function() {
   delete this._events;
   delete this._onceEvents;
 };
@@ -121,7 +118,7 @@ return EvEmitter;
 }));
 
 /*!
- * imagesLoaded v4.1.3
+ * imagesLoaded v4.1.4
  * JavaScript is all like "You images are done yet or what?"
  * MIT License
  */
@@ -173,22 +170,23 @@ function extend( a, b ) {
   return a;
 }
 
+var arraySlice = Array.prototype.slice;
+
 // turn element or nodeList into an array
 function makeArray( obj ) {
-  var ary = [];
   if ( Array.isArray( obj ) ) {
     // use object if already an array
-    ary = obj;
-  } else if ( typeof obj.length == 'number' ) {
-    // convert nodeList to array
-    for ( var i=0; i < obj.length; i++ ) {
-      ary.push( obj[i] );
-    }
-  } else {
-    // array of single index
-    ary.push( obj );
+    return obj;
   }
-  return ary;
+
+  var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+  if ( isArrayLike ) {
+    // convert nodeList to array
+    return arraySlice.call( obj );
+  }
+
+  // array of single index
+  return [ obj ];
 }
 
 // -------------------------- imagesLoaded -------------------------- //
@@ -204,13 +202,19 @@ function ImagesLoaded( elem, options, onAlways ) {
     return new ImagesLoaded( elem, options, onAlways );
   }
   // use elem as selector string
+  var queryElem = elem;
   if ( typeof elem == 'string' ) {
-    elem = document.querySelectorAll( elem );
+    queryElem = document.querySelectorAll( elem );
+  }
+  // bail if bad element
+  if ( !queryElem ) {
+    console.error( 'Bad element for imagesLoaded ' + ( queryElem || elem ) );
+    return;
   }
 
-  this.elements = makeArray( elem );
+  this.elements = makeArray( queryElem );
   this.options = extend( {}, this.options );
-
+  // shift arguments if no options set
   if ( typeof options == 'function' ) {
     onAlways = options;
   } else {
@@ -229,9 +233,7 @@ function ImagesLoaded( elem, options, onAlways ) {
   }
 
   // HACK check async to allow time to bind listeners
-  setTimeout( function() {
-    this.check();
-  }.bind( this ));
+  setTimeout( this.check.bind( this ) );
 }
 
 ImagesLoaded.prototype = Object.create( EvEmitter.prototype );
@@ -399,7 +401,9 @@ LoadingImage.prototype.check = function() {
 };
 
 LoadingImage.prototype.getIsImageComplete = function() {
-  return this.img.complete && this.img.naturalWidth !== undefined;
+  // check for non-zero, non-undefined naturalWidth
+  // fixes Safari+InfiniteScroll+Masonry bug infinite-scroll#671
+  return this.img.complete && this.img.naturalWidth;
 };
 
 LoadingImage.prototype.confirm = function( isLoaded, message ) {

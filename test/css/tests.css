@@ -1,6 +1,16 @@
+body {
+  font-family: sans-serif;
+}
+
 img {
   display: inline-block;
   max-width: 240px;
+}
+
+#qunit {
+  max-width: 600px;
+  right: 0;
+  left: auto;
 }
 
 /* ---- backgrounds ---- */
@@ -14,7 +24,7 @@ img {
 }
 
 .bg-box.tulip {
-  background: url('http://i.imgur.com/9xYjgCk.jpg');
+  background: url('https://i.imgur.com/9xYjgCk.jpg');
   background-size: cover;
 }
 
@@ -25,9 +35,9 @@ img {
 
 .bg-box.multi {
   background:
-    url("http://i.imgur.com/ZAVN3.png"),
-    url('http://i.imgur.com/6UdOxeB.png') bottom right,
-    url(http://lorempixel.com/601/401/nature);
+    url("https://i.imgur.com/ZAVN3.png"),
+    url('https://i.imgur.com/6UdOxeB.png') bottom right,
+    url(https://picsum.photos/601/401/?random);
   background-size: cover;
 }
 
@@ -36,6 +46,6 @@ img {
 }
 
 .bg-box.gulls {
-  background-image: url('http://i.imgur.com/qKhkOKC.jpg');
+  background-image: url('https://i.imgur.com/qKhkOKC.jpg');
   background-size: cover;
 }

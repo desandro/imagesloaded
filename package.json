@@ -1,26 +1,26 @@
 {
   "name": "imagesloaded",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "JavaScript is all like _You images done yet or what?_",
   "main": "imagesloaded.js",
+  "files": [
+    "imagesloaded*.js"
+  ],
   "dependencies": {
-    "ev-emitter": "^1.0.0"
+    "ev-emitter": "^2.1.2"
   },
   "devDependencies": {
-    "chalk": "^1.1.1",
-    "cheerio": "^0.19.0",
-    "gulp": "^3.9.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-json-lint": "^0.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-requirejs-optimize": "github:metafizzy/gulp-requirejs-optimize",
-    "gulp-uglify": "^1.4.2",
-    "gulp-util": "^3.0.7",
-    "highlight.js": "^8.9.1",
-    "marked": "^0.3.5",
-    "minimist": "^1.2.0",
-    "transfob": "^1.0.0"
+    "eslint": "^7.32.0",
+    "eslint-plugin-metafizzy": "^1.2.1",
+    "jquery": "^3.6.0",
+    "qunit": "^2.17.2",
+    "terser": "^5.10.0"
+  },
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "npx eslint .",
+    "dist": "node tasks/dist.js",
+    "version": "node tasks/version.js && npm run dist && git add -A ."
   },
   "repository": {
     "type": "git",
@@ -40,9 +40,6 @@
   "homepage": "https://github.com/desandro/imagesloaded",
   "directories": {
     "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "David DeSandro"
 }
