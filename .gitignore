@@ -1,5 +1,5 @@
 bower_components/
 node_modules/
-_site/
-build/
-package-lock.json
+build/index.html
+build/*.woff*
+build/imagesloaded*.js

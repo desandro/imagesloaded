@@ -10,9 +10,11 @@
     "ev-emitter": "^2.1.2"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "eslint": "^7.32.0",
     "eslint-plugin-metafizzy": "^1.2.1",
     "jquery": "^3.6.0",
+    "marked": "^4.0.12",
     "qunit": "^2.17.2",
     "terser": "^5.10.0"
   },
