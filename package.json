@@ -24,6 +24,7 @@
     "lint": "npx eslint .",
     "dist": "node tasks/dist.js",
     "site": "node tasks/site.js",
+    "deploy": "netlify deploy --dir=build",
     "version": "node tasks/version.js && npm run dist && git add -A ."
   },
   "repository": {
